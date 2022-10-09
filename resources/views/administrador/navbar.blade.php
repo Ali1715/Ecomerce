@@ -200,8 +200,7 @@
                             </li>
                         @endguest
 
-							</div>
-						</li>
+						
 					</ul>
 				</div>
 			</nav>
