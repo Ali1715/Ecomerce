@@ -166,7 +166,7 @@
                                 <!--<a class="dropdown-item" href="#">Log out</a>  -->
 
 
-								<ul class="navbar-nav ms-auto">
+							
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -200,8 +200,7 @@
                             </li>
                         @endguest
 
-							</div>
-						</li>
+						
 					</ul>
 				</div>
 			</nav>

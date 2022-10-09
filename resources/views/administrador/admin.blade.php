@@ -47,41 +47,30 @@
     @include('administrador.sidebar')
 
     <div class="main">
+        
     @include('administrador.navbar')
     
-
+   
     <main class="content">
+ 
 				<div class="container-fluid p-0">
         
-        @yield('content')
-        
+ 
+                @yield('content')    
   
-</main>>
-</div>
+</main>
 
 </div>
 
+</div>
+</div>
 
 <!-- **************************************************************************************************************************************************************    -->
 
 
 	<script src="{{ asset('admin/static/js/app.js') }}"></script>
 
-	<script>
-		
-	</script>
-	<script>
-		
-	</script>
-	<script>
-		
-	</script>
-	<script>
-		
-	</script>
-	<script>
-	
-	</script>
+
 
 
 
