@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\notaingreso;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProductoController;
+use App\Http\Requests\ProductoFormRequest;
+use App\Models\producto;
 
 use Illuminate\Support\Facades\DB;
 
@@ -35,18 +38,13 @@ class NotaingresoController extends Controller
        
  
         $dato = new notaingreso();
-        $dato->idempleado=['idempleado'];
-        $dato->total=['total'];
-        $dato->precioStock=['costo'];
-        $dato->precioUnitario=['precio'];
         
-        
-        $dato->idmarca=['marca'];
-        $dato->idcategoria=['categoria'];
-
+        $dato->total=00;
+      
+ 
         $dato->save();
 
-        return redirect('administrador/producto')->with('message','Guardado exitosamente');
+        return redirect('administrador/notaingreso/agregar')->with('message','Guardado exitosamente');
     }
 
     /**
@@ -66,9 +64,25 @@ class NotaingresoController extends Controller
      * @param  \App\Models\notaingreso  $notaingreso
      * @return \Illuminate\Http\Response
      */
-    public function show(notaingreso $notaingreso)
+    public function agregar()
     {
-        //
+
+        $datos = DB::table('producto')->orderBy('id')
+        
+    
+        ->select( 'producto.id','producto.name',)
+        ->get();
+  
+
+        return view('administrador.gestionar_notaingreso.agregar',['dato'=>$datos]);
+    }
+    public function agregardetalle(Request $request )
+    {
+
+       
+  
+
+        return view('administrador.gestionar_notaingreso.agregar');
     }
 
     /**

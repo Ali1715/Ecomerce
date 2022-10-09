@@ -51,6 +51,8 @@ Route::prefix('/administrador')->group(function (){
 
         Route::get('/notaingreso','index');
         Route::get('/notaingreso/create','create');
+        Route::get('/notaingreso/agregar','agregar');
+        Route::get('/notaingreso/{dato}/agregardetalle','agregardetalle');
         Route::post('/notaingreso/store','store');
         Route::get('/notaingreso/{dato}/edit','edit');
         Route::put('/notaingreso/{dato}','update');

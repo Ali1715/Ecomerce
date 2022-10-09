@@ -24,7 +24,8 @@
                     <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary float-end">Nuevo Producto</a>
 
                     <h1></h1>  
-                <a href="{{ url('administrador/notaingreso/create') }}" class="btn btn-primary me-md-6">Nota de Ingreso</a>
+                <a href="{{ url('administrador/notaingreso/create') }}" class="btn btn-primary ">Nota de Ingreso</a>
+                <a href="{{ url('administrador/producto/create')}}" class="btn btn-primary me-md-6">Dar de Baja</a>    
                  
                 </h4>
             </div>
@@ -57,7 +58,7 @@
                         <td>
                         <a href="{{ url('administrador/producto/'.$dato->id.'/edit')}}" class="btn btn-info">Editar</a>
                        <!-- <a href="#" wire:click="deleteCliente({{$dato->id}})" data-bs-toggle="modal" data-bs-target="#deleteModal"class="btn btn-danger">Eliminar</a> -->
-                       <a href="{{ url('administrador/producto/'.$dato->id.'/delete')}}" class="btn btn-info">Dar de Baja</a>    
+                      
                    
                          </td>
                     </tr>

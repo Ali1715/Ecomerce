@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class notaingreso extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table='notaingresos';
+    protected $table='notaingreso';
 
 	protected $fillable=[
 	

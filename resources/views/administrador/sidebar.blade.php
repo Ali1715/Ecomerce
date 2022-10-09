@@ -14,19 +14,19 @@
 					</li>
 
 					<li class="sidebar-item ">
-						<a class="sidebar-link" href="{{ url('admin/usuarios')}}">
+						<a class="sidebar-link" href="{{ url('administrador/producto')}}">
               <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Productos</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/tecnicos')}}">
+						<a class="sidebar-link" href="{{ url('administrador/proveedor')}}">
               <i class="align-middle" data-feather="users"></i> <span class="align-middle">Proveedor</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/clientes')}}">
+						<a class="sidebar-link" href="{{ url('administrador/promocion')}}">
               <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Promociones</span>
             </a>
 					</li>
@@ -38,25 +38,25 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/asistencias')}}">
+						<a class="sidebar-link" href="{{ url('administrador/venta')}}">
               <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Ventas</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/horarios')}}">
+						<a class="sidebar-link" href="{{ url('administrador/carrito')}}">
               <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Carrito</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/ubicaciones')}}">
+						<a class="sidebar-link" href="{{ url('administrador/pago')}}">
               <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Metodo de Pago</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/reportes')}}">
+						<a class="sidebar-link" href="{{ url('administrador/factura')}}">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Factura</span>
             </a>
 					</li>
@@ -68,23 +68,23 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/ordenes')}}">
+						<a class="sidebar-link" href="{{ url('admin/spam')}}">
               <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Spam</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/solicitudes')}}">
+						<a class="sidebar-link" href="{{ url('admin/chatBot')}}">
               <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">ChatBot</span>
             </a>
 					</li>
              <li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/conexiones')}}">
+						<a class="sidebar-link" href="{{ url('admin/clientes')}}">
               <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Segementos</span>
             </a>
 					</li>
                     <li class="sidebar-item">
-						<a class="sidebar-link" href="{{ url('admin/contratos')}}">
+						<a class="sidebar-link" href="{{ url('admin/reportes')}}">
               <i class="align-middle" data-feather="bar-chart"></i> <span class="align-middle">Reportes</span>
             </a>
 					</li>
