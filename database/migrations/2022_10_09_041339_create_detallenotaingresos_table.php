@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('total',10,8);
             $table->timestamps();
 
-            $table->foreing('idnota')->reference('id')->on('notaingresos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreing('idproducto')->reference('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idnota')->references('id')->on('notaingresos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idproducto')->references('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
