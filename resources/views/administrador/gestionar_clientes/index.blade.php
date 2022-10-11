@@ -2,17 +2,17 @@
 @section('content')
     <div class="card mt-3">
         <div class="card-header d-inline-flex">
-            <h1>Empleados</h1>
+            <h1>Clientes</h1>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-2">
-                    <a href="{{ route('empleados.create') }}" class="btn btn-primary ml-auto">
+                    <a href="{{ route('clientes.create') }}" class="btn btn-primary ml-auto">
                         <i class="fas fa-plus"></i>
                         Agregar</a>
                 </div>
                 <div class="card-footer">
-                    {{ $empleados->links() }}
+                    {{ $clientes->links() }}
                 </div>
             </div>
             <div class="table-responsive">
@@ -34,27 +34,27 @@
                         <?php
                         $valor = 1;
                         ?>
-                        @foreach ($empleados as $empleado)
-                            @if ($empleado->tipoe == 1)
+                        @foreach ($clientes as $cliente)
+                            @if ($cliente->tipoc == 1)
                                 <tr>
                                     <th scope="row">{{ $valor++ }}</th>
-                                    <td>{{ $empleado->name }}</td>
-                                    <td>{{ $empleado->email }}</td>
-                                    <td>{{ $empleado->ci }}</td>
-                                    <td>{{ $empleado->sexo }}</td>
-                                    <td>{{ $empleado->celular }}</td>
-                                    <td>{{ $empleado->domicilio }}</td>
-                                    <td>{{ $empleado->estadoemp }}</td>
+                                    <td>{{ $cliente->name }}</td>
+                                    <td>{{ $cliente->email }}</td>
+                                    <td>{{ $cliente->ci }}</td>
+                                    <td>{{ $cliente->sexo }}</td>
+                                    <td>{{ $cliente->celular }}</td>
+                                    <td>{{ $cliente->domicilio }}</td>
+                                    <td>{{ $cliente->estadocli }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('empleados.edit', $empleado->id) }}"
+                                            <a href="{{ route('clientes.edit', $cliente->id) }}"
                                                 class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger" form="delete_{{ $empleado->id }}"
+                                            <button type="submit" class="btn btn-danger" form="delete_{{ $cliente->id }}"
                                                 onclick="return confirm('¿Estás seguro de eliminar el registro?')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                            <form action="{{ route('empleados.destroy', $empleado->id) }}"
-                                                id="delete_{{ $empleado->id }}" method="POST"
+                                            <form action="{{ route('clientes.destroy', $cliente->id) }}"
+                                                id="delete_{{ $cliente->id }}" method="POST"
                                                 enctype="multipart/form-data" hidden>
                                                 @csrf
                                                 @method('DELETE')
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {{ $empleados->links() }}
+            {{ $clientes->links() }}
         </div>
     </div>
 @endsection

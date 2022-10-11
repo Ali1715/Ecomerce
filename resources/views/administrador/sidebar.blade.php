@@ -17,7 +17,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{ url('administrador/clientes') }}">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Gestionar Clientes</span>
                 </a>
             </li>
