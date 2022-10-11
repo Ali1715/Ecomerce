@@ -16,10 +16,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $datos = DB::table('producto')->orderBy('id')
-            ->join('marca', 'marca.id', '=', 'producto.idmarca')
+        $datos = DB::table('productos')->orderBy('id')
+            ->join('marcas', 'marcas.id', '=', 'productos.idmarca')
         
-            ->select('producto.id', 'producto.name', 'producto.descripcion','producto.precioStock','producto.precioUnitario','marca.nombre')
+            ->select('productos.id', 'productos.name', 'productos.descripcion','productos.precioStock','productos.precioUnitario','marcas.nombre')
             ->get();
       
          return view('administrador.gestionar_producto.index',['dato'=>$datos]);

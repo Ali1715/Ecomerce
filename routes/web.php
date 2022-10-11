@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,3 +70,6 @@ Route::prefix('/cliente')->group(function (){
 
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
 }); 
+
+
+Route::resource('/clientes', ClienteController::class);

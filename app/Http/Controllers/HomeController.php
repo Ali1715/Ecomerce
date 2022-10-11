@@ -26,10 +26,12 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function indexA(){
+    public function indexA()
+    {
         return view('administrador.home');
     }
-    public function indexC(){
+    public function indexC()
+    {
         return view('cliente.home');
     }
 }
