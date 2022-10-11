@@ -7,45 +7,47 @@
         <div class="card-body">
             <div class="row">
                 <!--<div class="col-4">
-                    <div class="form-group">
-                        <a class="navbar-brand">Listar</a>
-                        <select class="form-select" id="limit" name="limit">
-                            @foreach ([10, 20, 50, 100] as $limit)
-                                <option value="{{ $limit }}"
-                                    @if (isset($_GET['limit'])) {{ $_GET['limit'] == $limit ? 'selected' : '' }} @endif>
-                                    {{ $limit }}</option>
-                            @endforeach
-                        </select>
-                        <?php
-                        if (isset($_GET['page'])) {
-                            $pag = $_GET['page'];
-                        } else {
-                            $pag = 1;
-                        }
-                        if (isset($_GET['limit'])) {
-                            $limit = $_GET['limit'];
-                        } else {
-                            $limit = 10;
-                        }
-                        $comienzo = $limit;
-                        ?>
+                        <div class="form-group">
+                            <a class="navbar-brand">Listar</a>
+                            <select class="form-select" id="limit" name="limit">
+                                @foreach ([10, 20, 50, 100] as $limit)
+    <option value="{{ $limit }}"
+                                        @if (isset($_GET['limit'])) {{ $_GET['limit'] == $limit ? 'selected' : '' }} @endif>
+                                        {{ $limit }}</option>
+    @endforeach
+                            </select>
+                            <?php
+                            if (isset($_GET['page'])) {
+                                $pag = $_GET['page'];
+                            } else {
+                                $pag = 1;
+                            }
+                            if (isset($_GET['limit'])) {
+                                $limit = $_GET['limit'];
+                            } else {
+                                $limit = 10;
+                            }
+                            $comienzo = $limit;
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <div class="col-7">
-                    <div class="form-group">
-                        <a class="navbar-brand">Buscar</a>
-                        <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search"
-                            aria-label="Search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
-                    </div>
-                </div>-->
+                    <div class="col-7">
+                        <div class="form-group">
+                            <a class="navbar-brand">Buscar</a>
+                            <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search"
+                                aria-label="Search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
+                        </div>
+                    </div>-->
                 <div class="col-2">
-                        <a href="{{ route('empleados.create') }}" class="btn btn-primary ml-auto">
-                            <i class="fas fa-plus"></i>
-                            Agregar</a>
+                    <a href="{{ route('empleados.create') }}" class="btn btn-primary ml-auto">
+                        <i class="fas fa-plus"></i>
+                        Agregar</a>
                 </div>
-                <!--@if ($empleados->total() > 10)-->
-                    {{ $empleados->links() }}
-                <!--@endif-->
+                <!--@if ($empleados->total() > 10)
+    -->
+                {{ $empleados->links() }}
+                <!--
+    @endif-->
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -83,20 +85,20 @@
                                     <td>{{ $empleado->estadoemp }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('empleados.show', $empleado->id) }}" class="btn btn-info"><i
-                                                        class="fas fa-eye"></i></a>
-                                                <a href="{{ route('empleados.edit', $empleado->id) }}"
-                                                    class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                                <button type="submit" class="btn btn-danger" form="delete_{{ $empleado->id }}"
-                                                    onclick="return confirm('¿Estás seguro de eliminar el registro?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <form action="{{ route('empleados.destroy', $empleado->id) }}"
-                                                    id="delete_{{ $empleado->id }}" method="POST"
-                                                    enctype="multipart/form-data" hidden>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                            <!--<a href="{{ route('empleados.show', $empleado->id) }}" class="btn btn-info"><i
+                                                            class="fas fa-eye"></i></a>-->
+                                            <a href="{{ route('empleados.edit', $empleado->id) }}"
+                                                class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
+                                            <button type="submit" class="btn btn-danger" form="delete_{{ $empleado->id }}"
+                                                onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <form action="{{ route('empleados.destroy', $empleado->id) }}"
+                                                id="delete_{{ $empleado->id }}" method="POST"
+                                                enctype="multipart/form-data" hidden>
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -107,9 +109,11 @@
             </div>
         </div>
         <div class="card-footer">
-            <!--@if ($empleados->total() > 10)-->
-                {{ $empleados->links() }}
-            <!--@endif-->
+            <!--@if ($empleados->total() > 10)
+    -->
+            {{ $empleados->links() }}
+            <!--
+    @endif-->
         </div>
     </div>
     <!-- JS PARA FILTAR Y BUSCAR MEDIANTE PAGINADO -->

@@ -12,7 +12,7 @@
         <div class="card-body">
             <form action="{{route('empleados.update', $empleado->id)}}" method="POST" enctype="multipart/form-data" id="update">
                 @method('PUT')
-                @include('empleados.partials.form')
+                @include('administrador.gestionar_empleados.partials.form')
             </form>
         </div>
         <div class="card-footer">

@@ -67,9 +67,9 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
-        $empleado = User::findOrFail($id);
-        $persona = Persona::where('email', $empleado->email);
-        return view('administrador.gestionar_empleados.edit', compact('empleado', 'persona'));
+        $empleado = Persona::findOrFail($id);
+        //$persona = Persona::where('email', $empleado->email);
+        return view('administrador.gestionar_empleados.edit', compact('empleado'));
     }
 
     /**
@@ -81,12 +81,12 @@ class EmpleadoController extends Controller
      */
     public function update(UpdateEmpRequest $request, $id)
     {
-        $empleado = User::find($id);
-        $empleado->update($request->validated());
-        $persona = Persona::where('email', $empleado->email)->first();
+        $persona = Persona::find($id);
         $persona->update($request->validated());
-        $persona->save();
-        return redirect('empleado')->with('mensaje', 'Datos Actualizados');
+        $empleado = User::where('email', $persona->email)->first();
+        $empleado->update($request->validated());
+        $empleado->save();
+        return redirect()->route('empleados.index')->with('mensaje', 'Datos Actualizados');
     
     }
 
@@ -98,14 +98,14 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
-        $empleado = User::findOrFail($id);
-        $persona = Persona::where('email', $empleado->email)->first();
+        $persona = Persona::findOrFail($id);
+        $empleado = User::where('email', $persona->email)->first();
         try {
             $empleado->delete();
             $persona->delete();
-            return redirect()->route('administrador.gestionar_empleados.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('administrador.gestionar_empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

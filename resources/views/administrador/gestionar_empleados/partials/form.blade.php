@@ -94,12 +94,4 @@
     @endif
     <input type="hidden" name="tipoc" class="form-control" id="exampleInputPassword1" value="0">
     <input type="hidden" name="tipoe" class="form-control" id="exampleInputPassword1" value="1">
-    <!--@if ((isset($empleado->name) ? $empleado->name : '') != '')
-        <div class="col-12">
-            <div class="form-group">
-                <h5>Roles</h5>
-                {!! Form::select('roles[]', $roles, $empRole, ['class' => 'form-control']) !!}
-            </div>
-        </div>
-    @endif-->
 </div>
