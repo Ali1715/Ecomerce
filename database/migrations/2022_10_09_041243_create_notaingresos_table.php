@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('notaingresos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('FechaHora');
+            $table->dateTime('FechaHora');
             $table->unsignedBigInteger('idempleado');
             $table->timestamps();
 

@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detallenotabajas', function (Blueprint $table) {
-            $table->unsignedBigInteger('idnota')->primary();
-            $table->unsignedBigInteger('idproducto')->primary();
+            $table->unsignedBigInteger('idnota');
+            $table->unsignedBigInteger('idproducto');
             $table->unsignedBigInteger('cantidad');
             $table->decimal('precio',10,8);
             $table->decimal('total',10,8);
             $table->string('observacion');
             $table->timestamps();
-
+            $table->primary('idnota', 'idproducto');
             $table->foreign('idnota')->references('id')->on('notabajas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idproducto')->references('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
         });

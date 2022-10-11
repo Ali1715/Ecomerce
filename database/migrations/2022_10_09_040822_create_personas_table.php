@@ -21,13 +21,13 @@ return new class extends Migration
             $table->smallInteger('sexo');
             $table->integer('celular')->unique();
             $table->string('domicilio');
-            $table->float('salario')->nullable();
+            $table->double('salario')->nullable();
             $table->string('estadoemp')->nullable();
             $table->string('estadocli')->nullable();
             $table->smallInteger('tipoc');
             $table->smallInteger('tipoe');
             $table->unsignedBigInteger('iduser');
-            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
