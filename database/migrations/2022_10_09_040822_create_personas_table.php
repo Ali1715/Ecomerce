@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('ci')->unique();
             $table->string('email')->unique();
-            $table->smallInteger('sexo');
+            $table->char('sexo');
             $table->integer('celular')->unique();
             $table->string('domicilio');
             $table->double('salario')->nullable();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('estadocli')->nullable();
             $table->smallInteger('tipoc');
             $table->smallInteger('tipoe');
-            $table->unsignedBigInteger('iduser');
+            $table->unsignedBigInteger('iduser')->nullable();
             $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

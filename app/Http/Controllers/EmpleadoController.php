@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterEmpRequest;
+use App\Http\Requests\UpdateEmpRequest;
 use App\Models\User;
 use App\Models\Persona;
 use Illuminate\Http\Request;
@@ -17,9 +18,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = User::where('tipoe', '=', 1)->paginate(10);
-        $personas = Persona::get();
-        return view('empleado.index', compact('empleados', 'personas'));
+        $empleados = Persona::where('tipoe', 1)->paginate(10);
+        return view('administrador.gestionar_empleados.index', compact('empleados'));
     }
 
     /**
@@ -29,7 +29,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('empleado.create');
+        return view('administrador.gestionar_empleados.create');
     }
 
     /**
@@ -40,9 +40,12 @@ class EmpleadoController extends Controller
      */
     public function store(RegisterEmpRequest $request)
     {
-        User::create($request->validated());
-        return redirect('empleado')->with('mensaje', 'Empleado Agregado Con Éxito');
-    
+        //dd($request->all());
+        $empleado = User::create($request->validated());
+        $persona = Persona::create($request->validated());
+        $persona->iduser == $empleado->id;
+        $persona->save();
+        return redirect()->route('empleados.index')->with('mensaje', 'Empleado Agregado Con Éxito');
     }
 
     /**
@@ -65,7 +68,8 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
         $empleado = User::findOrFail($id);
-        return view('empleado.edit', compact('empleado'));
+        $persona = Persona::where('email', $empleado->email);
+        return view('administrador.gestionar_empleados.edit', compact('empleado', 'persona'));
     }
 
     /**
@@ -75,11 +79,13 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmpRequest $request, $id)
     {
-        $input = $request->all();
-        $user = User::find($id);
-        $user->update($input);
+        $empleado = User::find($id);
+        $empleado->update($request->validated());
+        $persona = Persona::where('email', $empleado->email)->first();
+        $persona->update($request->validated());
+        $persona->save();
         return redirect('empleado')->with('mensaje', 'Datos Actualizados');
     
     }
@@ -93,11 +99,13 @@ class EmpleadoController extends Controller
     public function destroy($id)
     {
         $empleado = User::findOrFail($id);
+        $persona = Persona::where('email', $empleado->email)->first();
         try {
             $empleado->delete();
-            return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');
+            $persona->delete();
+            return redirect()->route('administrador.gestionar_empleados.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('administrador.gestionar_empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }
