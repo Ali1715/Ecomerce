@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Persona;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,10 +65,45 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        /*return [
+            $usuario = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]),
+
+            Persona::create([
+                'name' => $data['name'],
+                'ci' => $data['ci'],
+                'email' => $data['email'],
+                'sexo' => $data['sexo'],
+                'celular' => $data['celular'],
+                'domicilio' => $data['domicilio'],
+                'estadocli' => $data['estadocli'],
+                'tipoc' => $data['tipoc'],
+                'tipoe' => $data['tipoe'],
+                'iduser' => $usuario->id,
+            ])
+        ];*/
+        $usuario = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Persona::create([
+            'name' => $data['name'],
+            'ci' => $data['ci'],
+            'email' => $data['email'],
+            'sexo' => $data['sexo'],
+            'celular' => $data['celular'],
+            'domicilio' => $data['domicilio'],
+            'estadocli' => $data['estadocli'],
+            'tipoc' => $data['tipoc'],
+            'tipoe' => $data['tipoe'],
+            'iduser' => $usuario->id,
+        ]);
+        
+        return view('auth.login');
     }
 }
