@@ -17,15 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('descripcion');
-            $table->unsignedBigInteger('precioStock',10,8);
-            $table->unsignedBigInteger('precioUnitario',10,8);
+            $table->double('precioStock');
+            $table->double('precioUnitario');
             $table->string('imagen')->nullable();
             $table->unsignedBigInteger('idcategoria');
             $table->unsignedBigInteger('idmarca');
             $table->timestamps();
-
-            $table->foreing('idcategoria')->reference('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreing('idmarca')->reference('id')->on('marca')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idcategoria')->references('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idmarca')->references('id')->on('marcas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

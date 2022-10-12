@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('notaingresos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('FechaHora');
+            $table->dateTime('FechaHora');
             $table->unsignedBigInteger('idempleado');
             $table->timestamps();
 
-
-            $table->foreing('idempleado')->reference('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idempleado')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
        
         });
     }
