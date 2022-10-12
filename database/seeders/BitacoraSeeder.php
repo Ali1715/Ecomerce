@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PersonaSeeder extends Seeder
+class BitacoraSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class PersonaSeeder extends Seeder
      */
     public function run()
     {
-        
+        //
     }
 }

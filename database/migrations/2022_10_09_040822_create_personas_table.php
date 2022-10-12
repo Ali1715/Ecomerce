@@ -27,7 +27,7 @@ return new class extends Migration
             $table->smallInteger('tipoc');
             $table->smallInteger('tipoe');
             $table->unsignedBigInteger('iduser')->nullable();
-            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('iduser')->references('id')->on('users');
             $table->timestamps();
         });
     }

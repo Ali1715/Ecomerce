@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterEmpRequest;
-use App\Http\Requests\UpdateEmpRequest;
+use App\Http\Requests\StoreClienteRequest;
+use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Bitacora;
-use App\Models\User;
 use App\Models\Persona;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-date_default_timezone_set('America/La_Paz');
-
-class EmpleadoController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +20,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Persona::where('tipoe', 1)->paginate(10);
-        return view('administrador.gestionar_empleados.index', compact('empleados'));
+        $clientes = Persona::where('tipoc', 1)->paginate(10);
+        return view('administrador.gestionar_clientes.index', compact('clientes'));
     }
 
     /**
@@ -33,7 +31,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('administrador.gestionar_empleados.create');
+        return view('administrador.gestionar_clientes.create');
     }
 
     /**
@@ -42,12 +40,11 @@ class EmpleadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RegisterEmpRequest $request)
+    public function store(StoreClienteRequest $request)
     {
-        //dd($request->all());
-        $empleado = User::create($request->validated());
+        $cliente = User::create($request->validated());
         $persona = Persona::create($request->validated());
-        $persona->iduser == $empleado->id;
+        $persona->iduser == $cliente->id;
         $persona->save();
         //Bitacora
         $id2 = Auth::id();
@@ -59,7 +56,7 @@ class EmpleadoController extends Controller
         if ($user->tipoc == 1) {
             $tipo = "Cliente";
         }
-        $action = "Creó un nuevo registro de un usuario empleado";
+        $action = "Creó un nuevo registro de un usuario cliente";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $tipo;
         $bitacora->name = $user->name;
@@ -67,7 +64,7 @@ class EmpleadoController extends Controller
         $bitacora->fechaHora = date('Y-m-d H:i:s');
         $bitacora->save();
         //----------
-        return redirect()->route('empleados.index')->with('mensaje', 'Empleado Agregado Con Éxito');
+        return redirect()->route('clientes.index')->with('mensaje', 'cliente Agregado Con Éxito');
     }
 
     /**
@@ -89,9 +86,8 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
-        $empleado = Persona::findOrFail($id);
-        //$persona = Persona::where('email', $empleado->email);
-        return view('administrador.gestionar_empleados.edit', compact('empleado'));
+        $cliente = Persona::findOrFail($id);
+        return view('administrador.gestionar_clientes.edit', compact('cliente'));
     }
 
     /**
@@ -101,13 +97,13 @@ class EmpleadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEmpRequest $request, $id)
+    public function update(UpdateClienteRequest $request, $id)
     {
         $persona = Persona::find($id);
         $persona->update($request->validated());
-        $empleado = User::where('email', $persona->email)->first();
-        $empleado->update($request->validated());
-        $empleado->save();
+        $cliente = User::where('email', $persona->email)->first();
+        $cliente->update($request->validated());
+        $cliente->save();
         //Bitacora
         $id2 = Auth::id();
         $user = Persona::where('iduser', $id2)->first();
@@ -118,7 +114,7 @@ class EmpleadoController extends Controller
         if ($user->tipoc == 1) {
             $tipo = "Cliente";
         }
-        $action = "Editó un registro de un usuario empleado";
+        $action = "Editó un registro de un usuario cliente";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $tipo;
         $bitacora->name = $user->name;
@@ -126,7 +122,7 @@ class EmpleadoController extends Controller
         $bitacora->fechaHora = date('Y-m-d H:i:s');
         $bitacora->save();
         //----------
-        return redirect()->route('empleados.index')->with('mensaje', 'Datos Actualizados');
+        return redirect()->route('clientes.index')->with('mensaje', 'Datos Actualizados');
     }
 
     /**
@@ -138,9 +134,9 @@ class EmpleadoController extends Controller
     public function destroy($id)
     {
         $persona = Persona::findOrFail($id);
-        $empleado = User::where('email', $persona->email)->first();
+        $cliente = User::where('email', $persona->email)->first();
         try {
-            $empleado->delete();
+            $cliente->delete();
             $persona->delete();
             //Bitacora
             $id2 = Auth::id();
@@ -152,7 +148,7 @@ class EmpleadoController extends Controller
             if ($user->tipoc == 1) {
                 $tipo = "Cliente";
             }
-            $action = "Eliminó un registro de un usuario empleado";
+            $action = "Eliminó un registro de un usuario cliente";
             $bitacora = Bitacora::create();
             $bitacora->tipou = $tipo;
             $bitacora->name = $user->name;
@@ -160,9 +156,9 @@ class EmpleadoController extends Controller
             $bitacora->fechaHora = date('Y-m-d H:i:s');
             $bitacora->save();
             //----------
-            return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('clientes.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect()->route('empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('clientes.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

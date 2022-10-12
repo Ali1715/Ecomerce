@@ -7,7 +7,7 @@
 		<!-- *******************************USUARIOS*********************************************** -->
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Usuarios
+                USUARIOS
             </li>
 
             <li class="sidebar-item ">
@@ -17,13 +17,13 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{ url('administrador/clientes') }}">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Gestionar Clientes</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{ url('administrador/bitacoras') }}">
                     <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Bitácora</span>
                 </a>
             </li>

@@ -196,6 +196,12 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+									<a class="dropdown-item" href="{{ route('perfil.edit', auth()->user()->id) }}">
+                                        {{ __('Configurar Perfil') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('password.edit', auth()->user()->id) }}">
+                                        {{ __('Cambiar Contraseña') }}
+                                    </a>
                                 </div>
                             </li>
                         @endguest
