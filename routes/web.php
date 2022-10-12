@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PasswordController;
@@ -75,4 +76,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/clientes', ClienteController::class);
     Route::resource('/perfil', PerfilController::class);
     Route::resource('/password', PasswordController::class);
+    Route::resource('/administrador/bitacoras', BitacoraController::class);
 });

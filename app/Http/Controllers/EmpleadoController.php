@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterEmpRequest;
 use App\Http\Requests\UpdateEmpRequest;
+use App\Models\Bitacora;
 use App\Models\User;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class EmpleadoController extends Controller
 {
@@ -45,6 +49,24 @@ class EmpleadoController extends Controller
         $persona = Persona::create($request->validated());
         $persona->iduser == $empleado->id;
         $persona->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un nuevo registro de un usuario empleado";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
         return redirect()->route('empleados.index')->with('mensaje', 'Empleado Agregado Con Éxito');
     }
 
@@ -86,8 +108,25 @@ class EmpleadoController extends Controller
         $empleado = User::where('email', $persona->email)->first();
         $empleado->update($request->validated());
         $empleado->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de un usuario empleado";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
         return redirect()->route('empleados.index')->with('mensaje', 'Datos Actualizados');
-    
     }
 
     /**
@@ -103,6 +142,24 @@ class EmpleadoController extends Controller
         try {
             $empleado->delete();
             $persona->delete();
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Eliminó un registro de un usuario empleado";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->save();
+            //----------
             return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
             return redirect()->route('empleados.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
