@@ -27,10 +27,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::prefix('/administrador')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'indexA'])->name('administrador');
 
@@ -62,6 +58,9 @@ Route::prefix('/administrador')->group(function () {
         Route::put('/notaingreso/{dato}', 'update');
         Route::get('/notaingreso/{dato}/delete', 'destroy');
     });
+
+
+
 });
 
 
@@ -78,3 +77,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
 });
+
+
