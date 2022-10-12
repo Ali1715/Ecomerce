@@ -6,9 +6,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="card-footer">
                     {{ $bitacoras->links() }}
-                </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -35,8 +33,6 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer">
             {{ $bitacoras->links() }}
-        </div>
     </div>
 @endsection
