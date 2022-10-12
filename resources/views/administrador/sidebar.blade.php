@@ -7,7 +7,7 @@
 		<!-- *******************************USUARIOS*********************************************** -->
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Usuarios
+                USUARIOS
             </li>
 
             <li class="sidebar-item ">
