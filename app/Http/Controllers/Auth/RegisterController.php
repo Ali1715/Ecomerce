@@ -104,6 +104,8 @@ class RegisterController extends Controller
             'iduser' => $usuario->id,
         ]);
         
-        return view('auth.login');
+        $data = request()->except(['ci', 'sexo', 'celular', 'domicilio', 'estadocli', 'tipoc', 'tipoe', 'iduser', 'password_confirmation']);
+        dd($data);
+        //return view('auth.login');
     }
 }

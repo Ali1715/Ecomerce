@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,10 @@ Route::prefix('/cliente')->group(function () {
 
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
 });
+
+Route::get('/registro', [RegistroController::class, 'show']);
+
+Route::post('/registro', [RegistroController::class, 'register']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/empleados', EmpleadoController::class);
