@@ -50,18 +50,41 @@ Route::prefix('/administrador')->group(function (){
      Route::controller(App\Http\Controllers\NotaingresoController::class)->group(function(){
 
         Route::get('/notaingreso','index');
-        Route::get('/notaingreso/create','create');
+        Route::get('/notaingreso/{dato}/create','newnota');
         Route::get('/notaingreso/agregar','agregar');
-        Route::get('/notaingreso/{dato}/agregardetalle','agregardetalle');
         Route::post('/notaingreso/store','store');
         Route::get('/notaingreso/{dato}/edit','edit');
         Route::put('/notaingreso/{dato}','update');
         Route::get('/notaingreso/{dato}/delete','destroy');
+        Route::get('/notaingreso/{dato}/agregarproducto','agregarproducto');
      
      
      });
      
+
+
+
+//********************************* */ Route for NotaIngreso**************************************
+
+Route::controller(App\Http\Controllers\DetallenotaingresoController::class)->group(function(){
+
+    Route::get('/detallenotaingreso','index');
+    Route::get('/detallenotaingreso/{dato}/producto','listar');
+    Route::get('/detallenotaingreso/{datonota}/agregar/{dato}/producto','agregar');
+    Route::post('/detallenotaingreso/store','store');
+    Route::get('/detallenotaingreso/{dato}/agregar','agregar');
+    Route::get('/detallenotaingreso/{dato}/edit','edit');
+    Route::put('/detallenotaingreso/{dato}','guardar');
+    Route::get('/detallenotaingreso/{dato}/delete','destroy');
+ 
 }); 
+ 
+ });
+ 
+
+
+
+
 
 
 Route::prefix('/cliente')->group(function (){

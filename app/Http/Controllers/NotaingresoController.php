@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ProductoController;
 use App\Http\Requests\ProductoFormRequest;
 use App\Models\producto;
-
 use Illuminate\Support\Facades\DB;
+
 
 class NotaingresoController extends Controller
 {
@@ -66,24 +66,13 @@ class NotaingresoController extends Controller
      */
     public function agregar()
     {
-
-        $datos = DB::table('producto')->orderBy('id')
-        
-    
-        ->select( 'producto.id','producto.name',)
+        $datos = DB::table('producto')
+        ->select('id', 'name')
         ->get();
   
-
-        return view('administrador.gestionar_notaingreso.agregar',['dato'=>$datos]);
+     return view('administrador.gestionar_notaingreso.agregar',['dato'=>$datos]);
     }
-    public function agregardetalle(Request $request )
-    {
-
-       
-  
-
-        return view('administrador.gestionar_notaingreso.agregar');
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
@@ -117,5 +106,12 @@ class NotaingresoController extends Controller
     public function destroy(notaingreso $notaingreso)
     {
         //
+    }
+    public function newnota(notaingreso $dato)
+    
+    {
+       
+            return view('administrador.gestionar_notaingreso.agregar', compact('dato'));
+ 
     }
 }

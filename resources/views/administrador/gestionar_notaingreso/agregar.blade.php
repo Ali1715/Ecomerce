@@ -1,28 +1,31 @@
+<!-- extiene el panel del adinistrador -->
 @extends('administrador.admin')
+<!-- ***************************** -->
+<!--   Nota :encabezado-->
+
 
 
 @section('content')
-<h1>Buscar Producto</h1>
+<div>
+@include('administrador.gestionar_notaingreso.agregarnota')
+
+<!--  ****************************************-->
+ 
+
+<!--           agregar producto -->
 
 
 
 
-<select class="form-select" aria-label="Default select example" action="{{ url('administrador/notaingreso/store')}}" method="POST" enctype="multipart/form-data">
-
-@foreach ($dato as $dato)
-  <option placeholder="buscar producto" value="name">{{$dato->id}} {{$dato->name}}</option>
-  @endforeach
-
-  
-  </select>
+<a href="{{ url('administrador/detallenotaingreso/'.$dato->id.'/producto') }}" class="btn btn-primary ">Agregar</a>
+<!-- ***************************** -->
 
 
-
-
-
-  <a href="{{ url('administrador/notaingreso/'.$dato->id.'/agregardetalle')}}" class="btn btn-info">Agregar</a>
+<!--           agregar detalle -->
 
 
 
 @endsection
-   
+
+<!-- ***************************** -->
+ 

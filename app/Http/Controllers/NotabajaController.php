@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\notabaja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class NotabajaController extends Controller
 {

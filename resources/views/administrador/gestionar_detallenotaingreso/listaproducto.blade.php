@@ -17,12 +17,15 @@
         <div class="card">
             <div class="card-header">
                 <h4>PRODUCTOS
-              
-                
-                    <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary float-end">Ingresar Producto</a>
+                <h1></h1>  
+                <h1></h1>  
+                <h1></h1>  
+
                     
+                 
                 </h4>
             </div>
+        
             <div class="card-body"></div>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -40,7 +43,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dato as $dato)
+                    @foreach ($datos as $dato)
+                    
                     <tr>
                         <td>{{$dato->id}}</td>
                         <td>{{$dato->name}}</td>
@@ -50,9 +54,8 @@
                         <td>{{$dato->nombre}}</td>
                      
                         <td>
-                        <a href="{{ url('administrador/producto/'.$dato->id.'/edit')}}" class="btn btn-info">Editar</a>
-                       <!-- <a href="#" wire:click="deleteCliente({{$dato->id}})" data-bs-toggle="modal" data-bs-target="#deleteModal"class="btn btn-danger">Eliminar</a> -->
-                       <a href="{{ url('administrador/producto/'.$dato->id.'/delete')}}" class="btn btn-info">Dar de Baja</a>    
+                      
+                        <a href="{{ url('administrador/detallenotaingreso/'.$dato->id.'/agregar') }}" class="btn btn-primary ">Agregar</a>
                    
                          </td>
                     </tr>

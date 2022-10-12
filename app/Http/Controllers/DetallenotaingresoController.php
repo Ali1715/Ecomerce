@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\detallenotaingreso;
 use Illuminate\Http\Request;
+use App\Models\producto;
+use App\Http\Controllers\ProductoController;
+use App\Http\Requests\ProductoFormRequest;
+use App\Models\notaingreso;
+use Illuminate\Support\Facades\DB;
 
 class DetallenotaingresoController extends Controller
 {
@@ -22,10 +27,7 @@ class DetallenotaingresoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +37,7 @@ class DetallenotaingresoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('administrador.gestionar_notaingreso.agregardetalle');
     }
 
     /**
@@ -44,9 +46,41 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function show(detallenotaingreso $detallenotaingreso)
+    public function agregar(producto $dato, notaingreso $datonota)
     {
-        //
+        return view('administrador.gestionar_detallenotaingreso.agregar', compact('dato','datonota'));
+    }
+
+
+    public function guardar($dato1, $dato2)
+    {
+       
+ 
+        $dato = new detallenotaingreso();
+        $dato->idnota='idnota';
+        $dato->idproducto=$dato2;
+        $dato->cantidad='cantidad';
+        $dato->costo='costo';
+        $dato->total='costo' * 'cantidad';
+       
+
+        $dato->save();
+
+        return redirect('administrador/notaingreso/agregar')->with('message','Guardado exitosamente');
+    }
+
+    public function listar(notaingreso $datoidnota)
+    {
+         $datonota= 'datoidnota';
+        $datos = DB::table('producto')->orderBy('id')
+            ->join('marca', 'marca.id', '=', 'producto.idmarca')
+        
+            ->select('producto.id', 'producto.name', 'producto.descripcion','producto.precioStock','producto.precioUnitario','marca.nombre')
+            ->get();
+      
+     
+         return view('administrador.gestionar_detallenotaingreso.listaproducto', compact('datos','datonota'));
+     
     }
 
     /**

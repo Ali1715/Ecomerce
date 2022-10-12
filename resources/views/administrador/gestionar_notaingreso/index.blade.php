@@ -28,6 +28,7 @@
       <th scope="col">FechaHora</th>
       <th scope="col">Elaborado por</th>
       <th scope="col">Total</th>
+      <th scope="col">Agregar Detalle</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
@@ -37,6 +38,7 @@
                         <td>{{$dato->created_at}}</td>
                         <td>{{$dato->name}}</td>
                         <td>{{$dato->total}}</td>
+                        <td><a href="{{ url('administrador/notaingreso/'.$dato->id.'/create') }}" class="btn btn-primary ">Agregar</a></td>
    
     </tr>
     @endforeach

@@ -35,7 +35,7 @@
 							<div class="card-body">
 								<div class="m-sm-4">
                                     <!--route de form -->
-									<form action="{{ url('administrador/producto/'.$dato->id)}}" method="POST" enctype="multipart/form-data" >
+									<form action="{{ url('administrador/detallenotaingreso/'.$dato->id)}}" method="POST" enctype="multipart/form-data" >
 										@csrf
 										@method('PUT')
                                 <!--  {{csrf_field()}}  -->
@@ -93,7 +93,7 @@
 										<div class="text-center mt-3">
 											
 											<button type="submit" class="btn btn-lg btn-primary">Guardar</button>
-											<a href="{{ url('administrador/producto')}}" class="btn btn-primary float-end">Volver</a>
+											<a href="{{ url('administrador/detallenotaingreso/producto')}}" class="btn btn-primary float-end">Volver</a>
                                         
 										 
 										</div>
@@ -110,6 +110,8 @@
 	</main>
 
 </div>
+
+
 
 
 
