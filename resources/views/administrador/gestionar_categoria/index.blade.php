@@ -16,19 +16,15 @@
     @endif
         <div class="card">
             <div class="card-header">
-                <h4>PRODUCTOS
+                <h4>CATEGORIAS
                 <h1></h1>  
                 <h1></h1>  
                 <h1></h1>  
 
-                    <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary float-end">Nuevo Producto</a>
+                    <a href="{{ url('administrador/categoria/create') }}" class="btn btn-primary float-end">Nueva Categoria</a>
 
                     <h1></h1>  
-                <a href="{{ url('administrador/notaingreso/create') }}" class="btn btn-primary ">Nota de Ingreso</a>
-                <a href="{{ url('administrador/producto/create')}}" class="btn btn-primary me-md-6">Dar de Baja</a>  
-                <a href="{{ url('administrador/categoria') }}" class="btn btn-primary ">Categorias</a>
-                <a href="{{ url('administrador/marca')}}" class="btn btn-primary me-md-6">Marcas</a>    
-                 
+              
                 </h4>
             </div>
         
@@ -38,10 +34,7 @@
                     <tr>
                         <th> ID</th>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Costo</th>
-                        <th>Precio</th>
-                        <th>Marca</th>
+                        
                         
                        
                         <th></th>
@@ -52,14 +45,11 @@
                     @foreach ($dato as $dato)
                     <tr>
                         <td>{{$dato->id}}</td>
-                        <td>{{$dato->name}}</td>
-                        <td>{{$dato->descripcion}}</td>
-                        <td>{{$dato->precioStock}}</td>
-                        <td>{{$dato->precioUnitario}}</td>
                         <td>{{$dato->nombre}}</td>
+                       
                      
                         <td>
-                        <a href="{{ url('administrador/producto/'.$dato->id.'/edit')}}" class="btn btn-info">Editar</a>
+                      <!--  <a href="{{ url('administrador/categoria/'.$dato->id.'/edit')}}" class="btn btn-info">Editar</a> -->
                        <!-- <a href="#" wire:click="deleteCliente({{$dato->id}})" data-bs-toggle="modal" data-bs-target="#deleteModal"class="btn btn-danger">Eliminar</a> -->
                       
                    

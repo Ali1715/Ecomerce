@@ -37,6 +37,27 @@ Route::prefix('/administrador')->group(function () {
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
 
 
+       //********************************* */ Route for Category**************************************
+
+       Route::controller(App\Http\Controllers\CategoriaController::class)->group(function () {
+
+        Route::get('/categoria','index');
+        Route::get('/categoria/create','create');
+        Route::post('/categoria/store', 'store');
+
+     });
+
+        //********************************* */ Route for Marca**************************************
+
+        Route::controller(App\Http\Controllers\MarcaController::class)->group(function () {
+
+            Route::get('/marca','index');
+            Route::get('/marca/create','create');
+            Route::post('/marca/store', 'store');
+    
+    
+         });
+
     //********************************* */ Route for Producto**************************************
 
     Route::controller(App\Http\Controllers\ProductoController::class)->group(function () {

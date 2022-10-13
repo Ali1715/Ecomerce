@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $dato = categoria::paginate(10);
+        return (view('administrador.gestionar_categoria.index', compact('dato')));
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+         return view('administrador.gestionar_categoria.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+ 
+        $dato = new Categoria;
+        $dato->id= 0+1;
+        $dato->nombre=$request['nombre'];
+      
+        $dato->save();
+
+        return redirect('administrador/categoria')->with('message','Guardado exitosamente');
     }
 
     /**

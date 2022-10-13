@@ -15,7 +15,8 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
+        $dato = Marca::paginate(10);
+        return (view('administrador.gestionar_marca.index', compact('dato')));
     }
 
     /**
@@ -25,7 +26,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        //
+        return view('administrador.gestionar_marca.create');
     }
 
     /**
@@ -36,7 +37,14 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $dato = new Marca;
+        $dato->id= 0+1;
+        $dato->nombre=$request['nombre'];
+      
+        $dato->save();
+
+        return redirect('administrador/marca')->with('message','Guardado exitosamente');
     }
 
     /**

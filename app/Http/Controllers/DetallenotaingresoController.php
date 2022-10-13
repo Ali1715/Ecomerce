@@ -95,6 +95,9 @@ class DetallenotaingresoController extends Controller
        
         $dato = new detallenotaingreso();
         $dato->idnota=$idnota;
+        $dato->cantidad=1;
+        $dato->costo=00;
+        $dato->total=00;
        
         $dato->save();
 
@@ -144,6 +147,8 @@ class DetallenotaingresoController extends Controller
         $dato = new detallenotaingreso();
         $dato->idnota=$idnota;
         $dato->idproducto=$idproducto;
+        $dato->cantidad=1;
+        $dato->costo=00;
         $dato->total=00;
 
         $dato->save();
