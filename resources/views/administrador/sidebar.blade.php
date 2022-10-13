@@ -23,6 +23,12 @@
             </li>
 
             <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url('administrador/roles') }}">
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Roles</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('administrador/bitacoras') }}">
                     <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Bitácora</span>
                 </a>
