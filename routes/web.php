@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\BitacoraController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\RegistroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+//Route::resource('/administrador/roles', RoleController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -46,6 +49,14 @@ Route::prefix('/administrador')->group(function () {
         Route::get('/producto/{dato}/delete', 'destroy');
     });
 
+
+
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles/create', [RoleController::class, 'store']);
+    Route::get('/roles/edit/{user}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/edit/{user}', [RoleController::class, 'update'])->name('roles.update');
+
     //********************************* */ Route for NotaIngreso**************************************
 
     Route::controller(App\Http\Controllers\NotaingresoController::class)->group(function () {
@@ -59,9 +70,6 @@ Route::prefix('/administrador')->group(function () {
         Route::put('/notaingreso/{dato}', 'update');
         Route::get('/notaingreso/{dato}/delete', 'destroy');
     });
-
-
-
 });
 
 
@@ -82,5 +90,3 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
 });
-
-
