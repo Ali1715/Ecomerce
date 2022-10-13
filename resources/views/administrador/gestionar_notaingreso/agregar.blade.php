@@ -17,13 +17,15 @@
 
 
 
-<a href="{{ url('administrador/detallenotaingreso/'.$dato->id.'/producto') }}" class="btn btn-primary ">Agregar</a>
+<a href="{{ url('administrador/detallenotaingreso/'.$dato->id.'/listaproducto') }}" class="btn btn-primary ">Agregar Detalle</a>
 <!-- ***************************** -->
-
+</div>
 
 <!--           agregar detalle -->
 
+<div>
 
+</div>
 
 @endsection
 

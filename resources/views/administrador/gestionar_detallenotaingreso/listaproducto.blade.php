@@ -19,8 +19,8 @@
                 <h4>PRODUCTOS
                 <h1></h1>  
                 <h1></h1>  
-                <h1></h1>  
-
+                <h6>AGREGAR PARA LA NOTA:</h6>  
+                <th>{{$datonota}}</th>
                     
                  
                 </h4>
@@ -30,6 +30,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                    
                         <th> ID</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
@@ -46,6 +47,7 @@
                     @foreach ($datos as $dato)
                     
                     <tr>
+                    
                         <td>{{$dato->id}}</td>
                         <td>{{$dato->name}}</td>
                         <td>{{$dato->descripcion}}</td>
@@ -55,7 +57,7 @@
                      
                         <td>
                       
-                        <a href="{{ url('administrador/detallenotaingreso/'.$dato->id.'/agregar') }}" class="btn btn-primary ">Agregar</a>
+                        <a href="{{ url('administrador/detallenotaingreso/'.$datonota.''.$dato->id.'/add') }}" class="btn btn-primary ">Agregar</a>
                    
                          </td>
                     </tr>

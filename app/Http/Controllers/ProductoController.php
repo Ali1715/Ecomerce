@@ -130,6 +130,8 @@ class ProductoController extends Controller
         return redirect('administrador/producto')->with('message','Actualizado exitosamente');
     }
 
+    
+
     /**
      * Remove the specified resource from storage.
      *

@@ -24,7 +24,7 @@
                     <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary float-end">Nuevo Producto</a>
 
                     <h1></h1>  
-                <a href="{{ url('administrador/notaingreso') }}" class="btn btn-primary ">Nota de Ingreso</a>
+                <a href="{{ url('administrador/notaingreso/create') }}" class="btn btn-primary ">Nota de Ingreso</a>
                 <a href="{{ url('administrador/producto/create')}}" class="btn btn-primary me-md-6">Dar de Baja</a>    
                  
                 </h4>

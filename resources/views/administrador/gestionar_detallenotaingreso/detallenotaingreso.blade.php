@@ -1,4 +1,8 @@
-@yield('contend')
+@extends('administrador.admin')
+
+
+@section('content')
+@yield('content')
 <div class="row">
     <div class="col-md-12">
 
@@ -14,31 +18,52 @@
 <table class="table table-bordered border-primary align-middle">
 
 								<div class="m-sm-4">
-                                <h1 class="h2">Detalle de Nota</h1>
+                                <h1 class="h2">Detalle</h1>
+                                <h1 class="h2">{{$idnota}}</h1>
+                                
   <thead>
  
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Producto</th>
       <th scope="col">Cantidad</th>
-      <th scope="col">Costo $</th>
-	  <th scope="col">Total $</th>
-	  <th scope="col">Observacion</th>
+      <th scope="col">Costo</th>
+      <th scope="col">Total</th>
+    
     </tr>
   </thead>
   <tbody class="table-group-divider">
- 
+  @foreach ($dato as $dato)
+  <form action="{{ url('administrador/detallenotaingreso/'.$idnota.''.$dato->idproducto.'/update')}}" method="POST" enctype="multipart/form-data" >
+										@csrf
+										@method('PUT')          
                     <tr>
-                    <td >0001</td>
-                        <td>Bateria Dell</td>
-                        <td>20</td>
-                        <td>100</td>
-						<td>2000</td>
-						<td>En mal estado, bateria inchada</td>
+                      <td >{{$dato->name}}</td>
+                        <td>
+											<input class="form-control form-control" type="numeric" name="cantidad" value="{{$dato->cantidad}}" placeholder="Ingrese la cantidad" />
+										@error('cantidad')
+										<small class="text-danger">{{$message}}</small>
+										@enderror
+										</td>
+                        <td>	
+                          <input class="form-control form-control" type="numeric" name="costo" value="{{$dato->costo}}" placeholder="Ingrese el costo" />
+										@error('costo')
+										<small class="text-danger">{{$message}}</small>
+										@enderror</td>
+                        <td>{{$dato->total}}</td>
+
+                       <!-- <button type="submit" class="btn btn-lg btn-primary">Guardar</button>-->
+											<a href="{{ url('administrador/detallenotaingreso/'.$idnota.'/listaproducto')}}" class="btn btn-primary float-end">Volver</a>
+                                        
+										 
+										</div>
+										
+									</form>
+                        
    
     </tr>
- 
+    @endforeach
   </tbody>
 </table>
 </div>
             </div>
+            @endsection

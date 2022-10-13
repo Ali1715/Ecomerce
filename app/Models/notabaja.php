@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class notabaja extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $table='notabajas';
 
 	protected $fillable=[

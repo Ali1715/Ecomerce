@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class detallenotaingreso extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $table='detallenotaingreso';
+    use HasFactory;
+    protected $table='detallenotaingresos';
 
 	protected $fillable=[
 	

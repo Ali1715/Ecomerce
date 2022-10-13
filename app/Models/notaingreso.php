@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class notaingreso extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $table='notaingreso';
+    use HasFactory;
+    protected $table='notaingresos';
 
 	protected $fillable=[
 	
-	'FechaHora',
+
     'idempleado',
+    'total',
     
     
     

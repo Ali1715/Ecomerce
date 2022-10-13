@@ -6,8 +6,11 @@ use App\Models\notaingreso;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProductoController;
 use App\Http\Requests\ProductoFormRequest;
-use App\Models\producto;
+use App\Models\productos;
 use Illuminate\Support\Facades\DB;
+use App\Models\Persona;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class NotaingresoController extends Controller
@@ -19,10 +22,13 @@ class NotaingresoController extends Controller
      */
     public function index()
     {
-        $datos = DB::table('notaingreso')
-        ->join('persona', 'persona.id', '=', 'notaingreso.idempleado')
+
+    
+
+        $datos = DB::table('notaingresos')
+        ->join('personas', 'personas.id', '=', 'notaingresos.idempleado')
     ->latest('created_at')
-        ->select('notaingreso.id', 'notaingreso.created_at', 'notaingreso.total','persona.name')
+        ->select('notaingresos.id', 'notaingresos.created_at', 'notaingresos.total','personas.name')
         ->get();
   
      return view('administrador.gestionar_notaingreso.index',['dato'=>$datos]);
@@ -35,16 +41,20 @@ class NotaingresoController extends Controller
      */
     public function create()
     {
+        
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
        
+        $user->name;
  
         $dato = new notaingreso();
-        
+        $dato->idempleado= $id2;
         $dato->total=00;
       
  
         $dato->save();
 
-        return redirect('administrador/notaingreso/agregar')->with('message','Guardado exitosamente');
+        return redirect('administrador/notaingreso')->with('message','Guardado exitosamente');
     }
 
     /**
@@ -66,13 +76,18 @@ class NotaingresoController extends Controller
      */
     public function agregar()
     {
-        $datos = DB::table('producto')
+        $datos = DB::table('productos')
         ->select('id', 'name')
         ->get();
   
      return view('administrador.gestionar_notaingreso.agregar',['dato'=>$datos]);
     }
    
+    public function agregardetalle(notaingreso $dato)
+    {
+        
+        return view('administrador.gestionar_notaingreso.agregar', compact('dato'));
+    }
 
     /**
      * Show the form for editing the specified resource.

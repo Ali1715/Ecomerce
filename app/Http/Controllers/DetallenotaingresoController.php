@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\producto;
 use App\Http\Controllers\ProductoController;
 use App\Http\Requests\ProductoFormRequest;
+use App\Models\detallenotabaja;
 use App\Models\notaingreso;
 use Illuminate\Support\Facades\DB;
 
@@ -17,9 +18,15 @@ class DetallenotaingresoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($idnota)
     {
-        //
+        $datos = DB::table('detallenotaingresos')->where('idnota', $idnota)
+        ->join('productos', 'productos.id', '=', 'detallenotaingresos.idproducto')
+     
+        ->select('productos.name','detallenotaingresos.idproducto','detallenotaingresos.idnota','detallenotaingresos.cantidad','detallenotaingresos.costo', 'detallenotaingresos.total')
+        ->get();
+  
+        return view('administrador.gestionar_detallenotaingreso.detallenotaingreso',['dato'=>$datos,'idnota'=>$idnota]);
     }
 
     /**
@@ -69,18 +76,31 @@ class DetallenotaingresoController extends Controller
         return redirect('administrador/notaingreso/agregar')->with('message','Guardado exitosamente');
     }
 
-    public function listar(notaingreso $datoidnota)
+    public function listar($idnota)
     {
-         $datonota= 'datoidnota';
-        $datos = DB::table('producto')->orderBy('id')
-            ->join('marca', 'marca.id', '=', 'producto.idmarca')
+         $datonota= $idnota;
+        $datos = DB::table('productos')->orderBy('id')
+            ->join('marcas', 'marcas.id', '=', 'productos.idmarca')
         
-            ->select('producto.id', 'producto.name', 'producto.descripcion','producto.precioStock','producto.precioUnitario','marca.nombre')
+            ->select('productos.id', 'productos.name', 'productos.descripcion','productos.precioStock','productos.precioUnitario','marcas.nombre')
             ->get();
       
      
          return view('administrador.gestionar_detallenotaingreso.listaproducto', compact('datos','datonota'));
      
+    }
+    public function create( $idnota)
+    {
+   
+       
+        $dato = new detallenotaingreso();
+        $dato->idnota=$idnota;
+       
+        $dato->save();
+
+      
+
+        return redirect('administrador/detallenotaingreso/listaproducto')->with('message','Agregar producto necesariamente');
     }
 
     /**
@@ -101,9 +121,34 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, detallenotaingreso $detallenotaingreso)
+    public function update(Request $request, $idnota,  $dato)
     {
-        //
+
+     
+       
+        $datos = detallenotaingreso::where("idnota", '=', $idnota, "idproducto",'=',$dato);
+        
+        $datos->cantidad=['cantidad'];
+        $datos->costo=['costo'];
+        $datos->total=[00];
+        $datos->update();
+
+        return redirect('administrador/notaingreso/'.$idnota.'/agregardetalle')->with('message','Actualizado exitosamente');
+    }
+
+   public function add($idnota,$idproducto)
+    {
+
+
+    
+        $dato = new detallenotaingreso();
+        $dato->idnota=$idnota;
+        $dato->idproducto=$idproducto;
+        $dato->total=00;
+
+        $dato->save();
+
+        return redirect('administrador/detallenotaingreso/'.$idnota.'/agregar')->with('message','Agregar producto necesariamente');
     }
 
     /**

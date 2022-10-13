@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class marca extends Model
 {
-    use HasFactory,SoftDeletes;
+	use HasFactory;
     protected $table='marcas';
 
 	protected $fillable=[

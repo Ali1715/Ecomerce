@@ -38,7 +38,7 @@
                         <td>{{$dato->created_at}}</td>
                         <td>{{$dato->name}}</td>
                         <td>{{$dato->total}}</td>
-                        <td><a href="{{ url('administrador/notaingreso/'.$dato->id.'/create') }}" class="btn btn-primary ">Agregar</a></td>
+                        <td><a href="{{ url('administrador/notaingreso/'.$dato->id.'/agregardetalle') }}" class="btn btn-primary ">Agregar</a></td>
    
     </tr>
     @endforeach
