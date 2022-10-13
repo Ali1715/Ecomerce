@@ -4,6 +4,13 @@
         <div class="card-header d-inline-flex">
             <h1>Roles y Permisos</h1>
         </div>
+        
+        <div class="card-header d-inline-flex">
+            <a href="{{ route('roles.create') }}" class="btn btn-primary ml-auto">
+                <i class="fas fa-arrow-left"></i>
+                Registrar</a>
+        </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped">
