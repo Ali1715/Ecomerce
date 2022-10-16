@@ -6,20 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class notaingreso extends Model
+class Proveedor extends Model
 {
-    use HasFactory;
-    protected $table = 'notaingresos';
-   
+    use HasFactory, SoftDeletes;
+    protected $table='proveedors';
 
 	protected $fillable=[
 	
-
-    'idempleado',
-    'total',
-    
-    
-    
+	'nombre',
+    'correo',
+    'celular',
+    'direccion',
+    'idnotadeingreso',
 	];
 }

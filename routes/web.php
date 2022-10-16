@@ -9,6 +9,7 @@ use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\ProveedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,11 +126,12 @@ Route::prefix('/cliente')->group(function () {
 Route::get('/registro', [RegistroController::class, 'show']);
 
 Route::post('/registro', [RegistroController::class, 'register']);
-
+Route::get('/administrador/proveedor', [ProveedorController::class, 'index']);
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/empleados', EmpleadoController::class);
     Route::resource('/administrador/clientes', ClienteController::class);
     Route::resource('/perfil', PerfilController::class);
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
+    Route::resource('/administrador/proveedor', ProveedorController::class);
 });
