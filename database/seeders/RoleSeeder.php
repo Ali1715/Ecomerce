@@ -25,12 +25,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'usuario.update'])->syncRoles($role1);
         Permission::create(['name' => 'usuario.delete'])->syncRoles($role1);
 
-        Permission::create(['name' => 'cliente.index'])->syncRoles($role2);
+        Permission::create(['name' => 'cliente.index'])->syncRoles($role1, $role2);
         Permission::create(['name' => 'cliente.create'])->syncRoles([$role1, $role2, $role3]);
         Permission::create(['name' => 'cliente.update'])->syncRoles([$role1, $role2, $role3]);
         Permission::create(['name' => 'cliente.delete'])->syncRoles([$role1, $role2, $role3]);
 
-        Permission::create(['name' => 'empleado.index'])->syncRoles($role3);
+        Permission::create(['name' => 'empleado.index'])->syncRoles($role1, $role3);
         Permission::create(['name' => 'empleado.create'])->syncRoles($role1);
         Permission::create(['name' => 'empleado.update'])->syncRoles([$role1, $role3]);
         Permission::create(['name' => 'empleado.delete'])->syncRoles([$role1, $role3]);
@@ -39,5 +39,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'producto.create'])->syncRoles($role1);
         Permission::create(['name' => 'producto.update'])->syncRoles($role1);
         Permission::create(['name' => 'producto.delete'])->syncRoles($role1);
+
+        Permission::create(['name' => 'bitacora.index'])->syncRoles($role1);
     }
 }

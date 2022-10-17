@@ -15,6 +15,14 @@ date_default_timezone_set('America/La_Paz');
 
 class ClienteController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:cliente.index', ['only' => 'index']);
+        $this->middleware('can:cliente.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:cliente.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:cliente.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

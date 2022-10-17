@@ -15,6 +15,14 @@ date_default_timezone_set('America/La_Paz');
 
 class EmpleadoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:empleado.index', ['only' => 'index']);
+        $this->middleware('can:empleado.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:empleado.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:empleado.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

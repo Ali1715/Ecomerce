@@ -17,6 +17,5 @@ class Proveedor extends Model
     'correo',
     'celular',
     'direccion',
-    'idnotadeingreso',
 	];
 }
