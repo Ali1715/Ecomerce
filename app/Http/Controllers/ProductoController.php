@@ -24,13 +24,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $datos = DB::table('productos')->orderBy('id')
-            ->join('marcas', 'marcas.id', '=', 'productos.idmarca')
-
-            ->select('productos.id', 'productos.name', 'productos.descripcion', 'productos.stock', 'productos.precioUnitario', 'marcas.nombre')
-            ->get();
-
-        return view('administrador.gestionar_producto.index', ['dato' => $datos]);
+        $productos = producto::paginate(10);
+        $marcas = marca::get();
+        $categorias = categoria::get();
+        return view('administrador.gestionar_producto.index', compact('productos', 'marcas', 'categorias'));
     }
 
     /**
