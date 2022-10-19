@@ -7,9 +7,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ProveedorController;
 
@@ -42,19 +45,11 @@ Route::prefix('/administrador')->group(function () {
 
         //********************************* */ Route for Category**************************************
 
-        Route::controller(App\Http\Controllers\CategoriaController::class)->group(function () {
-            Route::get('/categoria', 'index');
-            Route::get('/categoria/create', 'create');
-            Route::post('/categoria/store', 'store');
-        });
+        Route::resource('/categoria', CategoriaController::class);
 
         //********************************* */ Route for Marca**************************************
 
-        Route::controller(App\Http\Controllers\MarcaController::class)->group(function () {
-            Route::get('/marca', 'index');
-            Route::get('/marca/create', 'create');
-            Route::post('/marca/store', 'store');
-        });
+        Route::resource('/marca', MarcaController::class);
 
         //********************************* */ Route for Producto**************************************
 
@@ -67,6 +62,8 @@ Route::prefix('/administrador')->group(function () {
             Route::get('/producto/{dato}/delete', 'destroy');
             Route::get('/producto/{$dato}/actualizar', 'modificar');
         });
+
+        Route::resource('/producto', ProductoController::class);
 
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');

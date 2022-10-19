@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class categoria extends Model
 {
-    use HasFactory;
-    protected $table='categorias';
+	use HasFactory;
+	protected $table = 'categorias';
 
-	protected $fillable=[
-	
-	'nombre',
-    
+	protected $fillable = [
+		'nombre',
 	];
 }

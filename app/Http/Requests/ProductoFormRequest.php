@@ -24,34 +24,29 @@ class ProductoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>[
+            'nombre' => [
                 'required',
                 'string'
             ],
-            'descripcion'=>[
+            'descripcion' => [
                 'required',
                 'string'
             ],
-            'costo'=>[
+            /*'costo' => [
                 'required',
-                
-            ],
-            'precio'=>[
+            ],*/
+            'precio' => [
                 'required',
-                
             ],
-            'categoria'=>[
+            'idcategoria' => [
                 'required',
-                
             ],
-            'marca'=>[
+            'idmarca' => [
                 'required',
-                
             ],
-            'imagen'=>[
+            'imagen' => [
                 'nullable',
                 'mimes:jpg,jpeg,png',
-                
             ],
         ];
     }

@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoriaRequest;
+use App\Http\Requests\UpdateCategoriaRequest;
+use App\Models\Bitacora;
 use App\Models\categoria;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Persona;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class CategoriaController extends Controller
 {
@@ -15,8 +21,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $dato = categoria::paginate(10);
-        return (view('administrador.gestionar_categoria.index', compact('dato')));
+        $categorias = categoria::paginate(10);
+        return (view('administrador.gestionar_categoria.index', compact('categorias')));
     }
 
     /**
@@ -26,7 +32,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-         return view('administrador.gestionar_categoria.create');
+        return view('administrador.gestionar_categoria.create');
     }
 
     /**
@@ -35,17 +41,28 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoriaRequest $request)
     {
-       
- 
-        $dato = new Categoria;
-        $dato->id= 0+1;
-        $dato->nombre=$request['nombre'];
-      
-        $dato->save();
-
-        return redirect('administrador/categoria')->with('message','Guardado exitosamente');
+        categoria::create($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un registro de una nueva categoria";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
+        return redirect('administrador/categoria')->with('message', 'Guardado exitosamente');
     }
 
     /**
@@ -65,9 +82,10 @@ class CategoriaController extends Controller
      * @param  \App\Models\categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(categoria $categoria)
+    public function edit($id)
     {
-        //
+        $categoria = categoria::findOrFail($id);
+        return view('administrador.gestionar_categoria.edit', compact('categoria'));
     }
 
     /**
@@ -77,9 +95,30 @@ class CategoriaController extends Controller
      * @param  \App\Models\categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, categoria $categoria)
+    public function update(UpdateCategoriaRequest $request, $id)
     {
-        //
+        $categoria = categoria::find($id);
+        $categoria->update($request->validated());
+        $categoria->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de una categoria";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
+        return redirect('administrador/categoria')->with('message', 'Editado exitosamente');
     }
 
     /**
@@ -88,8 +127,32 @@ class CategoriaController extends Controller
      * @param  \App\Models\categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = categoria::findOrFail($id);
+        try {
+            $categoria->delete();
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Eliminó un registro de una categoria";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->save();
+            //----------
+            return redirect()->route('categoria.index')->with('message', 'Se han borrado los datos correctamente.');
+        } catch (QueryException $e) {
+            return redirect()->route('categoria.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+        }
     }
 }
