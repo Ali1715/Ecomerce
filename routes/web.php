@@ -53,17 +53,9 @@ Route::prefix('/administrador')->group(function () {
 
         //********************************* */ Route for Producto**************************************
 
-        Route::controller(App\Http\Controllers\ProductoController::class)->group(function () {
-            Route::get('/producto', 'index');
-            Route::get('/producto/create', 'create');
-            Route::post('/producto/store', 'store');
-            Route::get('/producto/{dato}/edit', 'edit');
-            Route::put('/producto/{dato}', 'update');
-            Route::get('/producto/{dato}/delete', 'destroy');
-            Route::get('/producto/{$dato}/actualizar', 'modificar');
-        });
-
         Route::resource('/producto', ProductoController::class);
+
+        //********************************* */ Route for Roles**************************************
 
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');

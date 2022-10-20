@@ -1,8 +1,8 @@
 @extends('administrador.admin')
 @section('content')
     <div class="card mt-3">
-        <div class="card-header d-inline-flex">
-            <h1>Empleados</h1>
+        <div class="card-header d-inline">
+            <h1><center><b>EMPLEADOS</b></center></h1>
         </div>
         <div class="card-body">
             <div class="row">
@@ -13,7 +13,7 @@
                             Agregar</a>
                     </div>
                 @endcan
-                <div class="card-footer">
+                <div class="pagination justify-content-end">
                     {{ $empleados->links() }}
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="pagination justify-content-end">
             {{ $empleados->links() }}
         </div>
     </div>

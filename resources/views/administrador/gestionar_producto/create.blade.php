@@ -34,9 +34,9 @@
                                         <!--  -->
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
-                                            <input class="form-control form-control-lg" type="text" name="nombre"
+                                            <input class="form-control form-control-lg" type="text" name="name"
                                                 placeholder="Ingrese el nombre del producto" />
-                                            @error('nombre')
+                                            @error('name')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -48,20 +48,12 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
-                                        <!--<div class="mb-3">
-                                            <label class="form-label">Costo</label>
-                                            <input class="form-control form-control-lg" type="decimal" name="costo"
-                                                placeholder="00.00" />
-                                            @error('costo')
-                                                <small class="text-danger">{{ $message }}</small>
-                                            @enderror
-                                        </div>-->
-                                        <input type="hidden" name="stock" class="form-control" id="stock" value="0">
+                                        <input type="hidden" name="stock" class="form-control" value="0" />
                                         <div class="mb-3">
-                                            <label class="form-label">Precio</label>
-                                            <input class="form-control form-control-lg" type="decimal" name="precio"
+                                            <label class="form-label">Precio De Venta</label>
+                                            <input class="form-control form-control-lg" type="decimal" name="precioUnitario"
                                                 placeholder="00.00" />
-                                            @error('precio')
+                                            @error('precioUnitario')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>

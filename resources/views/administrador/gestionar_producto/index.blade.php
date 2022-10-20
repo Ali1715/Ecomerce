@@ -55,18 +55,20 @@
                                     @endif
                                 @endforeach
                                 <td>
-                                    <a href="{{ url('administrador/producto/' . $producto->id . '/edit') }}"
-                                        class="btn btn-info">Editar</a>
-                                    <button type="submit" class="btn btn-danger" form="delete_{{ $producto->id }}"
-                                        onclick="return confirm('¿Estás seguro de eliminar el registro?')">
-                                        <i class="fas fa-trash">Eliminar</i>
-                                    </button>
-                                    <form action="{{ route('producto.destroy', $producto->id) }}"
-                                        id="delete_{{ $producto->id }}" method="POST" enctype="multipart/form-data"
-                                        hidden>
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="{{ url('administrador/producto/' . $producto->id . '/edit') }}"
+                                            class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                        <button type="submit" class="btn btn-danger" form="delete_{{ $producto->id }}"
+                                            onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <form action="{{ route('producto.destroy', $producto->id) }}"
+                                            id="delete_{{ $producto->id }}" method="POST" enctype="multipart/form-data"
+                                            hidden>
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

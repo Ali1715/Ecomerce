@@ -1,8 +1,8 @@
 @extends('administrador.admin')
 @section('content')
     <div class="card mt-3">
-        <div class="card-header d-inline-flex">
-            <h1>Roles y Permisos</h1>
+        <div class="card-header d-inline">
+            <H1><center><b>ROLES Y PERMISOS</b></center></H1>
         </div>
         
         <div class="card-header d-inline-flex">

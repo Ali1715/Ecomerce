@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\producto;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductoFormRequest;
+use App\Http\Requests\StoreProductoRequest;
+use App\Http\Requests\UpdateProductoRequest;
 use App\Models\Bitacora;
 use App\Models\categoria;
 use App\Models\marca;
@@ -48,31 +49,17 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductoFormRequest $request)
+    public function store(StoreProductoRequest $request)
     {
-        //dd($request->all());
-        $validatedDaata = $request->validated();
-
-        $dato = new Producto;
-        $dato->name = $validatedDaata['nombre'];
-        $dato->descripcion = $validatedDaata['descripcion'];
-        $dato->stock = 0;
-        $dato->precioUnitario = $validatedDaata['precio'];
+        $producto = producto::create($request->validated());
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-
             $file->move('public/img/', $filename);
-
-            $dato->imagen = $filename;
+            $producto->imagen = $filename;
         }
-
-        $dato->idmarca = $validatedDaata['idmarca'];
-        $dato->idcategoria = $validatedDaata['idcategoria'];
-
-        $dato->save();
-
+        $producto->save();
         return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
     }
 
@@ -107,32 +94,18 @@ class ProductoController extends Controller
      * @param  \App\Models\producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductoFormRequest $request,  $dato)
+    public function update(UpdateProductoRequest $request, $id)
     {
-        $validatedDaata = $request->validated();
-        $dato = producto::findOrfail($dato);
-
-        $validatedDaata = $request->validated();
-
-        $dato->name = $validatedDaata['nombre'];
-        $dato->descripcion = $validatedDaata['descripcion'];
-        $dato->stock = $request->stock;
-        $dato->precioUnitario = $validatedDaata['precio'];
+        $producto = producto::findOrFail($id);
+        $producto->update($request->validated());
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-
             $file->move('public/img/', $filename);
-
-            $dato->imagen = $filename;
+            $producto->imagen = $filename;
         }
-
-        $dato->idmarca = $validatedDaata['idmarca'];
-        $dato->idcategoria = $validatedDaata['idcategoria'];
-
-        $dato->update();
-
+        $producto->save();
         return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');
     }
 
@@ -166,7 +139,7 @@ class ProductoController extends Controller
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
             $bitacora->save();
-            //----------
+            //---------------
             return redirect('administrador/producto')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
             return redirect('administrador/producto')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
