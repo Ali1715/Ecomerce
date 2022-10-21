@@ -110,5 +110,9 @@ class MarcaSeeder extends Seeder
         marca::create([
             'nombre' => 'Tp-Link'
         ]);
+
+        marca::create([
+            'nombre' => 'Crucial'
+        ]);
     }
 }

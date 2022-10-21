@@ -80,11 +80,12 @@ class ProductoController extends Controller
      * @param  \App\Models\producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(producto $dato)
+    public function edit($id)
     {
+        $producto = producto::findOrFail($id);
         $categorias = categoria::get();
         $marcas = marca::get();
-        return view('administrador.gestionar_producto.edit', compact('dato', 'categorias', 'marcas'));
+        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas'));
     }
 
     /**

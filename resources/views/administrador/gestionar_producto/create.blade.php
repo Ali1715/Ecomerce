@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 <div class="m-sm-4">
                                     <!--route de form -->
-                                    <form action="{{ url('administrador/producto/store') }}" method="POST"
+                                    <form action="{{ route('producto.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <!--  {{ csrf_field() }}  -->

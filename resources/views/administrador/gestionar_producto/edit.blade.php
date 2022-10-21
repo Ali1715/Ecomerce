@@ -16,7 +16,7 @@
                             <div class="card-body">
                                 <div class="m-sm-4">
                                     <!--route de form -->
-                                    <form action="{{ url('administrador/producto/' . $dato->id) }}" method="POST"
+                                    <form action="{{ route('producto.update', $producto->id) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
@@ -25,7 +25,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
                                             <input class="form-control form-control-lg" type="text" name="name"
-                                                value="{{ $dato->name }}" placeholder="Ingrese el nombre del producto" />
+                                                value="{{ $producto->name }}" placeholder="Ingrese el nombre del producto" />
                                             @error('name')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -33,7 +33,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Descripcion</label>
                                             <input class="form-control form-control-lg" type="text" name="descripcion"
-                                                value="{{ $dato->descripcion }}" placeholder="Ingrese una descripcion" />
+                                                value="{{ $producto->descripcion }}" placeholder="Ingrese una descripcion" />
                                             @error('descripcion')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -41,7 +41,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Stock</label>
                                             <input class="form-control form-control-lg" type="integer" name="stock"
-                                                value="{{ $dato->stock }}" placeholder="" />
+                                                value="{{ $producto->stock }}" placeholder="" />
                                             @error('stock')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -49,7 +49,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Precio</label>
                                             <input class="form-control form-control-lg" type="decimal" name="precioUnitario"
-                                                value="{{ $dato->precioUnitario }}" placeholder="00.00" />
+                                                value="{{ $producto->precioUnitario }}" placeholder="00.00" />
                                             @error('precioUnitario')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -59,7 +59,7 @@
                                             <select name="idcategoria" class="form-control">
                                                 @foreach ($categorias as $categoria)
                                                     <option value="{{ $categoria->id }}"
-                                                        @if ($categoria->id == $dato->idcategoria) selected @endif>
+                                                        @if ($categoria->id == $producto->idcategoria) selected @endif>
                                                         {{ $categoria->nombre }}
                                                     </option>
                                                 @endforeach
@@ -74,7 +74,7 @@
                                             <select name="idmarca" class="form-control">
                                                 @foreach ($marcas as $marca)
                                                     <option value="{{ $marca->id }}"
-                                                        @if ($marca->id == $dato->idmarca) selected @endif>
+                                                        @if ($marca->id == $producto->idmarca) selected @endif>
                                                         {{ $marca->nombre }}
                                                     </option>
                                                 @endforeach
