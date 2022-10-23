@@ -21,6 +21,7 @@ class ProductoSeeder extends Seeder
                                     SSD de 256 GB, Windows 11 Home (15-dy2024nr, plata natural)',
             'stock' => '27',
             'precioUnitario' => '4682.36',
+            'imagen' => 'Laptop_HP_De_15_6_Pulgadas.PNG',
             'idcategoria' => '5',
             'idmarca' => '12'
         ]);
@@ -31,6 +32,7 @@ class ProductoSeeder extends Seeder
                                     Windows 11 Home, almendra',
             'stock' => '16',
             'precioUnitario' => '6803.71',
+            'imagen' => 'Laptop_Lenovo_Ideapad_3.PNG',
             'idcategoria' => '5',
             'idmarca' => '13'
         ]);
@@ -40,6 +42,7 @@ class ProductoSeeder extends Seeder
                                     8MG06AA#ABC',
             'stock' => '23',
             'precioUnitario' => '553.31',
+            'imagen' => 'Memoria_Ram_8x2_HP.PNG',
             'idcategoria' => '3',
             'idmarca' => '12'
         ]);
@@ -48,6 +51,7 @@ class ProductoSeeder extends Seeder
             'descripcion' => 'Corsair Vengeance RGB Pro de 32 GB (2 x 16 GB) DDR4 3600 (PC4-28800) C18 AMD - Memoria optimizada - Negro',
             'stock' => '40',
             'precioUnitario' => '1012',
+            'imagen' => 'Memoria_Ram_16x2_Corsair_Vengeance_Pro.PNG',
             'idcategoria' => '3',
             'idmarca' => '6'
         ]);
@@ -57,6 +61,7 @@ class ProductoSeeder extends Seeder
                                     (M.2 Support, HDMI, D-Sub, DVI, USB 3.2 Gen 1, CO Header, TPM Header y ASUS Control Center Express)',
             'stock' => '45',
             'precioUnitario' => '602',
+            'imagen' => 'Tarjeta_Madre_Asus_Prime_H410M-A.PNG',
             'idcategoria' => '2',
             'idmarca' => '5'
         ]);
@@ -66,6 +71,7 @@ class ProductoSeeder extends Seeder
                                     HDMI/DP, ATX)',
             'stock' => '42',
             'precioUnitario' => '993',
+            'imagen' => 'Tarjeta_Madre_MSI_B550-A_Pro.PNG',
             'idcategoria' => '2',
             'idmarca' => '19'
         ]);
@@ -74,6 +80,7 @@ class ProductoSeeder extends Seeder
             'descripcion' => 'AMD Procesador de escritorio desbloqueado Ryzen 7 5800X de 8 núcleos y 16 hilos',
             'stock' => '50',
             'precioUnitario' => '449',
+            'imagen' => 'Procesador_AMD_Ryzen_7_5800X.PNG',
             'idcategoria' => '4',
             'idmarca' => '2'
         ]);
@@ -83,6 +90,7 @@ class ProductoSeeder extends Seeder
                                     LGA1700 600 Series Chipset 125W',
             'stock' => '17',
             'precioUnitario' => '277',
+            'imagen' => 'Procesador_Intel_Core_i5_12600K.PNG',
             'idcategoria' => '4',
             'idmarca' => '15'
         ]);
@@ -91,6 +99,7 @@ class ProductoSeeder extends Seeder
             'descripcion' => 'Crucial BX500 1TB 3D NAND SATA 2.5-Inch Internal SSD, up to 540MB/s - CT1000BX500SSD1',
             'stock' => '62',
             'precioUnitario' => '626.4',
+            'imagen' => 'SSD_Crucial_BX500_1TB.PNG',
             'idcategoria' => '1',
             'idmarca' => '25'
         ]);
@@ -100,6 +109,7 @@ class ProductoSeeder extends Seeder
                                     interno para PC Desktop Computers System All in One Home Servers DAS (ST10000DM0004) (renovado)',
             'stock' => '53',
             'precioUnitario' => '1250.364',
+            'imagen' => 'HDD_Seagate_Barracuda_10TB.PNG',
             'idcategoria' => '1',
             'idmarca' => '21'
         ]);

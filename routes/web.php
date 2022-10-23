@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\EmpleadoController;
@@ -117,3 +118,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/bitacoras', BitacoraController::class);
     Route::resource('/administrador/proveedor', ProveedorController::class);
 });
+
+Route::resource('/cliente/catalogo', CatalogoController::class);
