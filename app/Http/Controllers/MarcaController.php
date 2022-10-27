@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMarcaRequest;
+use App\Http\Requests\UpdateMarcaRequest;
+use App\Models\Bitacora;
 use App\Models\marca;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Persona;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class MarcaController extends Controller
 {
@@ -15,8 +21,8 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $dato = Marca::paginate(10);
-        return (view('administrador.gestionar_marca.index', compact('dato')));
+        $marcas = Marca::paginate(10);
+        return (view('administrador.gestionar_marca.index', compact('marcas')));
     }
 
     /**
@@ -35,16 +41,28 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMarcaRequest $request)
     {
-        
-        $dato = new Marca;
-        $dato->id= 0+1;
-        $dato->nombre=$request['nombre'];
-      
-        $dato->save();
-
-        return redirect('administrador/marca')->with('message','Guardado exitosamente');
+        marca::create($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un registro de una nueva marca";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
+        return redirect('administrador/marca')->with('message', 'Guardado exitosamente');
     }
 
     /**
@@ -64,9 +82,10 @@ class MarcaController extends Controller
      * @param  \App\Models\marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function edit(marca $marca)
+    public function edit($id)
     {
-        //
+        $marca = marca::findOrFail($id);
+        return view('administrador.gestionar_marca.edit', compact('marca'));
     }
 
     /**
@@ -76,9 +95,30 @@ class MarcaController extends Controller
      * @param  \App\Models\marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, marca $marca)
+    public function update(UpdateMarcaRequest $request, $id)
     {
-        //
+        $marca = marca::findOrFail($id);
+        $marca->update($request->validated());
+        $marca->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de una marca";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
+        return redirect('administrador/marca')->with('message', 'Editado exitosamente');
     }
 
     /**
@@ -87,8 +127,32 @@ class MarcaController extends Controller
      * @param  \App\Models\marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(marca $marca)
+    public function destroy($id)
     {
-        //
+        $marca = marca::findOrFail($id);
+        try {
+            $marca->delete();
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Eliminó un registro de una marca";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->save();
+            //----------
+            return redirect()->route('marca.index')->with('message', 'Se han borrado los datos correctamente.');
+        } catch (QueryException $e) {
+            return redirect()->route('marca.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+        }
     }
 }

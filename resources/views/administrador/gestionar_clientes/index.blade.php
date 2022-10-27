@@ -1,17 +1,19 @@
 @extends('administrador.admin')
 @section('content')
     <div class="card mt-3">
-        <div class="card-header d-inline-flex">
-            <h1>Clientes</h1>
+        <div class="card-header d-inline">
+            <h1><center><b>CLIENTES</b></center></h1>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-2">
-                    <a href="{{ route('clientes.create') }}" class="btn btn-primary ml-auto">
-                        <i class="fas fa-plus"></i>
-                        Agregar</a>
-                </div>
-                <div class="card-footer">
+                @can('cliente.create')
+                    <div class="col-2">
+                        <a href="{{ route('clientes.create') }}" class="btn btn-primary ml-auto">
+                            <i class="fas fa-plus"></i>
+                            Agregar</a>
+                    </div>
+                @endcan
+                <div class="pagination justify-content-end">
                     {{ $clientes->links() }}
                 </div>
             </div>
@@ -47,18 +49,22 @@
                                     <td>{{ $cliente->estadocli }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="{{ route('clientes.edit', $cliente->id) }}"
-                                                class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger" form="delete_{{ $cliente->id }}"
-                                                onclick="return confirm('¿Estás seguro de eliminar el registro?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <form action="{{ route('clientes.destroy', $cliente->id) }}"
-                                                id="delete_{{ $cliente->id }}" method="POST"
-                                                enctype="multipart/form-data" hidden>
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
+                                            @can('cliente.update')
+                                                <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-primary"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                            @endcan
+                                            @can('cliente.delete')
+                                                <button type="submit" class="btn btn-danger" form="delete_{{ $cliente->id }}"
+                                                    onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form action="{{ route('clientes.destroy', $cliente->id) }}"
+                                                    id="delete_{{ $cliente->id }}" method="POST"
+                                                    enctype="multipart/form-data" hidden>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
@@ -68,7 +74,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="pagination justify-content-end">
             {{ $clientes->links() }}
         </div>
     </div>

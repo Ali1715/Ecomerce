@@ -8,6 +8,11 @@ use App\Http\Requests\UpdateBitacoraRequest;
 
 class BitacoraController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:bitacora.index', ['only' => 'index']);
+    }
+
     /**
      * Display a listing of the resource.
      *

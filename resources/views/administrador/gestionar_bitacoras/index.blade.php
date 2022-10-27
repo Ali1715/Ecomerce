@@ -1,12 +1,14 @@
 @extends('administrador.admin')
 @section('content')
-    <div class="card mt-3">
-        <div class="card-header d-inline-flex">
-            <h1>Bitácora</h1>
+    <div class="card mt-3" id="content">
+        <div class="card-header d-inline">
+            <h1>
+                <center><b>BITÁCORA</b></center>
+            </h1>
         </div>
         <div class="card-body">
-            <div class="row">
-                    {{ $bitacoras->links() }}
+            <div class="pagination justify-content-end">
+                {!! $bitacoras->links() !!}
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -33,6 +35,8 @@
                 </table>
             </div>
         </div>
-            {{ $bitacoras->links() }}
+        <div class="pagination justify-content-end">
+            {!! $bitacoras->links() !!}
+        </div>
     </div>
 @endsection

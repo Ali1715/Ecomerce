@@ -8,13 +8,20 @@ use App\Models\Bitacora;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 date_default_timezone_set('America/La_Paz');
 
 class ClienteController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:cliente.index', ['only' => 'index']);
+        $this->middleware('can:cliente.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:cliente.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:cliente.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -103,6 +110,7 @@ class ClienteController extends Controller
     {
         $persona = Persona::find($id);
         $persona->update($request->validated());
+        $persona->save();
         $cliente = User::where('email', $persona->email)->first();
         $cliente->update($request->validated());
         $cliente->save();

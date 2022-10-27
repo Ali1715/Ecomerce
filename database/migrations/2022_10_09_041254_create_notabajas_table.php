@@ -15,11 +15,9 @@ return new class extends Migration
     {
         Schema::create('notabajas', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('FechaHora');
+            $table->timestamp('FechaHora');
             $table->unsignedBigInteger('idempleado');
             $table->timestamps();
-
-
             $table->foreign('idempleado')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
         });
     }

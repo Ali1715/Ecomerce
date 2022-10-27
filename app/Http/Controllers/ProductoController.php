@@ -4,8 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\producto;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductoFormRequest;
+use App\Http\Requests\StoreProductoRequest;
+use App\Http\Requests\UpdateProductoRequest;
+use App\Models\Bitacora;
+use App\Models\categoria;
+use App\Models\marca;
+use App\Models\Persona;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+date_default_timezone_set('America/La_Paz');
 
 class ProductoController extends Controller
 {
@@ -16,13 +25,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $datos = DB::table('productos')->orderBy('id')
-            ->join('marcas', 'marcas.id', '=', 'productos.idmarca')
-        
-            ->select('productos.id', 'productos.name', 'productos.descripcion','productos.precioStock','productos.precioUnitario','marcas.nombre')
-            ->get();
-      
-         return view('administrador.gestionar_producto.index',['dato'=>$datos]);
+        $productos = producto::paginate(10);
+        $marcas = marca::get();
+        $categorias = categoria::get();
+        return view('administrador.gestionar_producto.index', compact('productos', 'marcas', 'categorias'));
     }
 
     /**
@@ -32,7 +38,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('administrador.gestionar_producto.create');
+        $categorias = categoria::get();
+        $marcas = marca::get();
+        return view('administrador.gestionar_producto.create', compact('categorias', 'marcas'));
     }
 
     /**
@@ -41,31 +49,18 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductoFormRequest $request)
+    public function store(StoreProductoRequest $request)
     {
-        $validatedDaata=$request->validated();
- 
-        $dato = new Producto;
-        $dato->name=$validatedDaata['nombre'];
-        $dato->descripcion=$validatedDaata['descripcion'];
-        $dato->precioStock=$validatedDaata['costo'];
-        $dato->precioUnitario=$validatedDaata['precio'];
-        if($request->hasFile('imagen')){
-            $file=$request->file('imagen');
-            $ext=$file->getClientOriginalExtension();
-            $filename=time().'.'.$ext;
-
-            $file->move('public/img/',$filename);
-
-            $dato->imagen=$filename;
+        $producto = producto::create($request->validated());
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('public/img/', $filename);
+            $producto->imagen = $filename;
         }
-        
-        $dato->idmarca=$validatedDaata['marca'];
-        $dato->idcategoria=$validatedDaata['categoria'];
-
-        $dato->save();
-
-        return redirect('administrador/producto')->with('message','Guardado exitosamente');
+        $producto->save();
+        return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
     }
 
     /**
@@ -85,9 +80,12 @@ class ProductoController extends Controller
      * @param  \App\Models\producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(producto $dato)
+    public function edit($id)
     {
-        return view('administrador.gestionar_producto.edit', compact('dato'));
+        $producto = producto::findOrFail($id);
+        $categorias = categoria::get();
+        $marcas = marca::get();
+        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas'));
     }
 
     /**
@@ -97,40 +95,22 @@ class ProductoController extends Controller
      * @param  \App\Models\producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductoFormRequest $request,  $dato)
+    public function update(UpdateProductoRequest $request, $id)
     {
-        $validatedDaata=$request->validated();
-        $dato=producto::findOrfail($dato);
-
-     
-        $validatedDaata=$request->validated();
- 
-      
-        $dato->name=$validatedDaata['nombre'];
-        $dato->descripcion=$validatedDaata['descripcion'];
-        $dato->precioStock=$validatedDaata['costo'];
-        $dato->precioUnitario=$validatedDaata['precio'];
-        if($request->hasFile('imagen')){
-            $file=$request->file('imagen');
-            $ext=$file->getClientOriginalExtension();
-            $filename=time().'.'.$ext;
-
-            $file->move('public/img/',$filename);
-
-            $dato->imagen=$filename;
+        $producto = producto::findOrFail($id);
+        $producto->update($request->validated());
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('public/img/', $filename);
+            $producto->imagen = $filename;
         }
-        
-        $dato->idmarca=$validatedDaata['marca'];
-        $dato->idcategoria=$validatedDaata['categoria'];
-
-    
-
-        $dato->update();
-
-        return redirect('administrador/producto')->with('message','Actualizado exitosamente');
+        $producto->save();
+        return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -138,8 +118,32 @@ class ProductoController extends Controller
      * @param  \App\Models\producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(producto $producto)
+    public function destroy($id)
     {
-       //
+        $producto = producto::findOrFail($id);
+        try {
+            $producto->delete();
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Eliminó un registro de un Producto";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->save();
+            //---------------
+            return redirect('administrador/producto')->with('message', 'Se han borrado los datos correctamente.');
+        } catch (QueryException $e) {
+            return redirect('administrador/producto')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+        }
     }
 }
