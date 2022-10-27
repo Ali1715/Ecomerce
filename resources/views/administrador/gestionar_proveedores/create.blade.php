@@ -1,16 +1,19 @@
 @extends('administrador.admin')
 @section('content')
+@if (session('message'))
+<div class="alert alert-success">{{ session('message')}}</div>
+@endif
     <div class="card mt-4">
         <div class="card-header d-inline-flex">
             <h1>Formulario - Crear Proveedores</h1>
         </div>
         <div class="card-header d-inline-flex">
-            <a href="{{ route('proveedores.index') }}" class="btn btn-primary ml-auto">
+            <a href="{{ route('gestionar_proveedores.index') }}" class="btn btn-primary ml-auto">
                 <i class="fas fa-arrow-left"></i>
                 Volver</a>
         </div>
         <div class="card-body">
-            <form action="{{route('proveedores.store')}}" method="POST" enctype="multipart/form-data" id="create">
+            <form action="{{route('gestionar_proveedores.store')}}" method="POST" enctype="multipart/form-data" id="create">
                 @include('administrador.gestionar_proveedores.partials.form')
             </form>
         </div>

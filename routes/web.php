@@ -110,6 +110,7 @@ Route::prefix('/administrador')->group(function () {
         Route::get('/detallenotaingreso/{idnota}/listaproducto','listar');
         Route::get('/detallenotaingreso/{idnota}{idproducto}/add','add');
         Route::get('/detallenotaingreso/{dato}/delete','destroy');
+
      
      
      });
@@ -133,5 +134,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/perfil', PerfilController::class);
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
-    Route::resource('/administrador/proveedor', ProveedorController::class);
+    Route::resource('/administrador/gestionar_proveedores', ProveedorController::class);
 });
