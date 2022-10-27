@@ -82,10 +82,11 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $proveedor)
+    public function edit($id)
     {
         //
-        return view('administrador.gestionar_proveedor.edit', compact('proveedor'));
+        $gestionar_proveedore= Proveedor::find($id);
+        return view('administrador.gestionar_proveedores.edit', compact('gestionar_proveedore'));
     }
 
     /**
@@ -98,11 +99,22 @@ class ProveedorController extends Controller
     public function update(UpdateProveedorRequest $request, $id)
     {
         //
-        $proveedor = Proveedor::find($id);
-        $proveedor->update($request->validated());
-        $proveedor = proveedor::where('correo', $proveedor->correo)->first();
-        $proveedor->update($request->validated());
-        $proveedor->save();
+        $request->validate([
+            'nombre'=>'required',
+            'celular'=>'required',
+            'direccion'=>'required',
+            'correo'=>'required|string|max:255|email',
+        ]);       
+        $proveedor =Proveedor::find($id);        
+
+        $proveedor->update([
+            'nombre'=>$request->nombre,
+            'celular'=>$request->celular,
+            'direccion'=>$request->direccion,
+            'correo'=>$request->correo,
+        ]);
+
+        return redirect()->route('gestionar_proveedores.index');
     }
 
     /**

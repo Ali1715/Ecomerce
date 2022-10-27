@@ -22,7 +22,7 @@
                 <h1></h1>  
                 <h1></h1>  
 
-                    <a href="{{ url('administrador/gestionar_proveedores/create') }}" class="btn btn-primary float-end">Añadir Proveedor</a>
+                    <a href="{{ route('gestionar_proveedores.create') }}" class="btn btn-primary float-end">Añadir Proveedor</a>
 
                     <h1></h1>  
                     
