@@ -100,10 +100,10 @@
             </div>
         </div>
     </div>
-    <center>
-        <h1>CARRITO DE COMPRAS</h1>
-    </center>
     <div class="pagination justify-content-end">
         {!! $detallesCarrito->links() !!}
     </div>
+    <center>
+        <h1>TOTAL: {{$carrito->total}} Bs</h1>
+    </center>
 @endsection

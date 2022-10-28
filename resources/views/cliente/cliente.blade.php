@@ -184,7 +184,7 @@
                                                                     <h3 class="product-name"><a href="#">
                                                                             {{ $producto->name }}</a></h3>
                                                                     <h4 class="product-price"><span
-                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>${{ $producto->precioUnitario }}
+                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs {{ $producto->precioUnitario }}
                                                                     </h4>
                                                                 </div>
                                                                 <button class="delete" type="submit" form="delete_{{ $detalleCarrito->id }}"
@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="cart-summary">
                                             <small>{{ $c }} Item(s) selected</small>
-                                            <h5>SUBTOTAL: ${{ $carrito->total }}</h5>
+                                            <h5>SUBTOTAL: Bs {{ $carrito->total }}</h5>
                                         </div>
                                         <div class="cart-btns">
                                             <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
