@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Models\Bitacora;
+use App\Models\Carrito;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,6 +81,14 @@ class RegistroController extends Controller
         $Bitacora->fechaHora = date('Y-m-d H:i:s');
         $Bitacora->save();
         //-------------------------------
+        //Carrito
+        Carrito::create([
+            'fechaHora' => date('Y-m-d H:i:s'),
+            'estado' => '1',
+            'total' => '0',
+            'idCliente' => $user->id
+        ]);
+        //------------------------------
         return redirect('/login')->with('success', 'Account created successfully.');
     }
 

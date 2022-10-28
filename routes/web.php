@@ -10,12 +10,14 @@ use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CierreSesionController;
+use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ProveedorController;
+use Spatie\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,46 +106,42 @@ Route::prefix('/administrador')->group(function () {
 
     Route::controller(App\Http\Controllers\NotaingresoController::class)->group(function () {
 
-        Route::get('/notaingreso','index');
-        Route::get('/notaingreso/create','create');
-        Route::get('/notaingreso/agregar','agregar');
-        Route::get('/notaingreso/{dato}/agregardetalle','agregardetalle');
-        Route::post('/notaingreso/store','store');
-        Route::get('/notaingreso/{dato}/edit','edit');
-        Route::put('/notaingreso/{dato}','update');
-        Route::get('/notaingreso/{dato}/delete','destroy');
-     
-     
-     });
+        Route::get('/notaingreso', 'index');
+        Route::get('/notaingreso/create', 'create');
+        Route::get('/notaingreso/agregar', 'agregar');
+        Route::get('/notaingreso/{dato}/agregardetalle', 'agregardetalle');
+        Route::post('/notaingreso/store', 'store');
+        Route::get('/notaingreso/{dato}/edit', 'edit');
+        Route::put('/notaingreso/{dato}', 'update');
+        Route::get('/notaingreso/{dato}/delete', 'destroy');
+    });
 
 
-      //********************************* */ Route for DetallenotaIngreso**************************************
+    //********************************* */ Route for DetallenotaIngreso**************************************
 
     Route::controller(App\Http\Controllers\DetallenotaingresoController::class)->group(function () {
 
-        Route::get('/detallenotaingreso/{dato}/agregar','index');
-        Route::get('/detallenotaingreso/{dato}/create','create');
-        Route::get('/detallenotaingreso/create','create');
-        Route::get('/detallenotaingreso/agregar','agregar');
-        Route::get('/detallenotaingreso/{dato}/agregardetalle','agregardetalle');
-        Route::post('/detallenotaingreso/store','store');
+        Route::get('/detallenotaingreso/{dato}/agregar', 'index');
+        Route::get('/detallenotaingreso/{dato}/create', 'create');
+        Route::get('/detallenotaingreso/create', 'create');
+        Route::get('/detallenotaingreso/agregar', 'agregar');
+        Route::get('/detallenotaingreso/{dato}/agregardetalle', 'agregardetalle');
+        Route::post('/detallenotaingreso/store', 'store');
         Route::put('/detallenotaingreso/{idnota}{dato}/update', 'update');
-        Route::get('/detallenotaingreso/{idnota}/listaproducto','listar');
-        Route::get('/detallenotaingreso/{idnota}{idproducto}/add','add');
-        Route::get('/detallenotaingreso/{dato}/delete','destroy');
-
-     
-     
-     });
-     
-}); 
+        Route::get('/detallenotaingreso/{idnota}/listaproducto', 'listar');
+        Route::get('/detallenotaingreso/{idnota}{idproducto}/add', 'add');
+        Route::get('/detallenotaingreso/{dato}/delete', 'destroy');
+    });
+});
 
 
 Route::prefix('/cliente')->group(function () {
-    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
-
-    //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
+        Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
+        //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
+        Route::resource('/detalleCarrito', DetalleCarritoController::class);
 });
+
+//Route::resource('/detalleCarrito', DetalleCarritoController::class);
 
 Route::get('/registro', [RegistroController::class, 'show']);
 Route::post('/registro', [RegistroController::class, 'register']);
@@ -165,3 +163,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::resource('/cliente/catalogo', CatalogoController::class);
+
+Route::get('/index', function () {
+    return view('cliente.index');
+});

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
 use App\Models\categoria;
+use App\Models\DetalleCarrito;
 use App\Models\marca;
 use App\Models\producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CatalogoController extends Controller
 {
@@ -19,6 +22,12 @@ class CatalogoController extends Controller
         $productos = producto::paginate(9);
         $categorias = categoria::get();
         $marcas = marca::get();
+        if (auth()->user()) {
+            $carrito = Carrito::where('idCliente', auth()->user()->id);
+            $carrito = $carrito->where('estado', 1)->first();
+            $detallesCarrito = DetalleCarrito::get();
+            return view('cliente.catalogo.catalogo', compact('productos', 'categorias', 'marcas', 'carrito', 'detallesCarrito'));
+        }
         return view('cliente.catalogo.catalogo', compact('productos', 'categorias', 'marcas'));
     }
 

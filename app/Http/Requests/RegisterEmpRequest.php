@@ -25,7 +25,7 @@ class RegisterEmpRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'ci' => ['required', 'unique:personas,ci', 'min:8'],
+            'ci' => ['required', 'unique:personas,ci', 'min:7'],
             'email' => ['required', 'unique:users,email'],
             'sexo' => ['required'],
             'celular' => ['required', 'unique:personas,celular'],

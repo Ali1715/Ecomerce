@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
+use App\Models\DetalleCarrito;
 use App\Models\Persona;
+use App\Models\producto;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,6 +32,13 @@ class HomeController extends Controller
             if ($user->tipoe == 1) {
                 return view('administrador.home');
             }
+        }
+        if (auth()->user()) {
+            $productos = producto::get();
+            $carrito = Carrito::where('idCliente', auth()->user()->id);
+            $carrito = $carrito->where('estado', 1)->first();
+            $detallesCarrito = DetalleCarrito::get();
+            return view('cliente.home', compact('productos', 'carrito', 'detallesCarrito'));
         }
         return view('cliente.home');
         //return view('home');
