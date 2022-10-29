@@ -44,6 +44,16 @@
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Productos</span>
                 </a>
             </li>
+            <li class="sidebar-item ">
+                <a class="sidebar-link" href="{{ route('categoria.index') }}">
+                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Categoria</span>
+                </a>
+            </li>
+            <li class="sidebar-item ">
+                <a class="sidebar-link" href="{{ route('marca.index') }}">
+                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Marca</span>
+                </a>
+            </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('administrador/proveedor') }}">
