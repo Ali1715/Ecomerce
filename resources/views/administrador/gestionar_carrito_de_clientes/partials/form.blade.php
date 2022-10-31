@@ -1,4 +1,5 @@
 @csrf
+@include('layouts.messages')
 <div class="row">
     <h5>Productos</h5>
     <div class="col-12">

@@ -272,6 +272,7 @@
             <!-- row -->
             <div class="row">
                 <div id="store" class="col-md-12">
+                    @include('layouts.mensajes')
                     @yield('content')
                 </div>
             </div>

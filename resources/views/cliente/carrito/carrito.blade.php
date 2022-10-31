@@ -1,5 +1,11 @@
 @extends('cliente.cliente')
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-success">{{ session('message') }}</div>
+    @endif
+    @if (session('danger'))
+        <div class="alert alert-danger">{{ session('danger') }}</div>
+    @endif
     <center>
         <h1>CARRITO DE COMPRAS</h1>
     </center>
@@ -26,7 +32,7 @@
                                 <img src="{{ asset('public/img/' . $producto->imagen) }}" alt="...">
                                 <div class="product-label">
                                     <!--<span class="sale">-30%</span>
-                                                                                                                                                        <span class="new">NEW</span>-->
+                                                                                                                                                            <span class="new">NEW</span>-->
                                 </div>
                             </div>
                             <div class="product-body">
@@ -56,13 +62,14 @@
                                     <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
                                             view</span></button>
                                     <form action="{{ route('detalleCarrito.destroy', $detalleCarrito->id) }}"
-                                        id="delete_{{ $detalleCarrito->id }}" method="POST" enctype="multipart/form-data" hidden>
+                                        id="delete_{{ $detalleCarrito->id }}" method="POST" enctype="multipart/form-data"
+                                        hidden>
                                         @csrf
                                         @method('DELETE')
                                     </form>
                                     <button type="submit" class="quick-view" form="delete_{{ $detalleCarrito->id }}"
-                                        onclick="return confirm('¿Estás seguro de eliminar el registro?')"><i class="fa fa-trash"></i><span
-                                            class="tooltipp">delete</span></button>
+                                        onclick="return confirm('¿Estás seguro de eliminar el registro?')"><i
+                                            class="fa fa-trash"></i><span class="tooltipp">delete</span></button>
                                     <form action="{{ route('detalleCarrito.update', $detalleCarrito->id) }}" method="POST"
                                         enctype="multipart/form-data" id="update{{ $a }}">
                                         @method('PUT')
@@ -104,6 +111,6 @@
         {!! $detallesCarrito->links() !!}
     </div>
     <center>
-        <h1>TOTAL: {{$carrito->total}} Bs</h1>
+        <h1>TOTAL: {{ $carrito->total }} Bs</h1>
     </center>
 @endsection

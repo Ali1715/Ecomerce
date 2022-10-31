@@ -50,6 +50,7 @@
             @include('administrador.navbar')
             <main class="content">
                 <div class="container-fluid p-0">
+                    @include('layouts.mensajes')
                     @yield('content')
             </main>
         </div>

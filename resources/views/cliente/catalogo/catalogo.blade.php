@@ -24,7 +24,7 @@
                         <img src="{{ asset('public/img/' . $producto->imagen) }}" alt="...">
                         <div class="product-label">
                             <!--<span class="sale">-30%</span>
-                                                                                                                                        <span class="new">NEW</span>-->
+                                                                                                                                                                <span class="new">NEW</span>-->
                         </div>
                     </div>
                     <div class="product-body">
@@ -52,14 +52,14 @@
                             <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
                                     view</span></button>
                             <form action="{{ route('detalleCarrito.store') }}" method="POST" enctype="multipart/form-data"
-                                id="create{{$a}}">
+                                id="create{{ $a }}">
                                 @csrf
                                 <input type="number" id="cantidad" name="cantidad" min="1" max="1000"
                                     value="1">
                                 <input type="hidden" name="precio" id="precio" value="{{ $producto->precioUnitario }}">
                                 <input type="hidden" name="idProducto" id="idProducto" value="{{ $producto->id }}">
                                 @auth
-                                <input type="hidden" name="idCarrito" id="idCarrito" value="{{ $carrito->id }}">
+                                    <input type="hidden" name="idCarrito" id="idCarrito" value="{{ $carrito->id }}">
                                 @endauth
                             </form>
                         </div>
@@ -71,7 +71,8 @@
                         </div>
                     @else
                         <div class="add-to-cart">
-                            <button class="add-to-cart-btn" form="create{{$a}}"><i class="fa fa-shopping-cart"></i> add to
+                            <button class="add-to-cart-btn" form="create{{ $a }}"><i
+                                    class="fa fa-shopping-cart"></i> add to
                                 cart</button>
                         </div>
                     @endguest
