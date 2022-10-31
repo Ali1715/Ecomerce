@@ -79,7 +79,7 @@ class ProductoSeeder extends Seeder
             'name' => 'Ryzen 7 5800X',
             'descripcion' => 'AMD Procesador de escritorio desbloqueado Ryzen 7 5800X de 8 núcleos y 16 hilos',
             'stock' => '50',
-            'precioUnitario' => '449',
+            'precioUnitario' => '3125.04',
             'imagen' => 'Procesador_AMD_Ryzen_7_5800X.PNG',
             'idcategoria' => '4',
             'idmarca' => '2'
@@ -89,7 +89,7 @@ class ProductoSeeder extends Seeder
             'descripcion' => 'Intel Core i5-12600K Procesador de Escritorio 10 (6P+4E) Núcleos de hasta 4.9 GHz Desbloqueado 
                                     LGA1700 600 Series Chipset 125W',
             'stock' => '17',
-            'precioUnitario' => '277',
+            'precioUnitario' => '1927.92',
             'imagen' => 'Procesador_Intel_Core_i5_12600K.PNG',
             'idcategoria' => '4',
             'idmarca' => '15'

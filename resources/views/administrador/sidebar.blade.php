@@ -78,7 +78,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/carrito') }}">
+                <a class="sidebar-link" href="{{ url('administrador/carritosClientes') }}">
                     <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Carrito</span>
                 </a>
             </li>

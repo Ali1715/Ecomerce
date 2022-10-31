@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetalleCarrito;
 use App\Http\Requests\StoreDetalleCarritoRequest;
 use App\Http\Requests\UpdateDetalleCarritoRequest;
 use App\Models\Bitacora;
 use App\Models\Carrito;
-use App\Models\categoria;
-use App\Models\marca;
+use App\Models\DetalleCarrito;
 use App\Models\Persona;
 use App\Models\producto;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\QueryException;
 
-date_default_timezone_set('America/La_Paz');
-
-class DetalleCarritoController extends Controller
+class DetalleCarritoCliente extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,13 +22,12 @@ class DetalleCarritoController extends Controller
      */
     public function index()
     {
-        $categorias = categoria::get();
-        $marcas = marca::get();
-        $productos = producto::get();
-        $carrito = Carrito::where('idCliente', auth()->user()->id);
-        $carrito = $carrito->where('estado', 1)->first();
-        $detallesCarrito = DetalleCarrito::where('idCarrito', $carrito->id)->paginate(9);
-        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'categorias', 'marcas'));
+        //
+    }
+
+    public function create()
+    {
+        //
     }
 
     /**
@@ -40,19 +35,23 @@ class DetalleCarritoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create2($id)
     {
+        $productos = producto::get();
+        $carrito = Carrito::findOrFail($id);
+        return view('administrador.gestionar_carrito_de_clientes.create', compact('productos', 'carrito'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDetalleCarritoRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDetalleCarritoRequest $request)
     {
         $producto = producto::findOrFail($request->idProducto);
+        $request['precio'] = $producto->precioUnitario;
         $carrito = Carrito::findOrFail($request->idCarrito);
         $detallesC = DetalleCarrito::get();
         foreach ($detallesC as $detalleC) {
@@ -85,9 +84,9 @@ class DetalleCarritoController extends Controller
                     $bitacora->save();
                     //----------
                     $carrito->save();
-                    return redirect('cliente/catalogo')->with('message', 'Producto agregado exitosamente');
+                    return redirect()->route('carritosClientes.index')->with('message', 'Producto agregado exitosamente');
                 } else {
-                    return redirect('cliente/catalogo')->with('danger', 'Producto sin stock suficiente');
+                    return redirect()->route('carritosClientes.index')->with('danger', 'Producto sin stock suficiente');
                 }
             }
         }
@@ -114,19 +113,19 @@ class DetalleCarritoController extends Controller
             $bitacora->fechaHora = date('Y-m-d H:i:s');
             $bitacora->save();
             //----------
-            return redirect('cliente/catalogo')->with('message', 'Producto agregado exitosamente');
+            return redirect()->route('carritosClientes.index')->with('message', 'Producto agregado exitosamente');
         } else {
-            return redirect('cliente/catalogo')->with('danger', 'Producto sin stock suficiente');
+            return redirect()->route('carritosClientes.index')->with('danger', 'Producto sin stock suficiente');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DetalleCarrito  $detalleCarrito
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(DetalleCarrito $detalleCarrito)
+    public function show($id)
     {
         //
     }
@@ -134,19 +133,22 @@ class DetalleCarritoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DetalleCarrito  $detalleCarrito
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(DetalleCarrito $detalleCarrito)
+    public function edit($id)
     {
-        //
+        $detalleCarrito = DetalleCarrito::findOrFail($id);
+        $productos = producto::get();
+        $carrito = Carrito::findOrFail($detalleCarrito->idCarrito);
+        return view('administrador.gestionar_carrito_de_clientes.edit', compact('productos', 'carrito', 'detalleCarrito'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateDetalleCarritoRequest  $request
-     * @param  \App\Models\DetalleCarrito  $detalleCarrito
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateDetalleCarritoRequest $request, $id)
@@ -182,16 +184,16 @@ class DetalleCarritoController extends Controller
             $bitacora->fechaHora = date('Y-m-d H:i:s');
             $bitacora->save();
             //----------
-            return redirect('cliente/detalleCarrito')->with('message', 'Producto actualizado exitosamente');
+            return redirect()->route('carritosClientes.index')->with('message', 'Producto actualizado exitosamente');
         } else {
-            return redirect('cliente/detalleCarrito')->with('danger', 'Producto sin stock suficiente');
+            return redirect()->route('carritosClientes.index')->with('danger', 'Producto sin stock suficiente');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DetalleCarrito  $detalleCarrito
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -228,9 +230,9 @@ class DetalleCarritoController extends Controller
             $bitacora->fechaHora = date('Y-m-d H:i:s');
             $bitacora->save();
             //----------
-            return redirect('cliente/detalleCarrito')->with('message', 'Se han borrado los datos correctamente.');
+            return redirect()->route('carritosClientes.index')->with('message', 'Se han borrado los datos correctamente.');
         } catch (QueryException $e) {
-            return redirect('cliente/detalleCarrito')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+            return redirect()->route('carritosClientes.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
         }
     }
 }

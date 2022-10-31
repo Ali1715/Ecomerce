@@ -7,9 +7,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\CarritoCliente;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CierreSesionController;
+use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MarcaController;
@@ -136,9 +138,9 @@ Route::prefix('/administrador')->group(function () {
 
 
 Route::prefix('/cliente')->group(function () {
-        Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
-        //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
-        Route::resource('/detalleCarrito', DetalleCarritoController::class);
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
+    //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
+    Route::resource('/detalleCarrito', DetalleCarritoController::class);
 });
 
 //Route::resource('/detalleCarrito', DetalleCarritoController::class);
@@ -160,6 +162,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
     Route::resource('/administrador/gestionar_proveedores', ProveedorController::class);
+    Route::resource('/administrador/carritosClientes', CarritoCliente::class);
+    Route::resource('/administrador/detallesCarritosClientes', DetalleCarritoCliente::class);
+    Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
 });
 
 Route::resource('/cliente/catalogo', CatalogoController::class);
