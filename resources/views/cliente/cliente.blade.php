@@ -184,10 +184,12 @@
                                                                     <h3 class="product-name"><a href="#">
                                                                             {{ $producto->name }}</a></h3>
                                                                     <h4 class="product-price"><span
-                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs {{ $producto->precioUnitario }}
+                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs
+                                                                        {{ $producto->precioUnitario }}
                                                                     </h4>
                                                                 </div>
-                                                                <button class="delete" type="submit" form="delete_{{ $detalleCarrito->id }}"
+                                                                <button class="delete" type="submit"
+                                                                    form="delete_{{ $detalleCarrito->id }}"
                                                                     onclick="return confirm('¿Estás seguro de eliminar el registro?')"><i
                                                                         class="fa fa-close"></i></button>
                                                                 <form
@@ -383,6 +385,7 @@
     </footer>
     <!-- /FOOTER -->
 
+    
     <!-- jQuery Plugins -->
     <script src="{{ asset('cliente/js/jquery.min.js') }}"></script>
     <script src="{{ asset('cliente/js/bootstrap.min.js') }}"></script>
@@ -392,5 +395,17 @@
     <script src="{{ asset('cliente/js/main.js') }}"></script>
     <script src="{{ asset('admin/static/js/app.js') }}"></script>
 </body>
+<script>
+    var botmanWidget = {
+        title: "Ecomerce",
+        aboutText: "Ecomerce",
+        introMessage: "Hola!",
+        placeholderText: "Escribe un mensaje",
+        mainColor: "#CC0000",
+        bubbleBackground:"#CC0000",
+        aboutLink: '/home'
+    };
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 
 </html>

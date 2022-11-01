@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\AccesoController;
+use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarritoCliente;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\AccesoController;
+use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
-use App\Http\Controllers\CarritoCliente;
 use App\Http\Controllers\CatalogoController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\CierreSesionController;
-use App\Http\Controllers\DetalleCarritoCliente;
-use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
-use Spatie\FlareClient\View;
+use App\Http\Controllers\DetalleCarritoCliente;
+use App\Http\Controllers\CierreSesionController;
+use App\Http\Controllers\DetalleCarritoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,5 +171,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::resource('/cliente/catalogo', CatalogoController::class);
 
 Route::get('/index', function () {
-    return view('cliente.index');
+    return view('welcome');
 });
+
+Route::match(['get', 'post'], '/botman', [BotManController::class,"handle"]);
