@@ -13,13 +13,11 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
-use Spatie\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
