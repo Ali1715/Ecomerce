@@ -62,6 +62,11 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
+
 </head>
 
 <body>
@@ -184,10 +189,12 @@
                                                                     <h3 class="product-name"><a href="#">
                                                                             {{ $producto->name }}</a></h3>
                                                                     <h4 class="product-price"><span
-                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs {{ $producto->precioUnitario }}
+                                                                            class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs
+                                                                        {{ $producto->precioUnitario }}
                                                                     </h4>
                                                                 </div>
-                                                                <button class="delete" type="submit" form="delete_{{ $detalleCarrito->id }}"
+                                                                <button class="delete" type="submit"
+                                                                    form="delete_{{ $detalleCarrito->id }}"
                                                                     onclick="return confirm('¿Estás seguro de eliminar el registro?')"><i
                                                                         class="fa fa-close"></i></button>
                                                                 <form
@@ -209,7 +216,8 @@
                                         </div>
                                         <div class="cart-btns">
                                             <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
-                                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="{{ route('pagos.index') }}">Checkout <i
+                                                    class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 @endguest

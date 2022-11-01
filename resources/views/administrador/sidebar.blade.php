@@ -84,7 +84,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/pago') }}">
+                <a class="sidebar-link" href="{{ url('administrador/tiposPagos') }}">
                     <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Metodo de
                         Pago</span>
                 </a>
