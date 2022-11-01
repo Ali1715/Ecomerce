@@ -17,7 +17,11 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DetalleCarritoCliente;
+use App\Http\Controllers\DetalleCarritoController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\TipoPagoController;
 
 /*
 |--------------------------------------------------------------------------
