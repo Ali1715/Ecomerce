@@ -62,6 +62,11 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
+
 </head>
 
 <body>
@@ -211,7 +216,8 @@
                                         </div>
                                         <div class="cart-btns">
                                             <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
-                                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="{{ route('pagos.index') }}">Checkout <i
+                                                    class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 @endguest

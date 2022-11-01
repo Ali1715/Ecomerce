@@ -13,14 +13,13 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\DetalleCarritoCliente;
-use App\Http\Controllers\CierreSesionController;
-use App\Http\Controllers\DetalleCarritoController;
+use Spatie\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +141,7 @@ Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
     Route::resource('/detalleCarrito', DetalleCarritoController::class);
+    Route::resource('/pagos', PagoController::class);
 });
 
 //Route::resource('/detalleCarrito', DetalleCarritoController::class);
@@ -166,6 +166,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/carritosClientes', CarritoCliente::class);
     Route::resource('/administrador/detallesCarritosClientes', DetalleCarritoCliente::class);
     Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
+    Route::resource('/administrador/tiposPagos', TipoPagoController::class);
 });
 
 Route::resource('/cliente/catalogo', CatalogoController::class);

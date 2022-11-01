@@ -1,11 +1,5 @@
 @extends('cliente.cliente')
 @section('content')
-    @if (session('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif
-    @if (session('danger'))
-        <div class="alert alert-danger">{{ session('danger') }}</div>
-    @endif
     <center>
         <h1>CARRITO DE COMPRAS</h1>
     </center>
