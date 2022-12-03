@@ -7,6 +7,7 @@ use App\Http\Controllers\CarritoCliente;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AccesoController;
+use App\Http\Controllers\AddressClientController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
@@ -146,6 +147,9 @@ Route::prefix('/cliente')->group(function () {
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
     Route::resource('/detalleCarrito', DetalleCarritoController::class);
     Route::resource('/pagos', PagoController::class);
+    Route::group(['middleware' => ['auth']], function () {
+        Route::resource('/AddressClient', AddressClientController::class);
+    });
 });
 
 //Route::resource('/detalleCarrito', DetalleCarritoController::class);
@@ -180,4 +184,4 @@ Route::get('/index', function () {
     return view('welcome');
 });
 
-Route::match(['get', 'post'], '/botman', [BotManController::class,"handle"]);
+Route::match(['get', 'post'], '/botman', [BotManController::class, "handle"]);
