@@ -23,7 +23,8 @@ class ProductoSeeder extends Seeder
             'precioUnitario' => '4682.36',
             'imagen' => 'Laptop_HP_De_15_6_Pulgadas.PNG',
             'idcategoria' => '5',
-            'idmarca' => '12'
+            'idmarca' => '12',
+            'idpromocion' => '5'
         ]);
         producto::create([
             'name' => 'Laptop Lenovo Ideapad 3 2022',
@@ -44,7 +45,8 @@ class ProductoSeeder extends Seeder
             'precioUnitario' => '553.31',
             'imagen' => 'Memoria_Ram_8x2_HP.PNG',
             'idcategoria' => '3',
-            'idmarca' => '12'
+            'idmarca' => '12',
+            'idpromocion' => '1'
         ]);
         producto::create([
             'name' => 'Corsair Vengeance RGB Pro de 32 GB (2 x 16 GB)',
@@ -63,7 +65,8 @@ class ProductoSeeder extends Seeder
             'precioUnitario' => '602',
             'imagen' => 'Tarjeta_Madre_Asus_Prime_H410M-A.PNG',
             'idcategoria' => '2',
-            'idmarca' => '5'
+            'idmarca' => '5',
+            'idpromocion' => '4'
         ]);
         producto::create([
             'name' => 'MSI B550-A PRO ProSeries',
@@ -82,7 +85,8 @@ class ProductoSeeder extends Seeder
             'precioUnitario' => '3125.04',
             'imagen' => 'Procesador_AMD_Ryzen_7_5800X.PNG',
             'idcategoria' => '4',
-            'idmarca' => '2'
+            'idmarca' => '2',
+            'idpromocion' => '2'
         ]);
         producto::create([
             'name' => 'Intel Core i5-12600K',
@@ -101,7 +105,8 @@ class ProductoSeeder extends Seeder
             'precioUnitario' => '626.4',
             'imagen' => 'SSD_Crucial_BX500_1TB.PNG',
             'idcategoria' => '1',
-            'idmarca' => '25'
+            'idmarca' => '25',
+            'idpromocion' => '3'
         ]);
         producto::create([
             'name' => 'Seagate Barracuda Pro SATA HDD 10TB',

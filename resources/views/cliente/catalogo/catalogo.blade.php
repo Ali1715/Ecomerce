@@ -23,8 +23,15 @@
                     <div class="product-img">
                         <img src="{{ asset('public/img/' . $producto->imagen) }}" alt="...">
                         <div class="product-label">
-                            <!--<span class="sale">-30%</span>
-                                                                                                                                                                <span class="new">NEW</span>-->
+                            @if ($producto->idpromocion != '')
+                                @foreach ($promociones as $promocion)
+                                    @if ($producto->idpromocion == $promocion->id)
+                                        <span class="sale">-{{ $promocion->descuento }}%</span>
+                                        <?php $descuento = $promocion->descuento / 100; ?>
+                                    @endif
+                                @endforeach
+                            @endif
+                            <!--<span class="new">NEW</span>-->
                         </div>
                     </div>
                     <div class="product-body">
@@ -34,9 +41,15 @@
                             @endif
                         @endforeach
                         <h3 class="product-name"><a href="#">{{ $producto->name }}</a></h3>
-                        <h4 class="product-price">Bs {{ $producto->precioUnitario }}
-                            <!--<del class="product-old-price">Bs {{ $producto->precioUnitario }}</del>-->
-                        </h4>
+                        @if ($producto->idpromocion != '')
+                            <h4 class="product-price">Bs
+                                {{ $producto->precioUnitario - $producto->precioUnitario * $descuento }}
+                                <del class="product-old-price">Bs {{ $producto->precioUnitario }}</del>
+                            </h4>
+                        @else
+                            <h4 class="product-price">Bs {{ $producto->precioUnitario }}
+                            </h4>
+                        @endif
                         <div class="product-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -56,7 +69,13 @@
                                 @csrf
                                 <input type="number" id="cantidad" name="cantidad" min="1" max="1000"
                                     value="1">
-                                <input type="hidden" name="precio" id="precio" value="{{ $producto->precioUnitario }}">
+                                @if ($producto->idpromocion != '')
+                                    <input type="hidden" name="precio" id="precio"
+                                        value="{{ $producto->precioUnitario - $producto->precioUnitario * $descuento }}">
+                                @else
+                                    <input type="hidden" name="precio" id="precio"
+                                        value="{{ $producto->precioUnitario }}">
+                                @endif
                                 <input type="hidden" name="idProducto" id="idProducto" value="{{ $producto->id }}">
                                 @auth
                                     <input type="hidden" name="idCarrito" id="idCarrito" value="{{ $carrito->id }}">

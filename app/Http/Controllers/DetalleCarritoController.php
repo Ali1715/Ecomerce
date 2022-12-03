@@ -11,6 +11,7 @@ use App\Models\categoria;
 use App\Models\marca;
 use App\Models\Persona;
 use App\Models\producto;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -32,7 +33,8 @@ class DetalleCarritoController extends Controller
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::where('idCarrito', $carrito->id)->paginate(9);
-        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'categorias', 'marcas', 'promociones'));
     }
 
     /**

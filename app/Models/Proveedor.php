@@ -9,13 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Proveedor extends Model
 {
     use HasFactory;
-    protected $table='proveedors';
+    protected $table = 'proveedors';
 
-	protected $fillable=[
-	
-	'nombre',
-    'correo',
-    'celular',
-    'direccion',
-	];
+    protected $fillable = [
+        'nombre',
+        'correo',
+        'celular',
+        'direccion',
+    ];
 }

@@ -190,7 +190,7 @@
                                                                             {{ $producto->name }}</a></h3>
                                                                     <h4 class="product-price"><span
                                                                             class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs
-                                                                        {{ $producto->precioUnitario }}
+                                                                        {{ $detalleCarrito->precio }}
                                                                     </h4>
                                                                 </div>
                                                                 <button class="delete" type="submit"

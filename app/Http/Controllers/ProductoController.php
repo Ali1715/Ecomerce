@@ -10,6 +10,7 @@ use App\Models\Bitacora;
 use App\Models\categoria;
 use App\Models\marca;
 use App\Models\Persona;
+use App\Models\Promocion;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,8 @@ class ProductoController extends Controller
     {
         $categorias = categoria::get();
         $marcas = marca::get();
-        return view('administrador.gestionar_producto.create', compact('categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('administrador.gestionar_producto.create', compact('categorias', 'marcas', 'promociones'));
     }
 
     /**
@@ -58,6 +60,9 @@ class ProductoController extends Controller
             $filename = time() . '.' . $ext;
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
+        }
+        if($request->idpromocion != ''){
+            $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();
         return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
@@ -85,7 +90,8 @@ class ProductoController extends Controller
         $producto = producto::findOrFail($id);
         $categorias = categoria::get();
         $marcas = marca::get();
-        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas', 'promociones'));
     }
 
     /**
@@ -105,6 +111,9 @@ class ProductoController extends Controller
             $filename = time() . '.' . $ext;
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
+        }
+        if($request->idpromocion != ''){
+            $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();
         return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');

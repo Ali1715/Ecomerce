@@ -62,7 +62,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('administrador/promocion') }}">
+                <a class="sidebar-link" href="{{ url('administrador/promociones') }}">
                     <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Promociones</span>
                 </a>
             </li>

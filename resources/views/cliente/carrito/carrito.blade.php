@@ -25,8 +25,15 @@
                             <div class="product-img">
                                 <img src="{{ asset('public/img/' . $producto->imagen) }}" alt="...">
                                 <div class="product-label">
-                                    <!--<span class="sale">-30%</span>
-                                                                                                                                                            <span class="new">NEW</span>-->
+                                    @if ($producto->idpromocion != '')
+                                        @foreach ($promociones as $promocion)
+                                            @if ($producto->idpromocion == $promocion->id)
+                                                <span class="sale">-{{ $promocion->descuento }}%</span>
+                                                <?php $descuento = $promocion->descuento / 100; ?>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <!--<span class="new">NEW</span>-->
                                 </div>
                             </div>
                             <div class="product-body">
@@ -36,8 +43,10 @@
                                     @endif
                                 @endforeach
                                 <h3 class="product-name"><a href="#">{{ $producto->name }}</a></h3>
-                                <h4 class="product-price">Bs {{ $producto->precioUnitario }}
-                                    <!--<del class="product-old-price">Bs {{ $producto->precioUnitario }}</del>-->
+                                <h4 class="product-price">Bs {{ $detalleCarrito->precio }}
+                                    @if ($detalleCarrito->precio != $producto->precioUnitario)
+                                        <del class="product-old-price">Bs {{ $producto->precioUnitario }}</del>
+                                    @endif
                                 </h4>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
