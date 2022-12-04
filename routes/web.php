@@ -22,6 +22,7 @@ use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\TipoPagoController;
@@ -176,6 +177,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
     Route::resource('/administrador/tiposPagos', TipoPagoController::class);
     Route::resource('/administrador/promociones', PromocionController::class);
+    Route::resource('/administrador/pedidos', PedidoController::class);
 });
 
 Route::resource('/cliente/catalogo', CatalogoController::class);

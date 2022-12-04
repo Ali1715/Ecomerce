@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePagoRequest;
 use App\Models\AddressClient;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\Pedido;
 use App\Models\producto;
 use App\Models\TipoPago;
 
@@ -46,8 +47,29 @@ class PagoController extends Controller
      */
     public function store(StorePagoRequest $request)
     {
-        Pago::create($request->validated());
-        return redirect('/home')->with('mensaje', 'Su transferencia será revisada dentro de 24 horas');
+        //Pago
+        $pago = Pago::create($request->validated());
+        //Pedido
+        $carrito = Carrito::where('idCliente', auth()->user()->id);
+        $carrito = $carrito->where('estado', 1)->first();
+        Pedido::create([
+            'fechaHora' => $request->fechaHora,
+            'total' => $request->monto,
+            'estado' => 'Pendiente',
+            'id_carrito' => $carrito->id,
+            'id_direccion' => $request->id_direccion,
+            'id_pago' => $pago->id,
+        ]);
+        //Carrito
+        $carrito->estado = 0;
+        $carrito->save();
+        Carrito::create([
+            'fechaHora' => date('Y-m-d H:i:s'),
+            'estado' => '1',
+            'total' => '0',
+            'idCliente' => auth()->user()->id,
+        ]);
+        return redirect('/home')->with('mensaje', 'Pedido realizado, Su transferencia será revisada dentro de 24 horas');
     }
 
     /**

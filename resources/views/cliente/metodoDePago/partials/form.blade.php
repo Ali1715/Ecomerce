@@ -6,7 +6,7 @@
     <div class="col-12">
         @foreach ($direcciones as $direccion)
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="estadocli" id="flexRadioDefault1"
+                <input class="form-check-input" type="radio" name="id_direccion" id="flexRadioDefault1"
                     value={{ $direccion->id }}>
                 <label class="form-check-label" for="flexRadioDefault1">
                     {{ $direccion->address_1, $direccion->address_2}}, {{$direccion->city}}, {{$direccion->department }}
