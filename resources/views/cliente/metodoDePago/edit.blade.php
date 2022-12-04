@@ -1,6 +1,7 @@
 @extends('cliente.cliente')
 @section('content')
     <div class="card mt-4">
+        @include('layouts.messages')
         <div class="card-header d-inline-flex">
             <h1>Formulario - Editar Clientes</h1>
         </div>

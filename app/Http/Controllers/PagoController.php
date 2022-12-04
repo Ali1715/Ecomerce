@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pago;
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
+use App\Models\AddressClient;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\producto;
@@ -62,7 +63,8 @@ class PagoController extends Controller
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.metodoDePago.create', compact('tipoPago', 'productos', 'carrito', 'detallesCarrito'));
+        $direcciones = AddressClient::get()->where('id_client', auth()->user()->id);
+        return view('cliente.metodoDePago.create', compact('tipoPago', 'productos', 'carrito', 'detallesCarrito', 'direcciones'));
     }
 
     /**

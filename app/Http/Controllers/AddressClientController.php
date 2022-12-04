@@ -9,6 +9,7 @@ use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\Persona;
+use App\Models\producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
@@ -22,11 +23,12 @@ class AddressClientController extends Controller
     public function index()
     {
         $id = Auth::id();
+        $productos = producto::get();
         $direcciones = AddressClient::where('id_client', $id)->paginate(10);
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.direcciones.index', compact('direcciones', 'detallesCarrito', 'carrito'));
+        return view('cliente.direcciones.index', compact('direcciones', 'detallesCarrito', 'carrito', 'productos'));
     }
 
     /**
@@ -37,10 +39,11 @@ class AddressClientController extends Controller
     public function create()
     {
         $id = Auth::id();
+        $productos = producto::get();
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.direcciones.create', compact('id', 'detallesCarrito', 'carrito'));
+        return view('cliente.direcciones.create', compact('id', 'detallesCarrito', 'carrito', 'productos'));
     }
 
     /**
@@ -93,10 +96,11 @@ class AddressClientController extends Controller
     public function edit($id)
     {
         $direccion = AddressClient::findOrFail($id);
+        $productos = producto::get();
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::get();
-        return view('cliente.direcciones.edit', compact('direccion', 'carrito', 'detallesCarrito'));
+        return view('cliente.direcciones.edit', compact('direccion', 'carrito', 'detallesCarrito', 'productos'));
     }
 
     /**

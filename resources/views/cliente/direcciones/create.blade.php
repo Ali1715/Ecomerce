@@ -84,6 +84,7 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="btn btn-primary float-end">Guardar</button>
                                             <a href="{{ url('cliente/AddressClient') }}"
