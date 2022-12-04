@@ -6,7 +6,14 @@ use App\Models\Pedido;
 use App\Http\Requests\StorePedidoRequest;
 use App\Http\Requests\UpdatePedidoRequest;
 use App\Models\Bitacora;
+use App\Models\Carrito;
+use App\Models\DetalleCarrito;
+use App\Models\factura;
+use App\Models\Pago;
 use App\Models\Persona;
+use App\Models\producto;
+use App\Models\TipoPago;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
@@ -49,9 +56,13 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(Pedido $pedido)
+    public function show($id)
     {
-        //
+        $pedido = Pedido::findOrFail($id);
+        $carrito = Carrito::findOrFail($pedido->id_carrito);
+        $detallesCarritos = DetalleCarrito::where('idCarrito', $carrito->id)->paginate(10);
+        $productos = producto::get();
+        return (view('administrador.gestionar_pedidos.show', compact('detallesCarritos', 'productos')));
     }
 
     /**
@@ -104,8 +115,18 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedido $pedido)
+    public function destroy($id)
     {
-        //
+        //Factura
+        $factura = factura::where('id_pedido', $id)->first();
+        $user = User::findOrfail($factura->id_cliente);
+        $pedido = pedido::findOrFail($factura->id_pedido);
+        $pago = Pago::findOrfail($pedido->id_pago);
+        $tipoPago = TipoPago::findOrFail($pago->id_tipoPago);
+        $productos = producto::get();
+        $carrito = Carrito::findOrFail($pedido->id_carrito);
+        $detallesCarritos = DetalleCarrito::get()->where('idCarrito', $carrito->id);
+        return view('administrador.gestionar_pedidos.factura', compact('factura', 'user', 'tipoPago', 'productos', 'detallesCarritos', 'pago'));
     }
+
 }

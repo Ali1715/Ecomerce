@@ -41,8 +41,17 @@
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ url('administrador/pedidos/' . $pedido->id . '/edit') }}"
                                             class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{ url('administrador/pedidos/' . $pedido->id . '/show') }}"
-                                            class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('pedidos.show', $pedido->id) }}" class="btn btn-dark"><i
+                                                class="fas fa-eye"></i></a>
+                                        <button type="submit" class="btn btn-danger" form="delete_{{ $pedido->id }}">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <form action="{{ route('pedidos.destroy', $pedido->id) }}"
+                                            id="delete_{{ $pedido->id }}" method="POST" enctype="multipart/form-data"
+                                            hidden>
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pagos', function (Blueprint $table) {
+        Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ctaOrd');
-            $table->double('monto')->nullable();
-            $table->double('costoEnv');
-            $table->unsignedBigInteger('idTrans');
+            $table->unsignedBigInteger('NIT')->default(21324121321);
             $table->dateTime('fechaHora');
-            $table->unsignedBigInteger('id_tipoPago');
-            $table->foreign('id_tipoPago')->references('id')->on('tipo_pagos');
+            $table->double('montoTotal');
+            $table->unsignedBigInteger('id_cliente');
+            $table->unsignedBigInteger('id_pedido');
+            $table->foreign('id_cliente')->references('id')->on('users');
+            $table->foreign('id_pedido')->references('id')->on('pedidos');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pagos');
+        Schema::dropIfExists('facturas');
     }
 };

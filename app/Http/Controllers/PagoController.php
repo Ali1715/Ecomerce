@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePagoRequest;
 use App\Models\AddressClient;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
+use App\Models\factura;
 use App\Models\Pedido;
 use App\Models\producto;
 use App\Models\TipoPago;
@@ -52,7 +53,7 @@ class PagoController extends Controller
         //Pedido
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
-        Pedido::create([
+        $pedido = Pedido::create([
             'fechaHora' => $request->fechaHora,
             'total' => $request->monto,
             'estado' => 'Pendiente',
@@ -68,6 +69,13 @@ class PagoController extends Controller
             'estado' => '1',
             'total' => '0',
             'idCliente' => auth()->user()->id,
+        ]);
+        //Factura
+        factura::create([
+            'fechaHora' => date('Y-m-d H:i:s'),
+            'montoTotal' => $request->monto,
+            'id_cliente' => auth()->user()->id,
+            'id_pedido' => $pedido->id,
         ]);
         return redirect('/home')->with('mensaje', 'Pedido realizado, Su transferencia será revisada dentro de 24 horas');
     }

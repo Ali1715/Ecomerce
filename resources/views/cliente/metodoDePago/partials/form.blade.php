@@ -74,5 +74,6 @@
     <input type="hidden" name="costoEnv" class="form-control" id="exampleInputPassword1" value="{{ $costoEnv }}">
     <input type="hidden" name="fechaHora" class="form-control" id="exampleInputPassword1" value="{{ $dateTime }}">
     <input type="hidden" name="monto" class="form-control" id="exampleInputPassword1" value="{{ $total }}">
+    <input type="hidden" name="id_tipoPago" class="form-control" id="exampleInputPassword1" value="{{$tipoPago->id}}">
 </div>
 <br>
