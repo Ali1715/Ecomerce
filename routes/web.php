@@ -22,6 +22,7 @@ use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PedidoClienteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProveedorController;
@@ -146,10 +147,12 @@ Route::prefix('/administrador')->group(function () {
 Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
-    Route::resource('/detalleCarrito', DetalleCarritoController::class);
-    Route::resource('/pagos', PagoController::class);
+    Route::resource('/catalogo', CatalogoController::class);
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('/AddressClient', AddressClientController::class);
+        Route::resource('/detalleCarrito', DetalleCarritoController::class);
+        Route::resource('/pagos', PagoController::class);
+        Route::resource('/pedidosCliente', PedidoClienteController::class);
     });
 });
 
@@ -179,8 +182,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/promociones', PromocionController::class);
     Route::resource('/administrador/pedidos', PedidoController::class);
 });
-
-Route::resource('/cliente/catalogo', CatalogoController::class);
 
 Route::get('/index', function () {
     return view('welcome');

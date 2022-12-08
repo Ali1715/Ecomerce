@@ -260,6 +260,7 @@
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>
                     <li><a href="#">Accessories</a></li>
+                    @auth <li><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li> @endAuth
                 </ul>
                 <!-- /NAV -->
             </div>
