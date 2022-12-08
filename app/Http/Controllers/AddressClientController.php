@@ -13,6 +13,8 @@ use App\Models\producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
+date_default_timezone_set('America/La_Paz');
+
 class AddressClientController extends Controller
 {
     /**

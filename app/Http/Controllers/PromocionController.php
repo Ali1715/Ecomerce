@@ -10,6 +10,8 @@ use App\Models\Persona;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
+date_default_timezone_set('America/La_Paz');
+
 class PromocionController extends Controller
 {
     /**
@@ -42,6 +44,24 @@ class PromocionController extends Controller
     public function store(StorePromocionRequest $request)
     {
         Promocion::create($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó una nueva promoción";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //---------------
         return redirect('administrador/promociones')->with('message', 'Guardado exitosamente');
     }
 
@@ -80,6 +100,24 @@ class PromocionController extends Controller
         $promocion = Promocion::findOrFail($id);
         $promocion->update($request->validated());
         $promocion->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó el registro de una promoción";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //---------------
         return redirect('administrador/promociones')->with('message', 'Actualizado exitosamente');
     }
 

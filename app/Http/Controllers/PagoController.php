@@ -6,12 +6,17 @@ use App\Models\Pago;
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
 use App\Models\AddressClient;
+use App\Models\Bitacora;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\factura;
 use App\Models\Pedido;
+use App\Models\Persona;
 use App\Models\producto;
 use App\Models\TipoPago;
+use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class PagoController extends Controller
 {
@@ -77,6 +82,48 @@ class PagoController extends Controller
             'id_cliente' => auth()->user()->id,
             'id_pedido' => $pedido->id,
         ]);
+        //Bitacora Pago
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Nuevo pago creado";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //----------
+        //Bitacora pedido
+        $action = "Nuevo pedido creado";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //Bitacora carrito
+        $action = "Nuevo carrito creado y asignado";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //Bitacora factura
+        $action = "Factura creada";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
         return redirect('/home')->with('mensaje', 'Pedido realizado, Su transferencia será revisada dentro de 24 horas');
     }
 

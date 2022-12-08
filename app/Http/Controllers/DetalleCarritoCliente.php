@@ -13,6 +13,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/La_Paz');
+
 class DetalleCarritoCliente extends Controller
 {
     /**

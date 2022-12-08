@@ -16,6 +16,8 @@ use App\Models\TipoPago;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/La_Paz');
+
 class PedidoController extends Controller
 {
     /**

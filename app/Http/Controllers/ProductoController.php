@@ -65,6 +65,24 @@ class ProductoController extends Controller
             $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un registro de un Producto";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //---------------
         return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
     }
 
@@ -116,6 +134,24 @@ class ProductoController extends Controller
             $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de un Producto";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->save();
+        //---------------
         return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');
     }
 
