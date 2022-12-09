@@ -73,6 +73,7 @@ class EmpleadoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('empleados.index')->with('mensaje', 'Empleado Agregado Con Éxito');
@@ -132,6 +133,7 @@ class EmpleadoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('empleados.index')->with('mensaje', 'Datos Actualizados');
@@ -145,6 +147,7 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $persona = Persona::findOrFail($id);
         $empleado = User::where('email', $persona->email)->first();
         try {
@@ -166,6 +169,7 @@ class EmpleadoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('empleados.index')->with('message', 'Se han borrado los datos correctamente.');

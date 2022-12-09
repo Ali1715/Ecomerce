@@ -98,6 +98,7 @@ class PagoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         //Bitacora pedido
@@ -107,6 +108,7 @@ class PagoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //Bitacora carrito
         $action = "Nuevo carrito creado y asignado";
@@ -115,6 +117,7 @@ class PagoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //Bitacora factura
         $action = "Factura creada";
@@ -123,6 +126,7 @@ class PagoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         return redirect('/home')->with('mensaje', 'Pedido realizado, Su transferencia será revisada dentro de 24 horas');
     }

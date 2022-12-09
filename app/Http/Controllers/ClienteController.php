@@ -8,6 +8,7 @@ use App\Models\Bitacora;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 date_default_timezone_set('America/La_Paz');
@@ -71,6 +72,7 @@ class ClienteController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('clientes.index')->with('mensaje', 'cliente Agregado Con Éxito');
@@ -130,6 +132,7 @@ class ClienteController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('clientes.index')->with('mensaje', 'Datos Actualizados');
@@ -143,6 +146,7 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $persona = Persona::findOrFail($id);
         $cliente = User::where('email', $persona->email)->first();
         try {
@@ -164,6 +168,7 @@ class ClienteController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('clientes.index')->with('message', 'Se han borrado los datos correctamente.');

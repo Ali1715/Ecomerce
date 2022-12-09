@@ -81,6 +81,7 @@ class ProductoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
@@ -150,6 +151,7 @@ class ProductoController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');
@@ -165,6 +167,7 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $producto = producto::findOrFail($id);
         try {
             $producto->delete();
@@ -184,6 +187,7 @@ class ProductoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //---------------
             return redirect('administrador/producto')->with('message', 'Se han borrado los datos correctamente.');

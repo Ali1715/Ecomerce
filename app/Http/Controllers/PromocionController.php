@@ -9,6 +9,7 @@ use App\Models\Bitacora;
 use App\Models\Persona;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -60,6 +61,7 @@ class PromocionController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect('administrador/promociones')->with('message', 'Guardado exitosamente');
@@ -116,6 +118,7 @@ class PromocionController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect('administrador/promociones')->with('message', 'Actualizado exitosamente');
@@ -129,6 +132,7 @@ class PromocionController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $promocion = Promocion::findOrFail($id);
         try {
             $promocion->delete();
@@ -148,6 +152,7 @@ class PromocionController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //---------------
             return redirect('administrador/promociones')->with('message', 'Se han borrado los datos correctamente.');

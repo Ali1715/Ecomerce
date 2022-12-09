@@ -80,6 +80,7 @@ class ProveedorController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect()->route('gestionar_proveedores.index');
@@ -150,6 +151,7 @@ class ProveedorController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect()->route('gestionar_proveedores.index');
@@ -164,7 +166,7 @@ class ProveedorController extends Controller
 
     public function destroy($id)
     {
-
+        $request = Request::capture();
         $proveedor = Proveedor::find($id);
         $proveedor->delete();
         //Bitacora
@@ -183,6 +185,7 @@ class ProveedorController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
         return redirect()->route('gestionar_proveedores.index');

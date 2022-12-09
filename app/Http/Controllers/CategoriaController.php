@@ -8,6 +8,7 @@ use App\Models\Bitacora;
 use App\Models\categoria;
 use App\Models\Persona;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 date_default_timezone_set('America/La_Paz');
@@ -60,6 +61,7 @@ class CategoriaController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect('administrador/categoria')->with('message', 'Guardado exitosamente');
@@ -116,6 +118,7 @@ class CategoriaController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect('administrador/categoria')->with('message', 'Editado exitosamente');
@@ -130,6 +133,7 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         $categoria = categoria::findOrFail($id);
+        $request = Request::capture();
         try {
             $categoria->delete();
             //Bitacora
@@ -148,6 +152,7 @@ class CategoriaController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('categoria.index')->with('message', 'Se han borrado los datos correctamente.');

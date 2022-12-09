@@ -12,6 +12,8 @@ use App\Models\Persona;
 use App\Models\producto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -73,6 +75,7 @@ class AddressClientController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('AddressClient.index')->with('mensaje', 'Dirección Agregada Con Éxito');
@@ -132,6 +135,7 @@ class AddressClientController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('AddressClient.index')->with('mensaje', 'Datos Actualizados');
@@ -146,6 +150,7 @@ class AddressClientController extends Controller
     public function destroy($id)
     {
         $direccion = AddressClient::findOrFail($id);
+        $request = Request::capture();
         try {
             $direccion->delete();
             //Bitacora
@@ -164,6 +169,7 @@ class AddressClientController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('AddressClient.index')->with('message', 'Se han borrado los datos correctamente.');

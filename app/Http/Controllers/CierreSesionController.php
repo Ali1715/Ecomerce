@@ -15,6 +15,7 @@ class CierreSesionController extends Controller
 {
     public function logout()
     {
+        $request = Request::capture();
         //Bitacora
         $id = Auth::id();
         $user = User::find($id);
@@ -32,6 +33,7 @@ class CierreSesionController extends Controller
         $Bitacora->name = $persona->name;
         $Bitacora->actividad = $action;
         $Bitacora->fechaHora = date('Y-m-d H:i:s');
+        $Bitacora->ip = $request->ip();
         $Bitacora->save();
         //----------
         Session::flush();
