@@ -90,6 +90,19 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::findOrFail($id);
         $pedido->update($request->validated());
+        if($request->estado == 'Cancelado'){
+            $productos = producto::get();
+            $detallesCarrito = DetalleCarrito::get()->where('idCarrito', $pedido->id_carrito);
+            foreach($detallesCarrito as $detalleCarrito){
+                foreach($productos as $producto){
+                    if($detalleCarrito->idProducto == $producto->id){
+                        $prod = producto::findOrFail($producto->id);
+                        $prod->stock = $prod->stock + $detalleCarrito->cantidad;
+                        $prod->save();
+                    }
+                }
+            }
+        }
         //Bitacora
         $id2 = Auth::id();
         $user = Persona::where('iduser', $id2)->first();
