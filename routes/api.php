@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\DetalleCarritoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/producto',ProductoController::class)->only(['index','store','update','destroy']) ;
+Route::apiResource('/producto',ApiProductoController::class)->only(['index','store','update','destroy']) ;
 
 Route::apiResource('/catalogo',CatalogoController::class)->only(['index','store','update','destroy']) ;
 
