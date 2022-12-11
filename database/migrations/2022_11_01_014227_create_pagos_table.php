@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->integer('ctaOrd');
+            $table->unsignedBigInteger('ctaOrd');
             $table->double('monto')->nullable();
             $table->double('costoEnv');
             $table->unsignedBigInteger('idTrans');
             $table->dateTime('fechaHora');
+            $table->unsignedBigInteger('id_tipoPago');
+            $table->foreign('id_tipoPago')->references('id')->on('tipo_pagos');
             $table->timestamps();
         });
     }

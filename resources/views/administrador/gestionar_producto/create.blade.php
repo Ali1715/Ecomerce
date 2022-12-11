@@ -96,6 +96,20 @@
                                             <label class="form-label">Imagen</label>
                                             <input class="form-control" type="file" name="imagen" />
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Promocion - Descuento</label>
+                                            <select name="idpromocion" class="form-control">
+                                                @foreach ($promociones as $promocion)
+                                                    <option value="{{ $promocion->id }}">
+                                                        - {{ $promocion->descuento }} %
+                                                    </option>
+                                                @endforeach
+                                                <option selected value=""> Seleccione Una Promoción... </option>
+                                            </select>
+                                            @error('idpromocion')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
                                         <div class="text-center mt-3">
                                             <button type="submit" class="btn btn-lg btn-primary">Guardar</button>
                                             <a href="{{ url('administrador/producto') }}"

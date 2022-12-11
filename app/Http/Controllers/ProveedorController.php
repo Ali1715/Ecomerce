@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\RegisterEmpRequest;
 use App\Http\Requests\UpdateEmpRequest;
 use App\Http\Requests\StoreProveedoreRequest;
 use App\Http\Requests\UpdateProveedorRequest;
+use App\Models\Bitacora;
 use App\Models\User;
 use App\Models\Proveedor;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class ProveedorController extends Controller
 {
@@ -42,26 +46,43 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-
-         $request->validate([
-            'nombre'=>'required',
-            'celular'=>'required',
-            'direccion'=>'required',
-            'correo'=>'required|string|max:255|email',
-        ]); 
+        $request->validate([
+            'nombre' => 'required',
+            'celular' => 'required',
+            'direccion' => 'required',
+            'correo' => 'required|string|max:255|email',
+        ]);
         $proveedor = Proveedor::where('correo', $request->correo)->get()->first();
-        
+
         if ($proveedor)
-        return redirect()->route('gestionar_proveedores.create')->with('message', 'Ya existe ese correo  '.$request->correo);
-        
+            return redirect()->route('gestionar_proveedores.create')->with('message', 'Ya existe ese correo  ' . $request->correo);
 
         $proveedor = Proveedor::create([
-            'nombre'=>$request->nombre,
-            'celular'=>$request->celular,
-            'direccion'=>$request->direccion,
-            'correo'=>$request->correo,
+            'nombre' => $request->nombre,
+            'celular' => $request->celular,
+            'direccion' => $request->direccion,
+            'correo' => $request->correo,
         ]);
 
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un registro de un proveedor";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect()->route('gestionar_proveedores.index');
     }
 
@@ -85,7 +106,7 @@ class ProveedorController extends Controller
     public function edit($id)
     {
         //
-        $gestionar_proveedore= Proveedor::find($id);
+        $gestionar_proveedore = Proveedor::find($id);
         return view('administrador.gestionar_proveedores.edit', compact('gestionar_proveedore'));
     }
 
@@ -100,20 +121,39 @@ class ProveedorController extends Controller
     {
         //
         $request->validate([
-            'nombre'=>'required',
-            'celular'=>'required',
-            'direccion'=>'required',
-            'correo'=>'required|string|max:255|email',
-        ]);       
-        $proveedor =Proveedor::find($id);        
+            'nombre' => 'required',
+            'celular' => 'required',
+            'direccion' => 'required',
+            'correo' => 'required|string|max:255|email',
+        ]);
+        $proveedor = Proveedor::find($id);
 
         $proveedor->update([
-            'nombre'=>$request->nombre,
-            'celular'=>$request->celular,
-            'direccion'=>$request->direccion,
-            'correo'=>$request->correo,
+            'nombre' => $request->nombre,
+            'celular' => $request->celular,
+            'direccion' => $request->direccion,
+            'correo' => $request->correo,
         ]);
 
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de un proveedor";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect()->route('gestionar_proveedores.index');
     }
 
@@ -124,11 +164,30 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy( $id )
+    public function destroy($id)
     {
-
-        $proveedor= Proveedor::find($id);
+        $request = Request::capture();
+        $proveedor = Proveedor::find($id);
         $proveedor->delete();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Eliminó un registro de un proveedor";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect()->route('gestionar_proveedores.index');
     }
 }

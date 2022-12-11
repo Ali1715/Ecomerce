@@ -11,6 +11,7 @@ use App\Models\categoria;
 use App\Models\marca;
 use App\Models\Persona;
 use App\Models\producto;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -32,7 +33,8 @@ class DetalleCarritoController extends Controller
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
         $detallesCarrito = DetalleCarrito::where('idCarrito', $carrito->id)->paginate(9);
-        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('cliente.carrito.carrito', compact('productos', 'carrito', 'detallesCarrito', 'categorias', 'marcas', 'promociones'));
     }
 
     /**
@@ -82,6 +84,7 @@ class DetalleCarritoController extends Controller
                     $bitacora->name = $user->name;
                     $bitacora->actividad = $action;
                     $bitacora->fechaHora = date('Y-m-d H:i:s');
+                    $bitacora->ip = $request->ip();
                     $bitacora->save();
                     //----------
                     $carrito->save();
@@ -112,6 +115,7 @@ class DetalleCarritoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect('cliente/catalogo')->with('message', 'Producto agregado exitosamente');
@@ -180,6 +184,7 @@ class DetalleCarritoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect('cliente/detalleCarrito')->with('message', 'Producto actualizado exitosamente');
@@ -196,6 +201,7 @@ class DetalleCarritoController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $detalleCarrito = DetalleCarrito::findOrFail($id);
         try {
             $detalleCarrito = DetalleCarrito::findOrFail($id);
@@ -226,6 +232,7 @@ class DetalleCarritoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect('cliente/detalleCarrito')->with('message', 'Se han borrado los datos correctamente.');

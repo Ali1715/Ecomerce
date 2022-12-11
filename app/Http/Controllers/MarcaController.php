@@ -8,6 +8,7 @@ use App\Models\Bitacora;
 use App\Models\marca;
 use App\Models\Persona;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 date_default_timezone_set('America/La_Paz');
@@ -60,6 +61,7 @@ class MarcaController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect('administrador/marca')->with('message', 'Guardado exitosamente');
@@ -116,6 +118,7 @@ class MarcaController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect('administrador/marca')->with('message', 'Editado exitosamente');
@@ -129,6 +132,7 @@ class MarcaController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $marca = marca::findOrFail($id);
         try {
             $marca->delete();
@@ -148,6 +152,7 @@ class MarcaController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('marca.index')->with('message', 'Se han borrado los datos correctamente.');

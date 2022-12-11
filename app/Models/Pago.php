@@ -15,5 +15,6 @@ class Pago extends Model
         'costoEnv',
         'idTrans',
         'fechaHora',
+        'id_tipoPago',
     ];
 }

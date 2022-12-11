@@ -106,6 +106,7 @@ class PasswordController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('password.index')->with('message', 'Se ha actualizado los datos correctamente.');

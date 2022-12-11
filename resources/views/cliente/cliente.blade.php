@@ -61,12 +61,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-    </script>
-
+        
 </head>
 
 <body>
@@ -190,7 +185,7 @@
                                                                             {{ $producto->name }}</a></h3>
                                                                     <h4 class="product-price"><span
                                                                             class="qty">{{ $detalleCarrito->cantidad }}x</span>Bs
-                                                                        {{ $producto->precioUnitario }}
+                                                                        {{ $detalleCarrito->precio }}
                                                                     </h4>
                                                                 </div>
                                                                 <button class="delete" type="submit"
@@ -265,6 +260,7 @@
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>
                     <li><a href="#">Accessories</a></li>
+                    @auth <li><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li> @endAuth
                 </ul>
                 <!-- /NAV -->
             </div>

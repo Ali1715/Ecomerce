@@ -49,6 +49,7 @@ class RoleController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('roles.create')->with('info', 'Se registro rol correctamente');
@@ -85,6 +86,7 @@ class RoleController extends Controller
         $bitacora->name = $user->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
         return redirect()->route('roles.edit', $user)->with('info', 'Se asigno los roles correctamente');

@@ -10,6 +10,7 @@ use App\Models\Bitacora;
 use App\Models\categoria;
 use App\Models\marca;
 use App\Models\Persona;
+use App\Models\Promocion;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,8 @@ class ProductoController extends Controller
     {
         $categorias = categoria::get();
         $marcas = marca::get();
-        return view('administrador.gestionar_producto.create', compact('categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('administrador.gestionar_producto.create', compact('categorias', 'marcas', 'promociones'));
     }
 
     /**
@@ -59,7 +61,29 @@ class ProductoController extends Controller
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
         }
+        if($request->idpromocion != ''){
+            $producto->idpromocion = $request->idpromocion;
+        }
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un registro de un Producto";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect('administrador/producto')->with('message', 'Guardado exitosamente');
     }
 
@@ -85,7 +109,8 @@ class ProductoController extends Controller
         $producto = producto::findOrFail($id);
         $categorias = categoria::get();
         $marcas = marca::get();
-        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas'));
+        $promociones = Promocion::get();
+        return view('administrador.gestionar_producto.edit', compact('producto', 'categorias', 'marcas', 'promociones'));
     }
 
     /**
@@ -106,7 +131,29 @@ class ProductoController extends Controller
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
         }
+        if($request->idpromocion != ''){
+            $producto->idpromocion = $request->idpromocion;
+        }
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de un Producto";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect('administrador/producto')->with('message', 'Actualizado exitosamente');
     }
 
@@ -120,6 +167,7 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $producto = producto::findOrFail($id);
         try {
             $producto->delete();
@@ -139,6 +187,7 @@ class ProductoController extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //---------------
             return redirect('administrador/producto')->with('message', 'Se han borrado los datos correctamente.');

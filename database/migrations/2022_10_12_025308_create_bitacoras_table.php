@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tipou')->nullable();
             $table->timestamp('fechaHora')->nullable();
             $table->string('actividad')->nullable();
+            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

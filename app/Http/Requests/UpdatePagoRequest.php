@@ -29,6 +29,7 @@ class UpdatePagoRequest extends FormRequest
             'costoEnv' => 'required',
             'idTrans' => 'required',
             'fechaHora' => 'required',
+            'id_tipoPago' => 'required',
         ];
     }
 }

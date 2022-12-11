@@ -79,6 +79,7 @@ class RegistroController extends Controller
         $Bitacora->name = $user->name;
         $Bitacora->actividad = $action;
         $Bitacora->fechaHora = date('Y-m-d H:i:s');
+        $Bitacora->ip = $request->ip();
         $Bitacora->save();
         //-------------------------------
         //Carrito

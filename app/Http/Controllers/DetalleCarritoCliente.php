@@ -13,6 +13,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/La_Paz');
+
 class DetalleCarritoCliente extends Controller
 {
     /**
@@ -81,6 +83,7 @@ class DetalleCarritoCliente extends Controller
                     $bitacora->name = $user->name;
                     $bitacora->actividad = $action;
                     $bitacora->fechaHora = date('Y-m-d H:i:s');
+                    $bitacora->ip = $request->ip();
                     $bitacora->save();
                     //----------
                     $carrito->save();
@@ -111,6 +114,7 @@ class DetalleCarritoCliente extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('carritosClientes.index')->with('message', 'Producto agregado exitosamente');
@@ -182,6 +186,7 @@ class DetalleCarritoCliente extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('carritosClientes.index')->with('message', 'Producto actualizado exitosamente');
@@ -198,6 +203,7 @@ class DetalleCarritoCliente extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $detalleCarrito = DetalleCarrito::findOrFail($id);
         try {
             $detalleCarrito = DetalleCarrito::findOrFail($id);
@@ -228,6 +234,7 @@ class DetalleCarritoCliente extends Controller
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('carritosClientes.index')->with('message', 'Se han borrado los datos correctamente.');

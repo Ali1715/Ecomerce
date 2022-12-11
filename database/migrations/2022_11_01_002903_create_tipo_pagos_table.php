@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('qr')->nullable();
-            $table->integer('nroCta');
+            $table->unsignedBigInteger('nroCta');
             $table->timestamps();
         });
     }

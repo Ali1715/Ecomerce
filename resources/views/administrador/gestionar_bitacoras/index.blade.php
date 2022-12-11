@@ -19,6 +19,7 @@
                             <th>Tipo De Usuario</th>
                             <th>Actividad</th>
                             <th>Fecha - Hora</th>
+                            <th>Direccion IP</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,7 @@
                                 <td>{{ $bitacora->tipou }}</td>
                                 <td>{{ $bitacora->actividad }}</td>
                                 <td>{{ $bitacora->fechaHora }}</td>
+                                <td>{{ $bitacora->ip }}</td>
                             </tr>
                         @endforeach
                     </tbody>

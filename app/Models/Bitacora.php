@@ -14,5 +14,6 @@ class Bitacora extends Model
         'tipou',
         'fechaHora',
         'actividad',
+        'ip',
     ];
 }

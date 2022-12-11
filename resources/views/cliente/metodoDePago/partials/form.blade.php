@@ -1,7 +1,27 @@
-@include('layouts.messages')
 @csrf
-<br>
 <div class="row">
+    <div class="card-header d-inline-flex">
+        <h1>Address</h1>
+    </div>
+    <div class="col-12">
+        @foreach ($direcciones as $direccion)
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="id_direccion" id="flexRadioDefault1"
+                    value={{ $direccion->id }}>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    {{ $direccion->address_1, $direccion->address_2}}, {{$direccion->city}}, {{$direccion->department }}
+                </label>
+            </div>
+        @endforeach
+    </div>
+    <div class="card-header d-inline-flex">
+        <a href="{{ route('AddressClient.create') }}" class="btn btn-primary ml-auto">
+            <i class="fa fa-plus"></i>
+            Nueva Direccion</a>
+    </div><br>
+    <div class="card-header d-inline-flex">
+        <h1>Transferencia por {{ $tipoPago->nombre }}</h1>
+    </div>
     <div class="col-12">
         <label>Número de cuenta o de telefono a depositar</label>
         <div class="form-floating">
@@ -13,8 +33,8 @@
     <div class="col-12">
         <label>Identificación de la cuenta (número de cuenta, teléfono, ci)</label>
         <div class="form-floating">
-            <input type="number" placeholder="Ingrese la identificación de su cuenta" class="form-control" name="ctaOrd"
-                value="{{ isset($pago) ? $pago->ctaOrd : old('ctaOrd') }}">
+            <input type="number" placeholder="Ingrese la identificación de su cuenta" class="form-control"
+                name="ctaOrd" value="{{ isset($pago) ? $pago->ctaOrd : old('ctaOrd') }}">
         </div>
     </div>
     <br>
@@ -54,5 +74,6 @@
     <input type="hidden" name="costoEnv" class="form-control" id="exampleInputPassword1" value="{{ $costoEnv }}">
     <input type="hidden" name="fechaHora" class="form-control" id="exampleInputPassword1" value="{{ $dateTime }}">
     <input type="hidden" name="monto" class="form-control" id="exampleInputPassword1" value="{{ $total }}">
+    <input type="hidden" name="id_tipoPago" class="form-control" id="exampleInputPassword1" value="{{$tipoPago->id}}">
 </div>
 <br>

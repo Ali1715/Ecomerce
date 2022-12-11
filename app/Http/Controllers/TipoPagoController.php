@@ -8,7 +8,10 @@ use App\Http\Requests\UpdateTipoPagoRequest;
 use App\Models\Bitacora;
 use App\Models\Persona;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('America/La_Paz');
 
 class TipoPagoController extends Controller
 {
@@ -50,6 +53,25 @@ class TipoPagoController extends Controller
             $tipoPago->qr = $filename;
         }
         $tipoPago->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó un nuevo registro de tipo de pago";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect()->route('tiposPagos.index')->with('mensaje', 'Tipo De Pago Agregado Con Éxito');
     }
 
@@ -95,6 +117,25 @@ class TipoPagoController extends Controller
             $tipoPago->qr = $filename;
         }
         $tipoPago->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Editó un registro de tipo de pago";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //---------------
         return redirect()->route('tiposPagos.index')->with('mensaje', 'Tipo De Pago Editado Con Éxito');
     }
 
@@ -106,6 +147,7 @@ class TipoPagoController extends Controller
      */
     public function destroy($id)
     {
+        $request = Request::capture();
         $tipoPago = TipoPago::findOrFail($id);
         try {
             $tipoPago->delete();
@@ -119,12 +161,13 @@ class TipoPagoController extends Controller
             if ($user->tipoc == 1) {
                 $tipo = "Cliente";
             }
-            $action = "Eliminó un registro de un tipo de pago cliente";
+            $action = "Eliminó un registro de un tipo de pago";
             $bitacora = Bitacora::create();
             $bitacora->tipou = $tipo;
             $bitacora->name = $user->name;
             $bitacora->actividad = $action;
             $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
             $bitacora->save();
             //----------
             return redirect()->route('tiposPagos.index')->with('message', 'Se han borrado los datos correctamente.');

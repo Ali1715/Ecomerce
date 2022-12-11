@@ -7,6 +7,7 @@ use App\Http\Controllers\CarritoCliente;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\AccesoController;
+use App\Http\Controllers\AddressClientController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
@@ -21,6 +22,9 @@ use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PedidoClienteController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\TipoPagoController;
 
@@ -143,8 +147,13 @@ Route::prefix('/administrador')->group(function () {
 Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
-    Route::resource('/detalleCarrito', DetalleCarritoController::class);
-    Route::resource('/pagos', PagoController::class);
+    Route::resource('/catalogo', CatalogoController::class);
+    Route::group(['middleware' => ['auth']], function () {
+        Route::resource('/AddressClient', AddressClientController::class);
+        Route::resource('/detalleCarrito', DetalleCarritoController::class);
+        Route::resource('/pagos', PagoController::class);
+        Route::resource('/pedidosCliente', PedidoClienteController::class);
+    });
 });
 
 //Route::resource('/detalleCarrito', DetalleCarritoController::class);
@@ -170,12 +179,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/detallesCarritosClientes', DetalleCarritoCliente::class);
     Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
     Route::resource('/administrador/tiposPagos', TipoPagoController::class);
+    Route::resource('/administrador/promociones', PromocionController::class);
+    Route::resource('/administrador/pedidos', PedidoController::class);
 });
-
-Route::resource('/cliente/catalogo', CatalogoController::class);
 
 Route::get('/index', function () {
     return view('welcome');
 });
 
-Route::match(['get', 'post'], '/botman', [BotManController::class,"handle"]);
+Route::match(['get', 'post'], '/botman', [BotManController::class, "handle"]);
