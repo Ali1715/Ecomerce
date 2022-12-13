@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddressClient;
 use App\Models\Carrito;
 use App\Models\DetalleCarrito;
 use App\Models\factura;
@@ -59,13 +60,14 @@ class PedidoClienteController extends Controller
     public function show($id)
     {
         $pedido = Pedido::findOrFail($id);
+        $direccion = AddressClient::findOrFail($pedido->id_direccion);
         $carritoCliente = Carrito::where('id', $pedido->id_carrito)->first();
         $detallesCarritos = DetalleCarrito::where('idCarrito', $carritoCliente->id)->paginate(10);
         $productos = producto::get();
         $detallesCarrito = DetalleCarrito::get();
         $carrito = Carrito::where('idCliente', auth()->user()->id);
         $carrito = $carrito->where('estado', 1)->first();
-        return (view('cliente.pedidos.show', compact('pedido', 'carritoCliente', 'detallesCarritos', 'productos', 'detallesCarrito', 'carrito')));
+        return (view('cliente.pedidos.show', compact('pedido', 'carritoCliente', 'detallesCarritos', 'productos', 'detallesCarrito', 'carrito', 'direccion')));
 
     }
 

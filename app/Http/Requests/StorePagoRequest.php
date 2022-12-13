@@ -30,6 +30,7 @@ class StorePagoRequest extends FormRequest
             'idTrans' => 'required',
             'fechaHora' => 'required',
             'id_tipoPago' => 'required',
+            'id_direccion' => 'required',
         ];
     }
 }

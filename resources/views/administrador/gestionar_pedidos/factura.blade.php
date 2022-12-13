@@ -190,12 +190,25 @@
                 @endforeach
             @endforeach
 
+            <tr class="heading">
+                <td>Envío</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr class="total">
+                <td>Costo</td>
+                <td></td>
+                <td></td>
+                <td>150 Bs</td>
+            </tr>
 
             <tr class="total">
                 <td></td>
                 <td></td>
-                <td>Monto Final: </td>
-                <td>{{$factura->montoTotal}} Bs</td>
+                <th>Monto Final: </th>
+                <th>{{$factura->montoTotal}} Bs</th>
             </tr>
         </table>
     </div>
