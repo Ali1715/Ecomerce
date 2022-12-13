@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\categoria;
 use App\Models\DetalleCarrito;
+use App\Models\marca;
 use App\Models\Persona;
 use App\Models\producto;
+use App\Models\Promocion;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,14 +36,17 @@ class HomeController extends Controller
                 return view('administrador.home');
             }
         }
+        $productos = producto::get();
+        $categorias = categoria::get();
+        $marcas = marca::get();
+        $promociones = Promocion::get();
         if (auth()->user()) {
-            $productos = producto::get();
             $carrito = Carrito::where('idCliente', auth()->user()->id);
             $carrito = $carrito->where('estado', 1)->first();
             $detallesCarrito = DetalleCarrito::get();
-            return view('cliente.home', compact('productos', 'carrito', 'detallesCarrito'));
+            return view('cliente.home', compact('productos', 'categorias', 'marcas', 'promociones', 'carrito', 'detallesCarrito'));
         }
-        return view('cliente.home');
+        return view('cliente.home', compact('productos', 'categorias', 'marcas', 'promociones'));
         //return view('home');
     }
 
