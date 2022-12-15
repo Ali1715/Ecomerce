@@ -83,18 +83,11 @@
                             </form>
                         </div>
                     </div>
-                    @guest
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="/login"> add to
-                                    cart </a> </button>
-                        </div>
-                    @else
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn" form="create{{ $a }}"><i
-                                    class="fa fa-shopping-cart"></i> add to
-                                cart</button>
-                        </div>
-                    @endguest
+                    <div class="add-to-cart">
+                        <button class="add-to-cart-btn" form="create{{ $a }}"><i
+                                class="fa fa-shopping-cart"></i> add to
+                            cart</button>
+                    </div>
                 </div>
             </div>
             @if ($c == 3)

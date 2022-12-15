@@ -126,7 +126,8 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ asset('img/Ecomercelog.jpg') }}" alt="Company logo" style="width: 100%; max-width: 300px" />
+                                <img src="{{ asset('img/Ecomercelog.jpg') }}" alt="Company logo"
+                                    style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
                                 Invoice #: {{ $factura->id }}<br />
@@ -144,7 +145,7 @@
                             <td>
                                 Ecommerce, Inc.<br />
                                 12345 Sunny Road<br />
-                                NIT: {{$factura->NIT}}
+                                NIT: {{ $factura->NIT }}
                             </td>
 
                             <td>
@@ -168,7 +169,7 @@
                 <td>{{ $tipoPago->nombre }}</td>
                 <td></td>
                 <td></td>
-                <td>{{$pago->idTrans}}</td>
+                <td>{{ $pago->idTrans }}</td>
             </tr>
 
             <tr class="heading">
@@ -181,21 +182,34 @@
                 @foreach ($productos as $producto)
                     @if ($detalleCarrito->idProducto == $producto->id)
                         <tr class="item">
-                            <td>{{$producto->name}}</td>
-                            <td>{{$detalleCarrito->cantidad}}</td>
-                            <td>{{$detalleCarrito->precio}} Bs</td>
-                            <td>{{$detalleCarrito->precio * $detalleCarrito->cantidad}} Bs</td>
+                            <td>{{ $producto->name }}</td>
+                            <td>{{ $detalleCarrito->cantidad }}</td>
+                            <td>{{ $detalleCarrito->precio }} Bs</td>
+                            <td>{{ $detalleCarrito->precio * $detalleCarrito->cantidad }} Bs</td>
                         </tr>
                     @endif
                 @endforeach
             @endforeach
 
+            <tr class="heading">
+                <td>Envío</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr class="details">
+                <td>Costo</td>
+                <td></td>
+                <td></td>
+                <td>150 Bs</td>
+            </tr>
 
             <tr class="total">
                 <td></td>
                 <td></td>
-                <td>Monto Final: </td>
-                <td>{{$factura->montoTotal}} Bs</td>
+                <th>Monto Final: </th>
+                <th>{{ $factura->montoTotal }} Bs</th>
             </tr>
         </table>
     </div>

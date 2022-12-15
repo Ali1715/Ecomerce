@@ -6,6 +6,8 @@ use App\Http\Controllers\DetalleCarritoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiProductoController;
+use App\Http\Controllers\Api\ApiClienteController;
+use App\Http\Controllers\Api\ApiCarritoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,36 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/producto',ApiProductoController::class)->only(['index','store','update','destroy']) ;
 
-Route::apiResource('/catalogo',CatalogoController::class)->only(['index','store','update','destroy']) ;
+Route::post('/register', [AuthApi::class, 'register']);
 
-Route::apiResource('/detallecarrito',DetalleCarritoController::class)->only(['index','store','update','destroy']) ;
+Route::post('/login', [AuthApi::class, 'login']);
+
+Route::post('/logout', [AuthApi::class, 'logout'])
+    ->name('api.logout')
+    ->middleware('auth:sanctum');
+
+//Route::apiResource('/producto',ApiProductoController::class)->only(['index','store','update','destroy']) ;
+
+Route::get('productos',[ApiProductoController::class,'index']);
+Route::get('productos/{producto}',[ApiProductoController::class,'show']);
+Route::post('productos',[ApiProductoController::class,'store']);
+Route::put('productos/{producto}',[ApiProductoController::class,'update']);
+Route::delete('productos/{producto}',[ApiProductoController::class,'destroy']);
+
+
+Route::get('cliente',[ApiClienteController::class,'index']);
+Route::get('cliente/{cliente}',[ApiClienteController::class,'show']);
+Route::post('cliente',[ApiClienteController::class,'store']);
+Route::put('cliente/{cliente}',[ApiClienteController::class,'update']);
+Route::delete('cliente/{cliente}',[ApiClienteController::class,'destroy']);
+
+
+Route::get('carrito',[ApiCarritoController::class,'index']);
+Route::get('carrito/{carrito}',[ApiCarritoController::class,'show']);
+Route::post('carrito',[ApiCarritoController::class,'store']);
+Route::put('carrito/{carrito}',[ApiCarritoController::class,'update']);
+Route::delete('carrito/{carrito}',[ApiCarritoController::class,'destroy']);
+
+
 
