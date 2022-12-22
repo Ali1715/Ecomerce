@@ -1,17 +1,16 @@
 @csrf
 <div class="row">
-    <div class="col-12">
-        <div class="form-floating">
-            <input type="password" placeholder="password" class="form-control" name="password"
-                value="">
-            <label>Contraseña</label>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="form-floating">
-            <input type="password" placeholder="password_confirmation" class="form-control"
-                name="password_confirmation" value="">
-            <label>Confirmar Contraseña</label>
+    <div class="col-md-10">
+        <div class="billing-details">
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" placeholder="password" input class="input" name="password" value="">
+            </div>
+            <div class="form-group">
+                <label>Confirmar Contraseña</label>
+                <input type="password" placeholder="password_confirmation" input class="input"
+                    name="password_confirmation" value="">
+            </div>
         </div>
     </div>
 </div>

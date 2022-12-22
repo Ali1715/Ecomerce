@@ -1,11 +1,25 @@
 @extends('cliente.cliente')
 @section('content')
-    <div class="card mt-3">
-        <div class="card-header d-inline">
-            <h1>
-                <center><b>Pedidos Realizados</b></center>
-            </h1>
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Pedidos</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li class="active">Pedidos Realizados</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
         </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+    <div class="card mt-3">
         <div class="card-body">
             <div class="row">
                 <div class="pagination justify-content-end">
@@ -42,11 +56,11 @@
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('pedidosCliente.show', $pedido->id) }}"
-                                                    class="btn btn-primary">Detalles</a>
+                                                    class="btn btn-primary"><i class="fa fa-align-justify"></i> Detalles</a>
                                             </div>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('pedidosCliente.edit', $pedido->id) }}"
-                                                    class="btn btn-primary">Factura</a>
+                                                    class="btn btn-primary"><i class="fa fa-file"></i> Factura</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -61,7 +61,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
+
 </head>
 
 <body>
@@ -254,13 +254,16 @@
                 <ul class="main-nav nav navbar-nav">
                     <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
-                            href="{{ route('catalogo.index') }}">Productos</a></li>
+                            href="{{ route('catalogo.index') }}">Catálogo</a></li>
                     <li><a href="#">Categorias</a></li>
                     <li><a href="#">Laptops</a></li>
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>
                     <li><a href="#">Accessories</a></li>
-                    @auth <li><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li> @endAuth
+                    @auth
+                        <li class="{{ 'cliente/pedidosCliente' == Request::is('cliente/pedidosCliente*') ? 'active' : '' }}"><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li>
+                        <li class="{{ 'cliente/AddressClient' == Request::is('cliente/AddressClient*') ? 'active' : '' }}"><a href="{{url('/cliente/AddressClient')}}">Direcciones</a></li>
+                    @endAuth
                 </ul>
                 <!-- /NAV -->
             </div>
@@ -338,10 +341,11 @@
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">View Cart</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="{{ route('perfil.edit', auth()->user()->id) }}">My Account</a></li>
+                                <li><a href="{{ route('password.edit', auth()->user()->id) }}">Set Password</a></li>
+                                <li><a href="{{ url('/cliente/AddressClient') }}">Address</a></li>
+                                <li><a href="{{ route('detalleCarrito.index') }}">View Cart</a></li>
+                                <li><a href="{{ route('pedidosCliente.index') }}">Orders</a></li>
                                 <li><a href="#">Help</a></li>
                             </ul>
                         </div>
@@ -387,7 +391,7 @@
     </footer>
     <!-- /FOOTER -->
 
-    
+
     <!-- jQuery Plugins -->
     <script src="{{ asset('cliente/js/jquery.min.js') }}"></script>
     <script src="{{ asset('cliente/js/bootstrap.min.js') }}"></script>
@@ -404,7 +408,7 @@
         introMessage: "Hola!",
         placeholderText: "Escribe un mensaje",
         mainColor: "#CC0000",
-        bubbleBackground:"#CC0000",
+        bubbleBackground: "#CC0000",
         aboutLink: '/home'
     };
 </script>

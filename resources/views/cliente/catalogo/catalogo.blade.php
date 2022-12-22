@@ -1,8 +1,25 @@
 @extends('cliente.cliente')
 @section('content')
-    <center>
-        <h1>CATÁLOGO</h1>
-    </center>
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Catálogo</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{url('/home')}}">Home</a></li>
+                        <li class="active">Catálogo</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+    
     <!-- store products -->
     <div class="pagination justify-content-end">
         {!! $productos->links() !!}

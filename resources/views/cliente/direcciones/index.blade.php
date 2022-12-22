@@ -13,7 +13,14 @@
                     <h1>
                         <center><b>DIRECCIONES</b></center>
                     </h1>
-                    <a href="{{ route('AddressClient.create') }}" class="btn btn-primary float-end">Nueva Dirección</a>
+                    <div class="card-header d-inline-flex">
+                        <a href="{{ url('/home') }}" class="primary-btn order-submit">
+                            <i class="fa fa-arrow-left"></i>
+                            Volver</a>
+                    </div><br>
+                    <a href="{{ route('AddressClient.create') }}" class="primary-btn order-submit">
+                        <i class="fa fa-plus"></i>
+                        Nueva Dirección</a>
                 </div>
                 <div class="pagination justify-content-end">
                     {!! $direcciones->links() !!}
@@ -43,9 +50,10 @@
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ url('cliente/AddressClient/' . $direccion->id . '/edit') }}"
-                                            class="btn btn-info">Edit</a>
+                                            class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
                                         <button type="submit" class="btn btn-danger" form="delete_{{ $direccion->id }}"
                                             onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                            <i class="fa fa-trash"></i>
                                             Delete
                                         </button>
                                         <form action="{{ route('AddressClient.destroy', $direccion->id) }}"

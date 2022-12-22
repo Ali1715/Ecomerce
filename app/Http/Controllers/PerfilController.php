@@ -29,10 +29,10 @@ class PerfilController extends Controller
             $TipoC = $persona->tipoc;
             $TipoE = $persona->tipoe;
             if ($TipoC == 1) {
-                return redirect('cliente/home')->with('message', 'Se ha actualizado los datos correctamente.');
+                return redirect('cliente/home');
             } else {
                 if ($TipoE == 1) {
-                    return redirect('administrador/home')->with('message', 'Se ha actualizado los datos correctamente.');
+                    return redirect('administrador/home');
                 }
             }
         }
@@ -123,7 +123,15 @@ class PerfilController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //----------
-        return redirect()->route('perfil.index')->with('message', 'Se ha actualizado los datos correctamente.');
+        $TipoC = $user->tipoc;
+        $TipoE = $user->tipoe;
+        if ($TipoC == 1) {
+            return redirect('cliente/home')->with('message', 'Se ha actualizado los datos correctamente.');
+        } else {
+            if ($TipoE == 1) {
+                return redirect('administrador/home')->with('message', 'Se ha actualizado los datos correctamente.');
+            }
+        }
     }
 
     /**

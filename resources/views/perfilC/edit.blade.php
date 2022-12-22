@@ -5,20 +5,21 @@
             <h1>Formulario - Editar Perfil</h1>
         </div>
         <div class="card-header d-inline-flex">
-            <a href="{{ route('perfil.index') }}" class="btn btn-primary ml-auto">
-                <i class="fas fa-arrow-left"></i>
+            <a href="{{ route('perfil.index') }}" class="primary-btn order-submit">
+                <i class="fa fa-arrow-left"></i>
                 Volver</a>
         </div>
+        <br>
         <div class="card-body">
             <form action="{{ route('perfil.update', auth()->user()->id) }}" method="POST" enctype="multipart/form-data"
                 id="update">
                 @method('PUT')
-                @include('perfil.partials.form')
+                @include('perfilC.partials.form')
             </form>
         </div>
         <div class="card-footer">
-            <Button class="btn btn-primary" form="update">
-                <i class="fas fa-pencil-alt"></i> Editar
+            <Button class="primary-btn order-submit" form="update">
+                <i class="fa fa-pencil"></i> Editar
             </Button>
         </div>
     </div>
