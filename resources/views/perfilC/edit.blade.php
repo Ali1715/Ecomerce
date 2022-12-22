@@ -21,6 +21,9 @@
             <Button class="primary-btn order-submit" form="update">
                 <i class="fa fa-pencil"></i> Editar
             </Button>
+            <a class="primary-btn order-submit" href="{{ route('password.edit', auth()->user()->id) }}">
+                {{ __('Cambiar Contraseña') }} <i class="fa fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 @endsection

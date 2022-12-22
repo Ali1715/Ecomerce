@@ -15,7 +15,7 @@ class CategoriaShowController extends Controller
     public function index()
     {
         $categoriasShow = categoria::paginate(10);
-        if (auth()) {
+        if (auth()->user()) {
             $productos = producto::get();
             $carrito = Carrito::where('idCliente', auth()->user()->id);
             $carrito = $carrito->where('estado', 1)->first();
@@ -33,7 +33,7 @@ class CategoriaShowController extends Controller
         $categoria = categoria::findOrFail($id);
         $marcas = marca::get();
         $promociones = Promocion::get();
-        if (auth()) {
+        if (auth()->user()) {
             $carrito = Carrito::where('idCliente', auth()->user()->id);
             $carrito = $carrito->where('estado', 1)->first();
             $detallesCarrito = DetalleCarrito::get();

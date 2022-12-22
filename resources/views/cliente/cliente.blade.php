@@ -88,21 +88,11 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->email }}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                href="{{ route('perfil.edit', auth()->user()->id) }}">
+                                {{ Auth::user()->email }} <i class="fa fa-user-o"></i>
                                 <a class="dropdown-item" href="/cierreSesion">
-                                    {{ __('Logout') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('perfil.edit', auth()->user()->id) }}">
-                                    {{ __('Configurar Perfil') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('password.edit', auth()->user()->id) }}">
-                                    {{ __('Cambiar Contraseña') }}
-                                </a>
-                            </div>
+                                    {{ __('Logout') }} <i class="fa fa-arrow-right"></i>
                         </li>
                     @endguest
                 </ul>
@@ -145,13 +135,13 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
                             <!-- Wishlist -->
-                            <div>
+                            <!--<div>
                                 <a href="#">
                                     <i class="fa fa-heart-o"></i>
                                     <span>Your Wishlist</span>
                                     <div class="qty">2</div>
                                 </a>
-                            </div>
+                            </div>-->
                             <!-- /Wishlist -->
 
                             <!-- Cart -->
@@ -255,19 +245,19 @@
                     <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
                             href="{{ route('catalogo.index') }}">Catálogo</a></li>
-                    <li class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}"><a
-                            href="{{ route('categoriaShow.index') }}">Categorías</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li
+                        class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}">
+                        <a href="{{ route('categoriaShow.index') }}">Categorías</a>
+                    </li>
                     @auth
                         <li
                             class="{{ 'cliente/pedidosCliente' == Request::is('cliente/pedidosCliente*') ? 'active' : '' }}">
-                            <a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li>
+                            <a href="{{ route('pedidosCliente.index') }}">Pedidos</a>
+                        </li>
                         <li
                             class="{{ 'cliente/AddressClient' == Request::is('cliente/AddressClient*') ? 'active' : '' }}">
-                            <a href="{{ url('/cliente/AddressClient') }}">Direcciones</a></li>
+                            <a href="{{ url('/cliente/AddressClient') }}">Direcciones</a>
+                        </li>
                     @endAuth
                 </ul>
                 <!-- /NAV -->
@@ -346,8 +336,14 @@
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
-                                <li><a href="{{ route('perfil.edit', auth()->user()->id) }}">My Account</a></li>
-                                <li><a href="{{ route('password.edit', auth()->user()->id) }}">Set Password</a></li>
+                                @if (auth()->user())
+                                    <li><a href="{{ route('perfil.edit', auth()->user()->id) }}">My Account</a></li>
+                                    <li><a href="{{ route('password.edit', auth()->user()->id) }}">Set Password</a>
+                                    </li>
+                                @else
+                                    <li><a href="{{ url('/login') }}">My Account</a></li>
+                                    <li><a href="{{ url('/login') }}">Set Password</a></li>
+                                @endif
                                 <li><a href="{{ url('/cliente/AddressClient') }}">Address</a></li>
                                 <li><a href="{{ route('detalleCarrito.index') }}">View Cart</a></li>
                                 <li><a href="{{ route('pedidosCliente.index') }}">Orders</a></li>
