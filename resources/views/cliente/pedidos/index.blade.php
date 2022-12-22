@@ -21,6 +21,13 @@
     <!-- /BREADCRUMB -->
     <div class="card mt-3">
         <div class="card-body">
+            <div class="card-header d-inline">
+                <div class="card-header d-inline-flex">
+                    <a href="{{ url('/home') }}" class="primary-btn order-submit">
+                        <i class="fa fa-arrow-left"></i>
+                        Volver</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="pagination justify-content-end">
                     {{ $carritos->links() }}

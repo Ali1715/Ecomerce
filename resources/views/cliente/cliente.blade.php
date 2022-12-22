@@ -255,14 +255,19 @@
                     <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
                             href="{{ route('catalogo.index') }}">Catálogo</a></li>
-                    <li><a href="#">Categorias</a></li>
+                    <li class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}"><a
+                            href="{{ route('categoriaShow.index') }}">Categorías</a></li>
                     <li><a href="#">Laptops</a></li>
                     <li><a href="#">Smartphones</a></li>
                     <li><a href="#">Cameras</a></li>
                     <li><a href="#">Accessories</a></li>
                     @auth
-                        <li class="{{ 'cliente/pedidosCliente' == Request::is('cliente/pedidosCliente*') ? 'active' : '' }}"><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li>
-                        <li class="{{ 'cliente/AddressClient' == Request::is('cliente/AddressClient*') ? 'active' : '' }}"><a href="{{url('/cliente/AddressClient')}}">Direcciones</a></li>
+                        <li
+                            class="{{ 'cliente/pedidosCliente' == Request::is('cliente/pedidosCliente*') ? 'active' : '' }}">
+                            <a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li>
+                        <li
+                            class="{{ 'cliente/AddressClient' == Request::is('cliente/AddressClient*') ? 'active' : '' }}">
+                            <a href="{{ url('/cliente/AddressClient') }}">Direcciones</a></li>
                     @endAuth
                 </ul>
                 <!-- /NAV -->

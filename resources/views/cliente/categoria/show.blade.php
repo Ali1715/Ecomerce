@@ -7,10 +7,11 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="breadcrumb-header">Catálogo</h3>
+                    <h3 class="breadcrumb-header">{{ $categoria->nombre }}</h3>
                     <ul class="breadcrumb-tree">
-                        <li><a href="{{url('/home')}}">Home</a></li>
-                        <li class="active">Catálogo</li>
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li class="active">Categorías</li>
+                        <li class="active">{{ $categoria->nombre }}</li>
                     </ul>
                 </div>
             </div>
@@ -19,17 +20,17 @@
         <!-- /container -->
     </div>
     <!-- /BREADCRUMB -->
-    
+
     <!-- store products -->
     <div class="pagination justify-content-end">
-        {!! $productos->links() !!}
+        {!! $productosS->links() !!}
     </div>
     <div class="row">
         <?php
         $c = 0;
         $a = 0;
         ?>
-        @foreach ($productos as $producto)
+        @foreach ($productosS as $producto)
             <?php
             $c = $c + 1;
             $a = $a + 1;
@@ -54,11 +55,7 @@
                         </div>
                     </div>
                     <div class="product-body">
-                        @foreach ($categorias as $categoria)
-                            @if ($categoria->id == $producto->idcategoria)
-                                <p class="product-category">{{ $categoria->nombre }}</p>
-                            @endif
-                        @endforeach
+                        <p class="product-category">{{ $categoria->nombre }}</p>
                         <h3 class="product-name"><a href="#">{{ $producto->name }}</a></h3>
                         @if ($producto->idpromocion != '')
                             <h4 class="product-price">Bs
@@ -125,6 +122,6 @@
         </div>
     </div>
     <div class="pagination justify-content-end">
-        {!! $productos->links() !!}
+        {!! $productosS->links() !!}
     </div>
 @endsection

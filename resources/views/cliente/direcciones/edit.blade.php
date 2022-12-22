@@ -1,6 +1,26 @@
 @extends('cliente.cliente')
 
 @section('content')
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Editar Direccion</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{url('/home')}}">Home</a></li>
+                        <li >Direcciones</li>
+                        <li class="active">Editar</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
             <div class="row vh-110">

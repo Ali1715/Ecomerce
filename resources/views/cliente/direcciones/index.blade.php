@@ -1,8 +1,25 @@
 @extends('cliente.cliente')
 
 @section('content')
-    <!-- ****************************************************-->
-    @yield('content')
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Direcciones</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Direcciones</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
     <div class="row">
         <div class="col-md-12">
             @if (session('message'))
@@ -10,9 +27,6 @@
             @endif
             <div class="card">
                 <div class="card-header d-inline">
-                    <h1>
-                        <center><b>DIRECCIONES</b></center>
-                    </h1>
                     <div class="card-header d-inline-flex">
                         <a href="{{ url('/home') }}" class="primary-btn order-submit">
                             <i class="fa fa-arrow-left"></i>
@@ -35,6 +49,7 @@
                             <th>Departamento</th>
                             <th>País</th>
                             <th>Postal Code</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

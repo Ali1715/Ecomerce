@@ -100,7 +100,9 @@
                                                             @endif
                                                         @endforeach
                                                     @endif
-                                                    <!--<span class="new">NEW</span>-->
+                                                    @if ($producto->stock == 0)
+                                                        <span class="new">Sin Stock</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="product-body">
@@ -269,7 +271,9 @@
                                                             @endif
                                                         @endforeach
                                                     @endif
-                                                    <!--<span class="new">NEW</span>-->
+                                                    @if ($producto->stock == 0)
+                                                        <span class="new">Sin Stock</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="product-body">

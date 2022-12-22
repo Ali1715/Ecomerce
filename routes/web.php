@@ -18,6 +18,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CategoriaShowController;
 use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
@@ -147,6 +148,7 @@ Route::prefix('/administrador')->group(function () {
 Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
     //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
+    Route::resource('/categoriaShow', CategoriaShowController::class);
     Route::resource('/catalogo', CatalogoController::class);
     Route::group(['middleware' => ['auth']], function () {
         Route::resource('/AddressClient', AddressClientController::class);
