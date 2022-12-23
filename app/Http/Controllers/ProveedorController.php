@@ -24,7 +24,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::All();
+        $proveedores = Proveedor::paginate(10);
         return view('administrador.gestionar_proveedores.index', compact('proveedores'));
     }
 
@@ -83,7 +83,7 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 
     /**
@@ -154,7 +154,7 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 
     /**
@@ -188,6 +188,6 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 }

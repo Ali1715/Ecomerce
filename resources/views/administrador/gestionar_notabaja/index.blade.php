@@ -10,56 +10,63 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-2">
-                                        <a href="{{ route('notaIngreso.create') }}" class="btn btn-primary ml-auto">
-                                            <i class="fas fa-plus"></i>
-                                            Agregar</a>
+                                        <form action="{{ route('notaBaja.store') }}" method="POST"
+                                            enctype="multipart/form-data" id="create">
+                                            @csrf
+                                            <!--  {{ csrf_field() }}  -->
+                                            <?php
+                                            date_default_timezone_set('America/La_Paz');
+                                            $fechaHora = date('Y-m-d H:i:s');
+                                            $idempleado = auth()->user()->id;
+                                            ?>
+                                            <input value="0" type="hidden" name="total" />
+                                            <input value="{{ $idempleado }}" type="hidden" name="idempleado" />
+                                            <input value="{{ $fechaHora }}" type="hidden" name="fechaHora" />
+                                        </form>
+                                        <button type="submit" class="btn btn-lg btn-primary" form="create">
+                                            <i class="fa fa-plus"></i>
+                                        Agregar Nota De Baja</button>
                                     </div>
                                     <div class="pagination justify-content-end">
-                                        {{ $notasIng->links() }}
+                                        {{ $notasBaja->links() }}
                                     </div>
                                 </div>
                                 <table class="table table-bordered border-primary align-middle">
                                     <div class="m-sm-4">
-                                        <h1 class="h2">Notas De Ingreso</h1>
+                                        <h1 class="h2">Notas De Baja</h1>
                                         <thead>
                                             <tr>
                                                 <th scope="col">ID</th>
                                                 <th scope="col">FechaHora</th>
                                                 <th scope="col">Trabajador</th>
-                                                <th scope="col">proveedor</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-group-divider">
-                                            @foreach ($notasIng as $notaIng)
+                                            @foreach ($notasBaja as $notaBaja)
                                                 <tr>
-                                                    <td>{{ $notaIng->id }}</td>
-                                                    <td>{{ $notaIng->fechaHora }}</td>
+                                                    <td>{{ $notaBaja->id }}</td>
+                                                    <td>{{ $notaBaja->fechaHora }}</td>
                                                     @foreach ($empleados as $empleado)
-                                                        @if ($empleado->id == $notaIng->idempleado)
+                                                        @if ($empleado->id == $notaBaja->idempleado)
                                                             <td>{{ $empleado->name }}</td>
                                                         @endif
                                                     @endforeach
-                                                    @foreach ($proveedores as $proveedor)
-                                                        @if ($proveedor->id == $notaIng->idproveedor)
-                                                            <td>{{ $proveedor->nombre }}</td>
-                                                        @endif
-                                                    @endforeach
-                                                    <td>{{ $notaIng->total }}</td>
+                                                    <td>{{ $notaBaja->total }}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="{{ url('administrador/notaIngreso/' . $notaIng->id . '/edit') }}"
+                                                            <a href="{{ url('administrador/notaBaja/' . $notaBaja->id . '/edit') }}"
                                                                 class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                                                            <a href="{{ route('notaIngreso.show', $notaIng->id) }}"
+                                                            <a href="{{ route('notaBaja.show', $notaBaja->id) }}"
                                                                 class="btn btn-dark"><i class="fas fa-eye"></i></a>
                                                             <button type="submit" class="btn btn-danger"
-                                                                form="delete_{{ $notaIng->id }}"
+                                                                form="delete_{{ $notaBaja->id }}"
                                                                 onclick="return confirm('¿Estás seguro de eliminar el registro?')">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
-                                                            <form action="{{ route('notaIngreso.destroy', $notaIng->id) }}"
-                                                                id="delete_{{ $notaIng->id }}" method="POST"
+                                                            <form action="{{ route('notaBaja.destroy', $notaBaja->id) }}"
+                                                                id="delete_{{ $notaBaja->id }}" method="POST"
                                                                 enctype="multipart/form-data" hidden>
                                                                 @csrf
                                                                 @method('DELETE')
@@ -73,7 +80,7 @@
                                 </table>
                                 <div class="row">
                                     <div class="pagination justify-content-end">
-                                        {{ $notasIng->links() }}
+                                        {{ $notasBaja->links() }}
                                     </div>
                                 </div>
                             </div>

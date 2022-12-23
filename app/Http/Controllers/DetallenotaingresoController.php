@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\producto;
 use App\Http\Controllers\ProductoController;
 use App\Http\Requests\ProductoFormRequest;
+use App\Http\Requests\StoreDetalleNotaIngresoRequest;
+use App\Http\Requests\UpdateDetalleNotaIngresoRequest;
+use App\Models\Bitacora;
 use App\Models\detallenotabaja;
 use App\Models\notaingreso;
+use App\Models\Persona;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DetallenotaingresoController extends Controller
@@ -18,15 +24,8 @@ class DetallenotaingresoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($idnota)
+    public function index()
     {
-        $datos = DB::table('detallenotaingresos')->where('idnota', $idnota)
-        ->join('productos', 'productos.id', '=', 'detallenotaingresos.idproducto')
-     
-        ->select('productos.name','detallenotaingresos.idproducto','detallenotaingresos.idnota','detallenotaingresos.cantidad','detallenotaingresos.costo', 'detallenotaingresos.total')
-        ->get();
-  
-        return view('administrador.gestionar_detallenotaingreso.detallenotaingreso',['dato'=>$datos,'idnota'=>$idnota]);
     }
 
     /**
@@ -35,6 +34,12 @@ class DetallenotaingresoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function show($id)
+    {
+        $notaIng = notaingreso::findOrFail($id);
+        $productos = producto::get();
+        return view('administrador.gestionar_detallenotaingreso.create', compact('notaIng', 'productos'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,9 +47,19 @@ class DetallenotaingresoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function store(StoreDetalleNotaIngresoRequest $request)
     {
-        return view('administrador.gestionar_notaingreso.agregardetalle');
+        $detalleNotaIng = detallenotaingreso::create($request->validated());
+        $detalleNotaIng->total = $detalleNotaIng->cantidad * $detalleNotaIng->costo;
+        $detalleNotaIng->save();
+        $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
+        $notaIng->total = $notaIng->total + $detalleNotaIng->total;
+        $notaIng->save();
+        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
+        $producto->save();
+        return redirect()->route('notaIngreso.index')->with('mensaje', 'Producto agregado a la nota de ingreso.');
     }
 
     /**
@@ -53,57 +68,9 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function agregar(producto $dato, notaingreso $datonota)
+
+    public function create()
     {
-        return view('administrador.gestionar_detallenotaingreso.agregar', compact('dato','datonota'));
-    }
-
-
-    public function guardar($dato1, $dato2)
-    {
-       
- 
-        $dato = new detallenotaingreso();
-        $dato->idnota='idnota';
-        $dato->idproducto=$dato2;
-        $dato->cantidad='cantidad';
-        $dato->costo='costo';
-        $dato->total='costo' * 'cantidad';
-       
-
-        $dato->save();
-
-        return redirect('administrador/notaingreso/agregar')->with('message','Guardado exitosamente');
-    }
-
-    public function listar($idnota)
-    {
-         $datonota= $idnota;
-        $datos = DB::table('productos')->orderBy('id')
-            ->join('marcas', 'marcas.id', '=', 'productos.idmarca')
-        
-            ->select('productos.id', 'productos.name', 'productos.descripcion','productos.precioStock','productos.precioUnitario','marcas.nombre')
-            ->get();
-      
-     
-         return view('administrador.gestionar_detallenotaingreso.listaproducto', compact('datos','datonota'));
-     
-    }
-    public function create( $idnota)
-    {
-   
-       
-        $dato = new detallenotaingreso();
-        $dato->idnota=$idnota;
-        $dato->cantidad=1;
-        $dato->costo=00;
-        $dato->total=00;
-       
-        $dato->save();
-
-      
-
-        return redirect('administrador/detallenotaingreso/listaproducto')->with('message','Agregar producto necesariamente');
     }
 
     /**
@@ -112,9 +79,12 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function edit(detallenotaingreso $detallenotaingreso)
+
+    public function edit($id)
     {
-        //
+        $detalleNotaIng = detallenotaingreso::findOrFail($id);
+        $productos = producto::get();
+        return view('administrador.gestionar_detallenotaingreso.edit', compact('detalleNotaIng', 'productos'));
     }
 
     /**
@@ -124,36 +94,25 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idnota,  $dato)
+
+    public function update(UpdateDetalleNotaIngresoRequest $request, $id)
     {
-
-     
-       
-        $datos = detallenotaingreso::where("idnota", '=', $idnota, "idproducto",'=',$dato);
-        
-        $datos->cantidad=['cantidad'];
-        $datos->costo=['costo'];
-        $datos->total=[00];
-        $datos->update();
-
-        return redirect('administrador/notaingreso/'.$idnota.'/agregardetalle')->with('message','Actualizado exitosamente');
-    }
-
-   public function add($idnota,$idproducto)
-    {
-
-
-    
-        $dato = new detallenotaingreso();
-        $dato->idnota=$idnota;
-        $dato->idproducto=$idproducto;
-        $dato->cantidad=1;
-        $dato->costo=00;
-        $dato->total=00;
-
-        $dato->save();
-
-        return redirect('administrador/detallenotaingreso/'.$idnota.'/agregar')->with('message','Agregar producto necesariamente');
+        $detalleNotaIng = detallenotaingreso::findOrFail($id);
+        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto->stock = $producto->stock - $detalleNotaIng->cantidad;
+        $producto->save();
+        $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
+        $notaIng->total = $notaIng->total - $detalleNotaIng->total;
+        $notaIng->save();
+        $detalleNotaIng->update($request->validated());
+        $detalleNotaIng->total = $detalleNotaIng->cantidad * $detalleNotaIng->costo;
+        $detalleNotaIng->save();
+        $notaIng->total = $notaIng->total + $detalleNotaIng->total;
+        $notaIng->save();
+        $producto = producto::findOrFail($detalleNotaIng->idproducto);
+        $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
+        $producto->save();
+        return redirect()->route('notaIngreso.index')->with('mensaje', 'Detalle Actualizado Con Éxito.');
     }
 
     /**
@@ -162,8 +121,41 @@ class DetallenotaingresoController extends Controller
      * @param  \App\Models\detallenotaingreso  $detallenotaingreso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(detallenotaingreso $detallenotaingreso)
+
+    public function destroy($id)
     {
-        //
+        $request = Request::capture();
+        $detalleNotaIng = detallenotaingreso::findOrFail($id);
+        try {
+            $notaIng = notaingreso::findOrFail($detalleNotaIng->idnotaing);
+            $notaIng->total = $notaIng->total - $detalleNotaIng->total;
+            $notaIng->save();
+            $producto = producto::findOrFail($detalleNotaIng->idproducto);
+            $producto->stock = $producto->stock - $detalleNotaIng->cantidad;
+            $producto->save();
+            $detalleNotaIng->delete();
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Eliminó un registro de un detalle de nota de ingreso";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
+            $bitacora->save();
+            //----------
+            return redirect()->route('notaIngreso.index')->with('message', 'Se han borrado los datos correctamente.');
+        } catch (QueryException $e) {
+            return redirect()->route('notaIngreso.index')->with('danger', 'Datos relacionados con otras tablas, imposible borrar datos.');
+        }
     }
 }

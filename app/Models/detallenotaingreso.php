@@ -9,16 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class detallenotaingreso extends Model
 {
     use HasFactory;
-    protected $table='detallenotaingresos';
+    protected $table = 'detallenotaingresos';
 
-	protected $fillable=[
-	
-	'idnota',
-    'idproducto',
-    'cantidad',
-    'costo',
-    'total',
-    
-    
-	];
+    protected $fillable = [
+        'idnotaing',
+        'idproducto',
+        'cantidad',
+        'costo',
+        'total',
+    ];
 }

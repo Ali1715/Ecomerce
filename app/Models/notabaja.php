@@ -9,14 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class notabaja extends Model
 {
     use HasFactory;
-    protected $table='notabajas';
+    protected $table = 'notabajas';
 
-	protected $fillable=[
-	
-	'FechaHora',
-    'idempleado',
-    
-    
-    
-	];
+    protected $fillable = [
+        'total',
+        'fechaHora',
+        'idempleado',
+    ];
 }

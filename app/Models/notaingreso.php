@@ -11,15 +11,11 @@ class notaingreso extends Model
 {
     use HasFactory;
     protected $table = 'notaingresos';
-   
 
-	protected $fillable=[
-	
-
-    'idempleado',
-    'total',
-    
-    
-    
-	];
+    protected $fillable = [
+        'idempleado',
+        'total',
+        'idproveedor',
+        'fechaHora',
+    ];
 }

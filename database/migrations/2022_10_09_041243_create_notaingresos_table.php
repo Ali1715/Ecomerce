@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('notaingresos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->dateTime('fechaHora');
             $table->double('total');
             $table->unsignedBigInteger('idempleado');
-            $table->foreign('idempleado')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('idproveedor');
+            $table->foreign('idempleado')->references('id')->on('personas');
+            $table->foreign('idproveedor')->references('id')->on('proveedors');
         });
     }
 

@@ -22,6 +22,10 @@ use App\Http\Controllers\CategoriaShowController;
 use App\Http\Controllers\CierreSesionController;
 use App\Http\Controllers\DetalleCarritoCliente;
 use App\Http\Controllers\DetalleCarritoController;
+use App\Http\Controllers\DetallenotabajaController;
+use App\Http\Controllers\DetallenotaingresoController;
+use App\Http\Controllers\NotabajaController;
+use App\Http\Controllers\NotaingresoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PedidoClienteController;
 use App\Http\Controllers\PedidoController;
@@ -46,108 +50,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::resource('/administrador/roles', RoleController::class);
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('/administrador')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('administrador');
-
-        //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
-
-        //********************************* */ Route for Category**************************************
-
-        Route::resource('/categoria', CategoriaController::class);
-
-        //********************************* */ Route for Marca**************************************
-
-        Route::resource('/marca', MarcaController::class);
-
-        //********************************* */ Route for Producto**************************************
-
-        Route::resource('/producto', ProductoController::class);
-
-        //********************************* */ Route for Roles**************************************
-
         Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
         Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
         Route::post('/roles/create', [RoleController::class, 'store']);
         Route::get('/roles/edit/{user}', [RoleController::class, 'edit'])->name('roles.edit');
         Route::put('/roles/edit/{user}', [RoleController::class, 'update'])->name('roles.update');
-
-        //********************************* */ Route for NotaIngreso**************************************
-
-        Route::controller(App\Http\Controllers\NotaingresoController::class)->group(function () {
-            Route::get('/notaingreso', 'index');
-            Route::get('/notaingreso/create', 'create');
-            Route::get('/notaingreso/agregar', 'agregar');
-            Route::get('/notaingreso/{dato}/agregardetalle', 'agregardetalle');
-            Route::post('/notaingreso/store', 'store');
-            Route::get('/notaingreso/{dato}/edit', 'edit');
-            Route::put('/notaingreso/{dato}', 'update');
-            Route::get('/notaingreso/{dato}/delete', 'destroy');
-        });
-
-        //********************************* */ Route for DetallenotaIngreso**************************************
-
-        Route::controller(App\Http\Controllers\DetallenotaingresoController::class)->group(function () {
-            Route::get('/detallenotaingreso/{dato}/agregar', 'index');
-            Route::get('/detallenotaingreso/{dato}/create', 'create');
-            Route::get('/detallenotaingreso/create', 'create');
-            Route::get('/detallenotaingreso/agregar', 'agregar');
-            Route::get('/detallenotaingreso/{dato}/agregardetalle', 'agregardetalle');
-            Route::post('/detallenotaingreso/store', 'store');
-            Route::put('/detallenotaingreso/{idnota}{dato}/update', 'update');
-            Route::get('/detallenotaingreso/{idnota}/listaproducto', 'listar');
-            Route::get('/detallenotaingreso/{idnota}{idproducto}/add', 'add');
-            Route::get('/detallenotaingreso/{dato}/delete', 'destroy');
-        });
     });
-
-
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('/roles/create', [RoleController::class, 'store']);
     Route::get('/roles/edit/{user}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/edit/{user}', [RoleController::class, 'update'])->name('roles.update');
-
-    //********************************* */ Route for NotaIngreso**************************************
-
-    Route::controller(App\Http\Controllers\NotaingresoController::class)->group(function () {
-
-        Route::get('/notaingreso', 'index');
-        Route::get('/notaingreso/create', 'create');
-        Route::get('/notaingreso/agregar', 'agregar');
-        Route::get('/notaingreso/{dato}/agregardetalle', 'agregardetalle');
-        Route::post('/notaingreso/store', 'store');
-        Route::get('/notaingreso/{dato}/edit', 'edit');
-        Route::put('/notaingreso/{dato}', 'update');
-        Route::get('/notaingreso/{dato}/delete', 'destroy');
-    });
-
-
-    //********************************* */ Route for DetallenotaIngreso**************************************
-
-    Route::controller(App\Http\Controllers\DetallenotaingresoController::class)->group(function () {
-
-        Route::get('/detallenotaingreso/{dato}/agregar', 'index');
-        Route::get('/detallenotaingreso/{dato}/create', 'create');
-        Route::get('/detallenotaingreso/create', 'create');
-        Route::get('/detallenotaingreso/agregar', 'agregar');
-        Route::get('/detallenotaingreso/{dato}/agregardetalle', 'agregardetalle');
-        Route::post('/detallenotaingreso/store', 'store');
-        Route::put('/detallenotaingreso/{idnota}{dato}/update', 'update');
-        Route::get('/detallenotaingreso/{idnota}/listaproducto', 'listar');
-        Route::get('/detallenotaingreso/{idnota}{idproducto}/add', 'add');
-        Route::get('/detallenotaingreso/{dato}/delete', 'destroy');
-    });
 });
-
 
 Route::prefix('/cliente')->group(function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('cliente');
-    //Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('admin');
     Route::resource('/categoriaShow', CategoriaShowController::class);
     Route::resource('/catalogo', CatalogoController::class);
     Route::group(['middleware' => ['auth']], function () {
@@ -158,8 +79,6 @@ Route::prefix('/cliente')->group(function () {
     });
 });
 
-//Route::resource('/detalleCarrito', DetalleCarritoController::class);
-
 Route::get('/registro', [RegistroController::class, 'show']);
 Route::post('/registro', [RegistroController::class, 'register']);
 
@@ -168,21 +87,27 @@ Route::post('/acceso', [AccesoController::class, 'login']);
 
 Route::get('/cierreSesion', [CierreSesionController::class, 'logout']);
 
-Route::get('/administrador/proveedor', [ProveedorController::class, 'index']);
-
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/administrador/empleados', EmpleadoController::class);
     Route::resource('/administrador/clientes', ClienteController::class);
     Route::resource('/perfil', PerfilController::class);
     Route::resource('/password', PasswordController::class);
     Route::resource('/administrador/bitacoras', BitacoraController::class);
-    Route::resource('/administrador/gestionar_proveedores', ProveedorController::class);
+    Route::resource('/administrador/proveedor', ProveedorController::class);
     Route::resource('/administrador/carritosClientes', CarritoCliente::class);
     Route::resource('/administrador/detallesCarritosClientes', DetalleCarritoCliente::class);
     Route::get('/administrador/detallesCarritosClientes/{dato}/create2', [DetalleCarritoCliente::class, 'create2'])->name('detallesCarritosClientes.create2');
     Route::resource('/administrador/tiposPagos', TipoPagoController::class);
     Route::resource('/administrador/promociones', PromocionController::class);
     Route::resource('/administrador/pedidos', PedidoController::class);
+    Route::resource('/administrador/notaIngreso', NotaingresoController::class);
+    Route::resource('/administrador/detalleNotaIngreso', DetallenotaingresoController::class);
+    Route::resource('/administrador/categoria', CategoriaController::class);
+    Route::resource('/administrador/producto', ProductoController::class);
+    Route::resource('/administrador/marca', MarcaController::class);
+    Route::get('/administrador/home', [App\Http\Controllers\HomeController::class, 'index'])->name('administrador');
+    Route::resource('/administrador/notaBaja', NotabajaController::class);
+    Route::resource('/administrador/detalleNotaBaja', DetallenotabajaController::class);
 });
 
 Route::get('/index', function () {
