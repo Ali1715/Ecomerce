@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Laravel\Sanctum\PersonalAccessToken;
+use PhpParser\Parser\Tokens;
 
 class PersonaSeeder extends Seeder
 {
@@ -149,6 +151,18 @@ class PersonaSeeder extends Seeder
             'tipoc' => '1',
             'tipoe' => '0',
             'iduser' => '7',
+        ]);
+
+        PersonalAccessToken::create([
+            'tokenable_type' => 'App\Models\User',
+            'tokenable_id' => '7',
+            'name' => 'auth_token',
+            'token' => 'b1245a0ae33cd3b901b1db004cc12371ed800c078670d430b5b9141309890963',
+            'abilities' => '["*"]',
+            //'last_used_at' => ,
+            //'created_at' => ,
+           // 'updated_at' => ,
+           // 'expires_at' => '7',
         ]);
     }
 }
