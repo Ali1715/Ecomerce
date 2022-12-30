@@ -62,7 +62,18 @@ class CatalogoController extends Controller
      */
     public function show($id)
     {
-        //
+        $productos = producto::get();
+        $producto = producto::findOrFail($id);
+        $categorias = categoria::get();
+        $marcas = marca::get();
+        $promociones = Promocion::get();
+        if (auth()->user()) {
+            $carrito = Carrito::where('idCliente', auth()->user()->id);
+            $carrito = $carrito->where('estado', 1)->first();
+            $detallesCarrito = DetalleCarrito::get();
+            return view('cliente.catalogo.product', compact('productos', 'producto', 'categorias', 'marcas', 'promociones', 'carrito', 'detallesCarrito'));
+        }
+        return view('cliente.catalogo.product', compact('productos', 'producto', 'categorias', 'marcas', 'promociones'));
     }
 
     /**
