@@ -6,6 +6,16 @@
                 <center><b>BITÁCORA</b></center>
             </h1>
         </div>
+        <?php
+        $csv = 'csv';
+        $xlsx = 'xlsx';
+        ?>
+        <div class="card-body">
+            <a href="{{ route('bitacoras.edit', $csv) }}" class="btn btn-info">
+                Log CSV <i class="fa fa-file"></i></a>
+            <a href="{{ route('bitacoras.edit', $xlsx) }}" class="btn btn-info">
+                Log XLSX <i class="fa fa-file-excel"></i></a>
+        </div>
         <div class="card-body">
             <div class="pagination justify-content-end">
                 {!! $bitacoras->links() !!}
