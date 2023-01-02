@@ -19,6 +19,14 @@ date_default_timezone_set('America/La_Paz');
 
 class ProductoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:producto.index', ['only' => 'index']);
+        $this->middleware('can:producto.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:producto.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:producto.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

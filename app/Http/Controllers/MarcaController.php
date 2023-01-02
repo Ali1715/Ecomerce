@@ -15,6 +15,14 @@ date_default_timezone_set('America/La_Paz');
 
 class MarcaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:marca.index', ['only' => 'index']);
+        $this->middleware('can:marca.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:marca.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:marca.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

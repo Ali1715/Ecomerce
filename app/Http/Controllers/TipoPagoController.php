@@ -15,6 +15,14 @@ date_default_timezone_set('America/La_Paz');
 
 class TipoPagoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:tiposPagos.index', ['only' => 'index']);
+        $this->middleware('can:tiposPagos.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:tiposPagos.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:tiposPagos.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

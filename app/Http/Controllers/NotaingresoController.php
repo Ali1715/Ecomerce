@@ -21,6 +21,15 @@ use Illuminate\Support\Facades\Auth;
 
 class NotaingresoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:notaIngreso.index', ['only' => 'index']);
+        $this->middleware('can:notaIngreso.show', ['only' => 'show']);
+        $this->middleware('can:notaIngreso.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:notaIngreso.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:notaIngreso.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

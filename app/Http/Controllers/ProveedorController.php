@@ -17,6 +17,14 @@ date_default_timezone_set('America/La_Paz');
 
 class ProveedorController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:proveedor.index', ['only' => 'index']);
+        $this->middleware('can:proveedor.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:proveedor.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:proveedor.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

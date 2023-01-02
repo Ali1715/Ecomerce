@@ -18,6 +18,14 @@ date_default_timezone_set('America/La_Paz');
 
 class PromocionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:promociones.index', ['only' => 'index']);
+        $this->middleware('can:promociones.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:promociones.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:promociones.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -15,6 +15,7 @@ class BitacoraController extends Controller
     function __construct()
     {
         $this->middleware('can:bitacora.index', ['only' => 'index']);
+        $this->middleware('can:bitacora.export', ['only' => 'edit']);
     }
 
     /**

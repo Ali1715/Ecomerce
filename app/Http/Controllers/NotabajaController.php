@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\DB;
 
 class NotabajaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:notaBaja.index', ['only' => 'index']);
+        $this->middleware('can:notaBaja.show', ['only' => 'show']);
+        $this->middleware('can:notaBaja.create', ['only' => 'store']);
+        $this->middleware('can:notaBaja.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:notaBaja.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

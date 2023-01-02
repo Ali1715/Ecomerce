@@ -15,6 +15,14 @@ date_default_timezone_set('America/La_Paz');
 
 class CategoriaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:categoria.index', ['only' => 'index']);
+        $this->middleware('can:categoria.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:categoria.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:categoria.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
