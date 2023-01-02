@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.3",
+        "pavel-mironchik/laravel-backup-panel": "^2.2",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-permission": "^5.5"
     },
