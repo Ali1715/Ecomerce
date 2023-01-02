@@ -77,5 +77,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'pedidos.show'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'pedidos.update'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'pedidos.factura'])->syncRoles([$role1, $role2]);
+
+        Permission::create(['name' => 'promoMail.send'])->syncRoles([$role1, $role6]);
     }
 }

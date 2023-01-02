@@ -7,10 +7,17 @@ use App\Models\Persona;
 use App\Models\Promocion;
 use Illuminate\Http\Request;
 use App\Mail\PromoMail;
+use App\Models\Bitacora;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class PromoMailController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:promoMail.send', ['only' => ['edit', 'update']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -82,10 +89,48 @@ class PromoMailController extends Controller
                 $request['idcliente'] = $cliente->id;
                 Mail::to($cliente->email)->send(new PromoMail($request));
             }
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Envío un mensaje por correo a todos los clientes";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
+            $bitacora->save();
+            //----------
             return redirect('administrador/promociones')->with('message', 'Enviado exitosamente');
         } else {
             $cliente = Persona::findOrFail($request['idcliente']);
             Mail::to($cliente->email)->send(new PromoMail($request));
+            //Bitacora
+            $id2 = Auth::id();
+            $user = Persona::where('iduser', $id2)->first();
+            $tipo = "default";
+            if ($user->tipoe == 1) {
+                $tipo = "Empleado";
+            }
+            if ($user->tipoc == 1) {
+                $tipo = "Cliente";
+            }
+            $action = "Envío un mensaje por correo a un cliente";
+            $bitacora = Bitacora::create();
+            $bitacora->tipou = $tipo;
+            $bitacora->name = $user->name;
+            $bitacora->actividad = $action;
+            $bitacora->fechaHora = date('Y-m-d H:i:s');
+            $bitacora->ip = $request->ip();
+            $bitacora->save();
+            //----------
             return redirect('administrador/promociones')->with('message', 'Enviado exitosamente');
         }
     }

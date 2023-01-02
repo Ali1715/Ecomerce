@@ -75,9 +75,6 @@ class PromocionController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        /*$data = ['descuento'=> 1, 'mensaje' => 'Hola Promo'];
-        $mensaje = "Hola Promo";
-        Mail::to("m79832142l@gmail.com")->send(new PromoMail($data));*/
         return redirect('administrador/promociones')->with('message', 'Guardado exitosamente');
     }
 

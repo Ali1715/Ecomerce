@@ -15,6 +15,7 @@ use App\Models\producto;
 use App\Models\TipoPago;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -142,6 +143,26 @@ class PedidoController extends Controller
         $productos = producto::get();
         $carrito = Carrito::findOrFail($pedido->id_carrito);
         $detallesCarritos = DetalleCarrito::get()->where('idCarrito', $carrito->id);
+        //Bitacora
+        $request = Request::capture();
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Generó una factura de un pedido";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return view('administrador.gestionar_pedidos.factura', compact('factura', 'user', 'tipoPago', 'productos', 'detallesCarritos', 'pago'));
     }
 
