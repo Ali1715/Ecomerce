@@ -17,6 +17,14 @@ date_default_timezone_set('America/La_Paz');
 
 class ProveedorController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:proveedor.index', ['only' => 'index']);
+        $this->middleware('can:proveedor.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:proveedor.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:proveedor.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +32,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::All();
+        $proveedores = Proveedor::paginate(10);
         return view('administrador.gestionar_proveedores.index', compact('proveedores'));
     }
 
@@ -83,7 +91,7 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 
     /**
@@ -154,7 +162,7 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 
     /**
@@ -188,6 +196,6 @@ class ProveedorController extends Controller
         $bitacora->ip = $request->ip();
         $bitacora->save();
         //---------------
-        return redirect()->route('gestionar_proveedores.index');
+        return redirect()->route('proveedor.index');
     }
 }

@@ -1,8 +1,25 @@
 @extends('cliente.cliente')
 
 @section('content')
-    <!-- ****************************************************-->
-    @yield('content')
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Direcciones</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Direcciones</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
     <div class="row">
         <div class="col-md-12">
             @if (session('message'))
@@ -10,10 +27,14 @@
             @endif
             <div class="card">
                 <div class="card-header d-inline">
-                    <h1>
-                        <center><b>DIRECCIONES</b></center>
-                    </h1>
-                    <a href="{{ route('AddressClient.create') }}" class="btn btn-primary float-end">Nueva Dirección</a>
+                    <div class="card-header d-inline-flex">
+                        <a href="{{ url('/home') }}" class="primary-btn order-submit">
+                            <i class="fa fa-arrow-left"></i>
+                            Volver</a>
+                    </div><br>
+                    <a href="{{ route('AddressClient.create') }}" class="primary-btn order-submit">
+                        <i class="fa fa-plus"></i>
+                        Nueva Dirección</a>
                 </div>
                 <div class="pagination justify-content-end">
                     {!! $direcciones->links() !!}
@@ -28,6 +49,7 @@
                             <th>Departamento</th>
                             <th>País</th>
                             <th>Postal Code</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,9 +65,10 @@
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ url('cliente/AddressClient/' . $direccion->id . '/edit') }}"
-                                            class="btn btn-info">Edit</a>
+                                            class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
                                         <button type="submit" class="btn btn-danger" form="delete_{{ $direccion->id }}"
                                             onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                            <i class="fa fa-trash"></i>
                                             Delete
                                         </button>
                                         <form action="{{ route('AddressClient.destroy', $direccion->id) }}"

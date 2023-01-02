@@ -1,9 +1,29 @@
 @extends('cliente.cliente')
 
 @section('content')
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Crear Direccion</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li>Direcciones</li>
+                        <li class="active">Crear</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
-            <div class="row vh-110">
+            <div class="row vh-110" >
                 <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
                     <div class="d-table-cell align-middle">
                         <div class="text-center mt-4">
@@ -23,28 +43,31 @@
                                         <!--  -->
                                         <div class="mb-3">
                                             <label class="form-label">Address 1</label>
-                                            <input class="form-control form-control-lg" type="text" name="address_1"
+                                            <input class="input" type="text" name="address_1"
                                                 placeholder="Street Address" />
                                             @error('address_1')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Address 2</label>
-                                            <input class="form-control form-control-lg" type="text" name="address_2"
+                                            <input class="input" type="text" name="address_2"
                                                 placeholder="Street Address Line 2" />
                                             @error('address_2')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Ciudad</label>
-                                            <input class="form-control form-control-lg" type="text" name="city"
+                                            <input class="input" type="text" name="city"
                                                 placeholder="Street Address" />
                                             @error('city')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Departamento</label>
                                             <select name="department" class="form-control">
@@ -64,31 +87,34 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <input class="form-control form-control-lg" type="hidden" name="country"
-                                                placeholder="" value="Bolivia"/>
+                                            <input class="input" type="hidden" name="country" placeholder=""
+                                                value="Bolivia" />
                                             @error('country')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Código Postal</label>
-                                            <input class="form-control form-control-lg" type="text" name="postal_code"
+                                            <input class="input" type="text" name="postal_code"
                                                 placeholder="Ingrese el código postal" />
                                             @error('postal_code')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <input class="form-control form-control-lg" type="hidden" name="id_client" value={{$id}}>
+                                            <input class="input" type="hidden" name="id_client" value={{ $id }}>
                                             @error('id_client')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <br>
                                         <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-primary float-end">Guardar</button>
                                             <a href="{{ url('cliente/AddressClient') }}"
-                                                class="btn btn-primary float-end">Volver</a>
+                                                class="primary-btn order-submit"><i class="fa fa-arrow-left"></i>
+                                                Volver</a>
+                                            <button type="submit" class="primary-btn order-submit"><i
+                                                    class="fa fa-edit"></i> Guardar</button>
                                         </div>
                                     </form>
                                 </div>

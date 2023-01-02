@@ -1,6 +1,26 @@
 @extends('cliente.cliente')
 
 @section('content')
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Editar Direccion</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{url('/home')}}">Home</a></li>
+                        <li >Direcciones</li>
+                        <li class="active">Editar</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
             <div class="row vh-110">
@@ -30,6 +50,7 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Address 2</label>
                                             <input class="form-control form-control-lg" type="text" name="address_2"
@@ -38,6 +59,7 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Ciudad</label>
                                             <input class="form-control form-control-lg" type="text" name="city"
@@ -46,10 +68,12 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Departamento</label>
                                             <select name="department" class="form-control">
-                                                <option value="{{$direccion->department}}">{{$direccion->department}}</option>
+                                                <option value="{{ $direccion->department }}">{{ $direccion->department }}
+                                                </option>
                                                 <option value="Beni">Beni</option>
                                                 <option value="Pando">Pando</option>
                                                 <option value="La Paz">La Paz</option>
@@ -72,6 +96,7 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <br>
                                         <div class="mb-3">
                                             <label class="form-label">Código Postal</label>
                                             <input class="form-control form-control-lg" type="text" name="postal_code"
@@ -83,9 +108,11 @@
                                         </div>
                                         <br>
                                         <div class="text-center mt-3">
-                                            <button type="submit" class="btn btn-primary float-end">Guardar</button>
                                             <a href="{{ url('cliente/AddressClient') }}"
-                                                class="btn btn-primary float-end">Volver</a>
+                                                class="primary-btn order-submit"><i class="fa fa-arrow-left"></i>
+                                                Volver</a>
+                                            <button type="submit" class="primary-btn order-submit"><i
+                                                    class="fa fa-edit"></i> Guardar</button>
                                         </div>
                                     </form>
                                 </div>

@@ -28,5 +28,12 @@ class CarritoSeeder extends Seeder
             'total' => '0',
             'idCliente' => '7'
         ]);
+
+        Carrito::create([
+            'fechaHora' => date('Y-m-d H:i:s'),
+            'estado' => '1',
+            'total' => '0',
+            'idCliente' => '8'
+        ]);
     }
 }

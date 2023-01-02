@@ -8,12 +8,12 @@
             <h1>Formulario - Editar Proveedores</h1>
         </div>
         <div class="card-header d-inline-flex">
-            <a href="{{ route('gestionar_proveedores.index') }}" class="btn btn-primary ml-auto">
+            <a href="{{ route('proveedor.index') }}" class="btn btn-primary ml-auto">
                 <i class="fas fa-arrow-left"></i>
                 Volver</a>
         </div>
         <div class="card-body">
-            <form action="{{ route('gestionar_proveedores.update', $gestionar_proveedore) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('proveedor.update', $gestionar_proveedore) }}" method="POST" enctype="multipart/form-data"
                 id="create">
                 @csrf
                 @method('PUT')

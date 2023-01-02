@@ -1,8 +1,25 @@
 @extends('cliente.cliente')
 @section('content')
-    <center>
-        <h1>CATÁLOGO</h1>
-    </center>
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-header">Catálogo</h3>
+                    <ul class="breadcrumb-tree">
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li class="active">Catálogo</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /BREADCRUMB -->
+
     <!-- store products -->
     <div class="pagination justify-content-end">
         {!! $productos->links() !!}
@@ -31,7 +48,9 @@
                                     @endif
                                 @endforeach
                             @endif
-                            <!--<span class="new">NEW</span>-->
+                            @if ($producto->stock == 0)
+                                <span class="new">Sin Stock</span>
+                            @endif
                         </div>
                     </div>
                     <div class="product-body">
@@ -62,8 +81,9 @@
                                     wishlist</span></button>
                             <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
                                     compare</span></button>
-                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-                                    view</span></button>
+                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">
+                                    <a href="{{ route('catalogo.show', $producto->id) }}" style="color: white">
+                                        quick view</a> </span></button>
                             <form action="{{ route('detalleCarrito.store') }}" method="POST" enctype="multipart/form-data"
                                 id="create{{ $a }}">
                                 @csrf

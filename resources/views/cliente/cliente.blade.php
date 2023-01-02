@@ -61,7 +61,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
+
 </head>
 
 <body>
@@ -88,21 +88,11 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->email }}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                href="{{ route('perfil.edit', auth()->user()->id) }}">
+                                {{ Auth::user()->email }} <i class="fa fa-user-o"></i>
                                 <a class="dropdown-item" href="/cierreSesion">
-                                    {{ __('Logout') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('perfil.edit', auth()->user()->id) }}">
-                                    {{ __('Configurar Perfil') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('password.edit', auth()->user()->id) }}">
-                                    {{ __('Cambiar Contraseña') }}
-                                </a>
-                            </div>
+                                    {{ __('Logout') }} <i class="fa fa-arrow-right"></i>
                         </li>
                     @endguest
                 </ul>
@@ -145,13 +135,13 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
                             <!-- Wishlist -->
-                            <div>
+                            <!--<div>
                                 <a href="#">
                                     <i class="fa fa-heart-o"></i>
                                     <span>Your Wishlist</span>
                                     <div class="qty">2</div>
                                 </a>
-                            </div>
+                            </div>-->
                             <!-- /Wishlist -->
 
                             <!-- Cart -->
@@ -254,13 +244,21 @@
                 <ul class="main-nav nav navbar-nav">
                     <li class="{{ 'home' == Request::is('home*') ? 'active' : '' }}"><a href="/home">Home</a></li>
                     <li class="{{ 'cliente/catalogo' == Request::is('cliente/catalogo*') ? 'active' : '' }}"><a
-                            href="{{ route('catalogo.index') }}">Productos</a></li>
-                    <li><a href="#">Categorias</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    @auth <li><a href="{{ route('pedidosCliente.index') }}">Pedidos</a></li> @endAuth
+                            href="{{ route('catalogo.index') }}">Catálogo</a></li>
+                    <li
+                        class="{{ 'cliente/categoriaShow' == Request::is('cliente/categoriaShow*') ? 'active' : '' }}">
+                        <a href="{{ route('categoriaShow.index') }}">Categorías</a>
+                    </li>
+                    @auth
+                        <li
+                            class="{{ 'cliente/pedidosCliente' == Request::is('cliente/pedidosCliente*') ? 'active' : '' }}">
+                            <a href="{{ route('pedidosCliente.index') }}">Pedidos</a>
+                        </li>
+                        <li
+                            class="{{ 'cliente/AddressClient' == Request::is('cliente/AddressClient*') ? 'active' : '' }}">
+                            <a href="{{ url('/cliente/AddressClient') }}">Direcciones</a>
+                        </li>
+                    @endAuth
                 </ul>
                 <!-- /NAV -->
             </div>
@@ -338,10 +336,17 @@
                         <div class="footer">
                             <h3 class="footer-title">Service</h3>
                             <ul class="footer-links">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">View Cart</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Track My Order</a></li>
+                                @if (auth()->user())
+                                    <li><a href="{{ route('perfil.edit', auth()->user()->id) }}">My Account</a></li>
+                                    <li><a href="{{ route('password.edit', auth()->user()->id) }}">Set Password</a>
+                                    </li>
+                                @else
+                                    <li><a href="{{ url('/login') }}">My Account</a></li>
+                                    <li><a href="{{ url('/login') }}">Set Password</a></li>
+                                @endif
+                                <li><a href="{{ url('/cliente/AddressClient') }}">Address</a></li>
+                                <li><a href="{{ route('detalleCarrito.index') }}">View Cart</a></li>
+                                <li><a href="{{ route('pedidosCliente.index') }}">Orders</a></li>
                                 <li><a href="#">Help</a></li>
                             </ul>
                         </div>
@@ -387,7 +392,7 @@
     </footer>
     <!-- /FOOTER -->
 
-    
+
     <!-- jQuery Plugins -->
     <script src="{{ asset('cliente/js/jquery.min.js') }}"></script>
     <script src="{{ asset('cliente/js/bootstrap.min.js') }}"></script>
@@ -404,7 +409,7 @@
         introMessage: "Hola!",
         placeholderText: "Escribe un mensaje",
         mainColor: "#CC0000",
-        bubbleBackground:"#CC0000",
+        bubbleBackground: "#CC0000",
         aboutLink: '/home'
     };
 </script>

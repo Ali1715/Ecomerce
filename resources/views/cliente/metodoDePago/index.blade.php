@@ -1,8 +1,51 @@
 @extends('cliente.cliente')
 @section('content')
+    <!-- Order Details -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Your Order</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>PRODUCT</strong></div>
+                            <div><strong>TOTAL</strong></div>
+                        </div>
+                        <div class="order-products">
+                            @foreach ($detallesCarrito as $detalleCarrito)
+                                @if ($detalleCarrito->idCarrito == $carrito->id)
+                                    @foreach ($productos as $producto)
+                                        @if ($detalleCarrito->idProducto == $producto->id)
+                                            <div class="order-col">
+                                                <div>{{ $detalleCarrito->cantidad }}x {{ $producto->name }}</div>
+                                                <div>{{ $detalleCarrito->precio * $detalleCarrito->cantidad }} Bs</div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="order-col">
+                            <div>Shiping</div>
+                            <div><strong>150 Bs</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong class="order-total">{{$carrito->total + 150}} Bs</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Order Details -->
     <div class="d-table-cell align-middle">
         <div class="text-center mt-4">
-            <h1 class="h2">Elegir un tipo de pago</h1>
+            <h3 class="title">Payment Method</h3>
         </div>
         <div class="card">
             <div class="card-body">
@@ -16,7 +59,7 @@
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('pagos.show', $tipoPago->id) }}"
-                                                    class="btn btn-primary"><i class="fa fa-check"></i></a>
+                                                    class="primary-btn order-submit"><i class="fa fa-check"></i></a>
                                             </div>
                                         </td>
                                     </tr>

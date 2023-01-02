@@ -9,7 +9,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-2">
-                    <a href="{{ route('pedidosCliente.index') }}" class="btn btn-primary ml-auto">
+                    <a href="{{ route('pedidosCliente.index') }}" class="primary-btn order-submit">
+                        <i class="fa fa-arrow-left"></i>
                         Volver</a>
                 </div>
                 <div class="pagination justify-content-end">

@@ -4,7 +4,7 @@
         @include('layouts.messages')
         <div class="card-body">
             <div class="card-header d-inline-flex">
-                <a href="{{ route('pagos.index') }}" class="btn btn-primary ml-auto">
+                <a href="{{ route('pagos.index') }}" class="primary-btn order-submit">
                     <i class="fa fa-arrow-left"></i>
                     Volver</a>
             </div><br>
@@ -13,8 +13,8 @@
             </form>
         </div>
         <div class="card-footer">
-            <Button class="btn btn-primary" form="create">
-                <i class="fa fa-plus"></i> Hecho
+            <Button class="primary-btn order-submit" form="create">
+                <i class="fa fa-check"></i> Hecho
             </Button>
         </div>
     </div>

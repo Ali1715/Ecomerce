@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiProductoController;
 use App\Http\Controllers\Api\ApiClienteController;
 use App\Http\Controllers\Api\ApiCarritoController;
+use App\Http\Controllers\Api\ApiUsuarioController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +27,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/register', [AuthApi::class, 'register']);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/login', [AuthApi::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthApi::class, 'logout'])
+Route::post('/logout', [AuthController::class, 'logout'])
     ->name('api.logout')
     ->middleware('auth:sanctum');
 
@@ -54,6 +56,13 @@ Route::get('carrito/{carrito}',[ApiCarritoController::class,'show']);
 Route::post('carrito',[ApiCarritoController::class,'store']);
 Route::put('carrito/{carrito}',[ApiCarritoController::class,'update']);
 Route::delete('carrito/{carrito}',[ApiCarritoController::class,'destroy']);
+
+
+Route::get('usuario',[ApiUsuarioController::class,'index']);
+Route::get('usuario/{usuario}',[ApiUsuarioController::class,'show']);
+Route::post('usuario',[ApiUsuarioController::class,'store']);
+Route::put('usuario/{usuario}',[ApiUsuarioController::class,'update']);
+Route::delete('usuario/{usuario}',[ApiUsuarioController::class,'destroy']);
 
 
 

@@ -13,8 +13,8 @@
                         </h2>
                         <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary float-end">Nuevo
                             Producto</a>
-                        <a href="{{ url('administrador/notaingreso/create') }}" class="btn btn-primary ">Nota De Ingreso</a>
-                        <a href="{{ url('administrador/producto/create') }}" class="btn btn-primary me-md-6">Dar De Baja</a>
+                        <a href="{{ url('administrador/notaIngreso') }}" class="btn btn-primary ">Nota De Ingreso</a>
+                        <a href="{{ url('administrador/notaBaja') }}" class="btn btn-primary me-md-6">Dar De Baja</a>
                         <a href="{{ url('administrador/categoria') }}" class="btn btn-primary ">Categorias</a>
                         <a href="{{ url('administrador/marca') }}" class="btn btn-primary me-md-6">Marcas</a>
                     </h4>

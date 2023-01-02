@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Bitacora;
 use App\Http\Requests\StoreBitacoraRequest;
 use App\Http\Requests\UpdateBitacoraRequest;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class BitacoraController extends Controller
 {
     function __construct()
     {
         $this->middleware('can:bitacora.index', ['only' => 'index']);
+        $this->middleware('can:bitacora.export', ['only' => 'edit']);
     }
 
     /**
@@ -62,9 +67,13 @@ class BitacoraController extends Controller
      * @param  \App\Models\Bitacora  $bitacora
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bitacora $bitacora)
+    public function edit($data)
     {
-        //
+        if ($data == 'csv') {
+            return Excel::download(new LogsExport, 'logs.csv');
+        } else {
+            return Excel::download(new LogsExport, 'logs.xlsx');
+        }
     }
 
     /**

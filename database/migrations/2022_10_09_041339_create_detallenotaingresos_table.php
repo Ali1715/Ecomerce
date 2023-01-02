@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detallenotaingresos', function (Blueprint $table) {
-            $table->unsignedBigInteger('idnota');
+            $table->id();
+            $table->unsignedBigInteger('idnotaing');
             $table->unsignedBigInteger('idproducto');
             $table->unsignedInteger('cantidad');
             $table->double('costo');
             $table->double('total');
             $table->timestamps();
-            $table->primary(['idnota', 'idproducto']);
-            $table->foreign('idnota')->references('id')->on('notaingresos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idproducto')->references('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idnotaing')->references('id')->on('notaingresos');
+            $table->foreign('idproducto')->references('id')->on('productos');
         });
     }
 
