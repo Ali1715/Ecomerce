@@ -18,6 +18,11 @@ class RoleSeeder extends Seeder
         $role5 = Role::create(['name' => 'RRHH']);
         $role6 = Role::create(['name' => 'Marketing']);
 
+        Permission::create(['name' => 'backup.index'])->syncRoles([$role1]);
+        Permission::create(['name' => 'backup.create'])->syncRoles([$role1]);
+        Permission::create(['name' => 'backup.update'])->syncRoles([$role1]);
+        Permission::create(['name' => 'backup.delete'])->syncRoles([$role1]);
+
         Permission::create(['name' => 'cliente.index'])->syncRoles([$role1, $role5, $role4]);
         Permission::create(['name' => 'cliente.create'])->syncRoles([$role1, $role5]);
         Permission::create(['name' => 'cliente.update'])->syncRoles([$role1, $role5]);
