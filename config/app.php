@@ -166,6 +166,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        app\Providers\LaravelBackupPanelServiceProvider::class,
 
 
         /*
