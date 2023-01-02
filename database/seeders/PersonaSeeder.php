@@ -164,5 +164,23 @@ class PersonaSeeder extends Seeder
            // 'updated_at' => ,
            // 'expires_at' => '7',
         ]);
+
+        User::create([
+            'name' => 'Michael',
+            'email' => 'm79832142l@gmail.com',
+            'password' => '123456789',
+        ]);
+
+        Persona::create([
+            'name' => 'Michael',
+            'email' => 'm79832142l@gmail.com',
+            'ci' => '9866054',
+            'sexo' => 'M',
+            'celular' => '60933325',
+            'domicilio' => 'Santa Cruz',
+            'tipoc' => '1',
+            'tipoe' => '0',
+            'iduser' => '8',
+        ]);
     }
 }
