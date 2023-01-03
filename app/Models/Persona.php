@@ -23,4 +23,9 @@ class Persona extends Model
         'tipoe',
         'iduser',
     ];
+
+    public function segmentos(){
+        return $this->belongsToMany('App\Models\Segmento'); 
+    }
+    
 }
