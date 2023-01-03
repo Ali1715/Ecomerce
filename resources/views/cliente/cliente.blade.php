@@ -110,7 +110,7 @@
                     <div class="col-md-3">
                         <div class="header-logo">
                             <a href="/home" class="logo">
-                                <img src="{{ asset('img/Ecomercelog.jpg') }}" width=190px>
+                                <img src="{{ asset('img/ECOMERCELog.jpg') }}" width=190px>
                             </a>
                         </div>
                     </div>

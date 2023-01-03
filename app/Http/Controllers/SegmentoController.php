@@ -8,6 +8,8 @@ use App\Models\Segmento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/La_Paz');
+
 class SegmentoController extends Controller
 {
     public function index()

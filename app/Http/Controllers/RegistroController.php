@@ -70,7 +70,7 @@ class RegistroController extends Controller
         if ($persona->tipoe == 1) {
             $tipo = "Empleado";
         }
-        if ($persona->tipoe == 1) {
+        if ($persona->tipoc == 1) {
             $tipo = "Cliente";
         }
         $action = "Se registró un nuevo cliente";

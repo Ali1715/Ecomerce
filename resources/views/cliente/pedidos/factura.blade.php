@@ -126,7 +126,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ asset('img/Ecomercelog.jpg') }}" alt="Company logo"
+                                <img src="{{ asset('img/ECOMERCELog.jpg') }}" alt="Company logo"
                                     style="width: 100%; max-width: 300px" />
                             </td>
                             <td>
