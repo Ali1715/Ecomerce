@@ -99,10 +99,10 @@ class AuthController extends Controller
 /********************************************************* */
     public function logout(User $user)
     {
-        $user()->tokens()->delete();  // Elimina token
+        auth()-> $user()->tokens()->delete();  // Elimina token
 
         return [
-            'message' => 'Logged Out'
+            'message' => 'Logged Out'.$user->name,
         ];
     }
 

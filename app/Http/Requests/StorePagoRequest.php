@@ -28,9 +28,9 @@ class StorePagoRequest extends FormRequest
             'monto' => '',
             'costoEnv' => 'required',
             'idTrans' => 'required',
-            'fechaHora' => 'required',
+          //  'fechaHora' => 'required',
             'id_tipoPago' => 'required',
-            'id_direccion' => 'required',
+           // 'id_direccion' => 'required',
         ];
     }
 }
