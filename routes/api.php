@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\ApiProductoController;
 use App\Http\Controllers\Api\ApiClienteController;
 use App\Http\Controllers\Api\ApiCarritoController;
 use App\Http\Controllers\Api\ApiUsuarioController;
+use App\Http\Controllers\Api\ApiTipoPagoController;
+use App\Http\Controllers\Api\ApiPagoController;
 use App\Http\Controllers\Api\AuthController;
 
 /*
@@ -45,7 +47,7 @@ Route::delete('productos/{producto}',[ApiProductoController::class,'destroy']);
 
 
 Route::get('cliente',[ApiClienteController::class,'index']);
-Route::get('cliente/{cliente}',[ApiClienteController::class,'show']);
+Route::get('cliente/{persona:id}',[ApiClienteController::class,'show']);
 Route::post('cliente',[ApiClienteController::class,'store']);
 Route::put('cliente/{cliente}',[ApiClienteController::class,'update']);
 Route::delete('cliente/{cliente}',[ApiClienteController::class,'destroy']);
@@ -58,11 +60,32 @@ Route::put('carrito/{carrito}',[ApiCarritoController::class,'update']);
 Route::delete('carrito/{carrito}',[ApiCarritoController::class,'destroy']);
 
 
+Route::get('detallecarrito',[ApiDetalleCarritoController::class,'index']);
+Route::get('detallecarrito/{detallecarrito}',[ApiDetalleCarritoController::class,'show']);
+Route::post('detallecarrito',[ApiDetalleCarritoController::class,'store']);
+Route::put('detallecarrito/{detallecarrito}',[ApiDetalleCarritoController::class,'update']);
+Route::delete('detallecarrito/{detallecarrito}',[ApiDetalleCarritoController::class,'destroy']);
+
+
 Route::get('usuario',[ApiUsuarioController::class,'index']);
 Route::get('usuario/{usuario}',[ApiUsuarioController::class,'show']);
 Route::post('usuario',[ApiUsuarioController::class,'store']);
 Route::put('usuario/{usuario}',[ApiUsuarioController::class,'update']);
 Route::delete('usuario/{usuario}',[ApiUsuarioController::class,'destroy']);
+
+
+Route::get('tipopago',[ApiTipoPagoController::class,'index']);
+Route::get('tipopago/{tipopago}',[ApiTipoPagoController::class,'show']);
+Route::post('tipopago',[ApiTipoPagoController::class,'store']);
+Route::put('tipopago/{tipopago}',[ApiTipoPagoController::class,'update']);
+Route::delete('tipopago/{tipopago}',[ApiTipoPagoController::class,'destroy']);
+
+
+Route::get('pago',[ApiPagoController::class,'index']);
+Route::get('pago/{pago}',[ApiPagoController::class,'show']);
+Route::post('pago',[ApiPagoController::class,'store']);
+Route::put('pago/{pago}',[ApiPagoController::class,'update']);
+Route::delete('pago/{pago}',[ApiPagoController::class,'destroy']);
 
 
 

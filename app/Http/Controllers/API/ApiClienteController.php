@@ -30,13 +30,25 @@ class ApiClienteController extends Controller
        
     }
 
-    public function show(persona $cliente)
+    public function show($id)
     {
         
-        return response()->json([
-            'res'=>true,
-            'producto'=>$cliente
-        ],200);
+        $pesona = Persona::where('persona.id','$id');
+
+       /* $response = [
+            'persona' => [
+                'id' => $pesona->id,
+                'email' => $pesona->email,
+                'nombre' => $pesona->name,
+                'apellido' => $pesona->ci,
+                'telefono' => $pesona->celular,
+                'telefono' => $pesona->domicilio,
+                //'role' => $pesona->getRoleNames(),
+            ],
+            //'image' => str_replace('public', 'storage', $pesona->cliente->foto),
+        ];
+*/
+        return response()->json($pesona);
        
     }
 
