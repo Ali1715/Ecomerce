@@ -167,18 +167,10 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         App\Providers\LaravelBackupPanelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
-
-        /*
-         * Package Service Providers...
-         */
-
-        /*
-         * Application Service Providers...
-         */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         
@@ -199,6 +191,7 @@ return [
         // ...
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
     ])->toArray(),
 
 ];

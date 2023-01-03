@@ -1,7 +1,5 @@
 <?php
 
-use App\Mail\PromoMail;
-use Spatie\FlareClient\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarritoCliente;
@@ -14,6 +12,7 @@ use App\Http\Controllers\BotManController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\EmpleadoController;
@@ -78,6 +77,8 @@ Route::prefix('/administrador')->group(function () {
 
     Route::get('/spam', [SpamController::class, 'index'])->name('spam.index');
     Route::post('/spam', [SpamController::class, 'store'])->name('spam.create');
+
+    Route::get('/reportes/producto', [ReporteController::class, 'producto'])->name(('reportes.producto'));
 });
 
 Route::prefix('/cliente')->group(function () {

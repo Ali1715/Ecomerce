@@ -17,6 +17,7 @@
                         <a href="{{ url('administrador/notaBaja') }}" class="btn btn-primary me-md-6">Dar De Baja</a>
                         <a href="{{ url('administrador/categoria') }}" class="btn btn-primary ">Categorias</a>
                         <a href="{{ url('administrador/marca') }}" class="btn btn-primary me-md-6">Marcas</a>
+                        <a href="{{ url('administrador/reportes/producto') }}" class="btn btn-primary me-md-6">Reporte</a>
                     </h4>
                 </div>
                 <table class="table table-bordered table-striped">

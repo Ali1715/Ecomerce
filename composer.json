@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "barryvdh/laravel-dompdf": "^2.0",
         "botman/botman": "^2.7",
         "botman/driver-web": "^1.5",
         "fruitcake/laravel-cors": "^2.0.5",
@@ -16,8 +17,8 @@
         "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.3",
         "maatwebsite/excel": "^3.1",
-        "psr/simple-cache": "2.0",
         "pavel-mironchik/laravel-backup-panel": "^2.2",
+        "psr/simple-cache": "2.0",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-permission": "^5.5"
     },
