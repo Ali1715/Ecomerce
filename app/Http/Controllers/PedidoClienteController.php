@@ -16,14 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PedidoClienteController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('can:pedidos.index', ['only' => 'index']);
-        $this->middleware('can:pedidos.show', ['only' => 'show']);
-        $this->middleware('can:pedidos.update', ['only' => ['edit', 'update']]);
-        $this->middleware('can:pedidos.factura', ['only' => ['destroy']]);
-    }
-
     /**
      * Display a listing of the resource.
      *
