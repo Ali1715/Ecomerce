@@ -17,6 +17,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+date_default_timezone_set('America/La_Paz');
+
 class DetallenotaingresoController extends Controller
 {
     /**

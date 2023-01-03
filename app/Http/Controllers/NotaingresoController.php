@@ -19,6 +19,8 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/La_Paz');
+
 class NotaingresoController extends Controller
 {
     function __construct()
