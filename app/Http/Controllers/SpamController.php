@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+date_default_timezone_set('America/La_Paz');
+
 class SpamController extends Controller
 {
 
