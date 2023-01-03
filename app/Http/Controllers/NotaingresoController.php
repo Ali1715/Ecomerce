@@ -21,6 +21,15 @@ use Illuminate\Support\Facades\Auth;
 
 class NotaingresoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:notaIngreso.index', ['only' => 'index']);
+        $this->middleware('can:notaIngreso.show', ['only' => 'show']);
+        $this->middleware('can:notaIngreso.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:notaIngreso.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:notaIngreso.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +63,25 @@ class NotaingresoController extends Controller
     public function store(StoreNotaIngresoRequest $request)
     {
         notaingreso::create($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Creó una nueva nota de ingreso";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaIngreso.index')->with('mensaje', 'Nota Creada Con Éxito.');
     }
 
@@ -97,6 +125,25 @@ class NotaingresoController extends Controller
     {
         $notaIng = notaingreso::findOrFail($id);
         $notaIng->update($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Actualizó un registro de una nota de ingreso";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaIngreso.index')->with('mensaje', 'Nota De Ingreso Actualizada Con Éxito.');
     }
 

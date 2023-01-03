@@ -21,15 +21,22 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Send</th>
                             <th>ID</th>
                             <th>Descuento (%)</th>
                             <th>Lanzamiento</th>
                             <th>Finalización</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($promociones as $promocion)
                             <tr>
+                                <td>
+                                    <a href="{{ route('promoMail.edit', $promocion->id) }}"
+                                        class="btn btn-warning"><i class="fas fa-envelope"></i><i
+                                            class="fas fa-arrow-right"></i></a>
+                                </td>
                                 <td>{{ $promocion->id }}</td>
                                 <td>{{ $promocion->descuento }}</td>
                                 <td>{{ $promocion->fhiniciada }}</td>

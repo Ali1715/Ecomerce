@@ -30,8 +30,10 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PedidoClienteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PromocionController;
+use App\Http\Controllers\PromoMailController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\TipoPagoController;
+use App\Mail\PromoMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +110,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/administrador/home', [App\Http\Controllers\HomeController::class, 'index'])->name('administrador');
     Route::resource('/administrador/notaBaja', NotabajaController::class);
     Route::resource('/administrador/detalleNotaBaja', DetallenotabajaController::class);
+    Route::resource('/administrador/promoMail', PromoMailController::class);
+
 });
 
 Route::get('/index', function () {

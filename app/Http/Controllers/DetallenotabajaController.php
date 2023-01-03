@@ -52,6 +52,25 @@ class DetallenotabajaController extends Controller
         $producto = producto::findOrFail($detalleNotaBaja->idproducto);
         $producto->stock = $producto->stock - $detalleNotaBaja->cantidad;
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Se creó un registro de un detalle de nota de baja";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaBaja.index')->with('mensaje', 'Producto agregado a la nota de baja.');
     }
 
@@ -105,6 +124,25 @@ class DetallenotabajaController extends Controller
         $producto = producto::findOrFail($detalleNotaBaja->idproducto);
         $producto->stock = $producto->stock - $detalleNotaBaja->cantidad;
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Se actualizó el registro de un detalle de nota de baja";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaBaja.index')->with('mensaje', 'Detalle Actualizado Con Éxito.');
     }
 

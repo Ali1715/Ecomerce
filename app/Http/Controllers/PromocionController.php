@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Promocion;
 use App\Http\Requests\StorePromocionRequest;
 use App\Http\Requests\UpdatePromocionRequest;
+use App\Mail\PromoMail;
 use App\Models\Bitacora;
 use App\Models\Persona;
+use Faker\Provider\ar_EG\Person;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 date_default_timezone_set('America/La_Paz');
 
 class PromocionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:promociones.index', ['only' => 'index']);
+        $this->middleware('can:promociones.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:promociones.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:promociones.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -73,7 +84,7 @@ class PromocionController extends Controller
      * @param  \App\Models\Promocion  $promocion
      * @return \Illuminate\Http\Response
      */
-    public function show(Promocion $promocion)
+    public function show($id)
     {
         //
     }

@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\DB;
 
 class NotabajaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:notaBaja.index', ['only' => 'index']);
+        $this->middleware('can:notaBaja.show', ['only' => 'show']);
+        $this->middleware('can:notaBaja.create', ['only' => 'store']);
+        $this->middleware('can:notaBaja.update', ['only' => ['edit', 'update']]);
+        $this->middleware('can:notaBaja.delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -47,8 +56,26 @@ class NotabajaController extends Controller
      */
     public function store(StoreNotaBajaRequest $request)
     {
-        //dd($request);
         notabaja::create($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Cre+o una nueva nota de baja";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaBaja.index')->with('mensaje', 'Nota De Baja Creada Con Éxito.');
     }
 
@@ -90,6 +117,25 @@ class NotabajaController extends Controller
     {
         $notaBaja = notabaja::findOrFail($id);
         $notaBaja->update($request->validated());
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Actualizó un registro de una nota de baja";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaBaja.index')->with('mensaje', 'Nota De Baja Actualizada Con Éxito.');
     }
 

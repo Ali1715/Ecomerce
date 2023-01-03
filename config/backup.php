@@ -80,7 +80,7 @@ return [
              * For a complete list of available customization options, see https://github.com/spatie/db-dumper
              */
             'databases' => [
-                'mysql',
+                'pgsql',
             ],
         ],
 
@@ -110,7 +110,7 @@ return [
             /*
              * The filename prefix used for the backup zip file.
              */
-            'filename_prefix' => '',
+            'filename_prefix' => 'ecomerce-backup-',
 
             /*
              * The disk names on which the backups will be stored.

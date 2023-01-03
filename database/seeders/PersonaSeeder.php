@@ -21,7 +21,7 @@ class PersonaSeeder extends Seeder
             'name' => 'Administrador',
             'email' => 'admin@gmail.com',
             'password' => '123456789',
-        ])->assignRole('admin');
+        ])->assignRole('Administrador');
 
         Persona::create([
             'name' => 'Administrador',
@@ -41,7 +41,7 @@ class PersonaSeeder extends Seeder
             'name' => 'Byron Lewis',
             'email' => 'b@gmail.com',
             'password' => '123456789',
-        ])->assignRole('admin');
+        ])->assignRole('Supervisor');
 
         Persona::create([
             'name' => 'Byron Lewis',
@@ -61,7 +61,7 @@ class PersonaSeeder extends Seeder
             'name' => 'Cassady Bridges',
             'email' => 'c@gmail.com',
             'password' => '123456789',
-        ])->assignRole('empleado');
+        ])->assignRole('RRHH');
 
         Persona::create([
             'name' => 'Cassady Bridges',
@@ -81,7 +81,7 @@ class PersonaSeeder extends Seeder
             'name' => 'Dawn Buckley',
             'email' => 'd@gmail.com',
             'password' => '123456789',
-        ])->assignRole('empleado');
+        ])->assignRole('Marketing');
 
         Persona::create([
             'name' => 'Dawn Buckley',
@@ -101,7 +101,7 @@ class PersonaSeeder extends Seeder
             'name' => 'Erica Mosley',
             'email' => 'e@gmail.com',
             'password' => '123456789',
-        ]);
+        ])->assignRole('Almacenador');
 
         Persona::create([
             'name' => 'Erica Mosley',
@@ -163,6 +163,24 @@ class PersonaSeeder extends Seeder
             //'created_at' => ,
            // 'updated_at' => ,
            // 'expires_at' => '7',
+        ]);
+
+        User::create([
+            'name' => 'Michael',
+            'email' => 'm79832142l@gmail.com',
+            'password' => '123456789',
+        ]);
+
+        Persona::create([
+            'name' => 'Michael',
+            'email' => 'm79832142l@gmail.com',
+            'ci' => '9866054',
+            'sexo' => 'M',
+            'celular' => '60933325',
+            'domicilio' => 'Santa Cruz',
+            'tipoc' => '1',
+            'tipoe' => '0',
+            'iduser' => '8',
         ]);
     }
 }

@@ -135,7 +135,10 @@
                                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span
                                                             class="tooltipp">add to compare</span></button>
                                                     <button class="quick-view"><i class="fa fa-eye"></i><span
-                                                            class="tooltipp">quick view</span></button>
+                                                            class="tooltipp">
+                                                            <a href="{{ route('catalogo.show', $producto->id) }}"
+                                                                style="color: white">
+                                                                quick view</a> </span></button>
                                                     <form action="{{ route('detalleCarrito.store') }}" method="POST"
                                                         enctype="multipart/form-data" id="create{{ $a }}">
                                                         @csrf
@@ -306,7 +309,10 @@
                                                     <button class="add-to-compare"><i class="fa fa-exchange"></i><span
                                                             class="tooltipp">add to compare</span></button>
                                                     <button class="quick-view"><i class="fa fa-eye"></i><span
-                                                            class="tooltipp">quick view</span></button>
+                                                            class="tooltipp">
+                                                            <a href="{{ route('catalogo.show', $producto->id) }}"
+                                                                style="color: white">
+                                                                quick view</a> </span></button>
                                                     <form action="{{ route('detalleCarrito.store') }}" method="POST"
                                                         enctype="multipart/form-data" id="create{{ $a }}">
                                                         @csrf

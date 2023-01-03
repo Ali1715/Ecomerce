@@ -59,6 +59,25 @@ class DetallenotaingresoController extends Controller
         $producto = producto::findOrFail($detalleNotaIng->idproducto);
         $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Se creó un registro de un detalle de nota de ingreso";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaIngreso.index')->with('mensaje', 'Producto agregado a la nota de ingreso.');
     }
 
@@ -112,6 +131,25 @@ class DetallenotaingresoController extends Controller
         $producto = producto::findOrFail($detalleNotaIng->idproducto);
         $producto->stock = $producto->stock + $detalleNotaIng->cantidad;
         $producto->save();
+        //Bitacora
+        $id2 = Auth::id();
+        $user = Persona::where('iduser', $id2)->first();
+        $tipo = "default";
+        if ($user->tipoe == 1) {
+            $tipo = "Empleado";
+        }
+        if ($user->tipoc == 1) {
+            $tipo = "Cliente";
+        }
+        $action = "Se actualizó el registro de un detalle de nota de ingreso";
+        $bitacora = Bitacora::create();
+        $bitacora->tipou = $tipo;
+        $bitacora->name = $user->name;
+        $bitacora->actividad = $action;
+        $bitacora->fechaHora = date('Y-m-d H:i:s');
+        $bitacora->ip = $request->ip();
+        $bitacora->save();
+        //----------
         return redirect()->route('notaIngreso.index')->with('mensaje', 'Detalle Actualizado Con Éxito.');
     }
 
