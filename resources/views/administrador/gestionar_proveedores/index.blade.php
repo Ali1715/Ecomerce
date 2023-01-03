@@ -12,8 +12,16 @@
                     <h1>
                         <center><b>PROVEEDORES</b></center>
                     </h1>
+
                     <a href="{{ route('proveedor.create') }}" class="btn btn-primary float-end">
                         <i class="fa fa-plus"></i> Nuevo Proveedor</a>
+                    <a href="{{ route('reportes.proveedor', 'pdf') }}" class="btn btn-info">
+                        Reporte PDF <i class="fa fa-file"></i></a>
+                    <a href="{{ route('reportes.proveedor', 'csv') }}" class="btn btn-info">
+                        Reporte CSV <i class="fa fa-file"></i></a>
+                    <a href="{{ route('reportes.proveedor', 'xlsx') }}" class="btn btn-info">
+                        Reporte XLSX <i class="fa fa-file-excel"></i></a>
+
                     <div class="pagination justify-content-end">
                         {{ $proveedores->links() }}
                     </div>

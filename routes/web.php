@@ -78,7 +78,8 @@ Route::prefix('/administrador')->group(function () {
     Route::get('/spam', [SpamController::class, 'index'])->name('spam.index');
     Route::post('/spam', [SpamController::class, 'store'])->name('spam.create');
 
-    Route::get('/reportes/producto', [ReporteController::class, 'producto'])->name(('reportes.producto'));
+    Route::get('/reportes/producto/{data}', [ReporteController::class, 'producto'])->name(('reportes.producto'));
+    Route::get('/reportes/proveedor/{data}', [ReporteController::class, 'proveedor'])->name(('reportes.proveedor'));
 });
 
 Route::prefix('/cliente')->group(function () {

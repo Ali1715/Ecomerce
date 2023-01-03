@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\producto;
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreProductoRequest;
-use App\Http\Requests\UpdateProductoRequest;
-use App\Models\Bitacora;
-use App\Models\categoria;
 use App\Models\marca;
 use App\Models\Persona;
+use App\Models\Bitacora;
+use App\Models\producto;
+use App\Models\categoria;
 use App\Models\Promocion;
-use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\StoreProductoRequest;
+use App\Http\Requests\UpdateProductoRequest;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -69,7 +68,7 @@ class ProductoController extends Controller
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
         }
-        if($request->idpromocion != ''){
+        if ($request->idpromocion != '') {
             $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();
@@ -139,7 +138,7 @@ class ProductoController extends Controller
             $file->move('public/img/', $filename);
             $producto->imagen = $filename;
         }
-        if($request->idpromocion != ''){
+        if ($request->idpromocion != '') {
             $producto->idpromocion = $request->idpromocion;
         }
         $producto->save();

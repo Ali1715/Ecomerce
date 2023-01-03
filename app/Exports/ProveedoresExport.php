@@ -2,16 +2,16 @@
 
 namespace App\Exports;
 
-use App\Models\Bitacora;
+use App\Models\Proveedor;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class LogsExport implements FromCollection
+class ProveedoresExport implements FromCollection
 {
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        return Bitacora::all();
+        return Proveedor::all();
     }
 }

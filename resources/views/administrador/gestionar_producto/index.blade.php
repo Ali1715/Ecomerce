@@ -7,6 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
+
                     <h4>
                         <h2>
                             <center><b>PRODUCTOS</b></center>
@@ -17,7 +18,13 @@
                         <a href="{{ url('administrador/notaBaja') }}" class="btn btn-primary me-md-6">Dar De Baja</a>
                         <a href="{{ url('administrador/categoria') }}" class="btn btn-primary ">Categorias</a>
                         <a href="{{ url('administrador/marca') }}" class="btn btn-primary me-md-6">Marcas</a>
-                        <a href="{{ url('administrador/reportes/producto') }}" class="btn btn-primary me-md-6">Reporte</a>
+                        <a href="{{ route('reportes.producto', 'pdf') }}" class="btn btn-info">
+                            Reporte PDF <i class="fa fa-file"></i></a>
+                        <a href="{{ route('reportes.producto', 'csv') }}" class="btn btn-info">
+                            Reporte CSV <i class="fa fa-file"></i></a>
+                        <a href="{{ route('reportes.producto', 'xlsx') }}" class="btn btn-info">
+                            Reporte XLSX <i class="fa fa-file-excel"></i></a>
+
                     </h4>
                 </div>
                 <table class="table table-bordered table-striped">
