@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro - HTML Ecommerce Template</title>
+    <title>Electro - Ecommerce</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,11 +24,11 @@
 
     <!--  Links de template -->
 
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="shortcut icon" href="{{ asset('admin/static/img/icons/icon-48x48.jpg') }}" />
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}" />
 
-        <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <!--
         <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
         <link href="{{ asset('admin/static/css/app.css ') }}" rel="stylesheet">
@@ -110,7 +110,7 @@
                     <div class="col-md-3">
                         <div class="header-logo">
                             <a href="/home" class="logo">
-                                <img src="{{ asset('img/ECOMERCELog.jpg') }}" width=190px>
+                                <img src="{{ asset('img/Logo.png') }}" width=190px>
                             </a>
                         </div>
                     </div>
@@ -194,6 +194,9 @@
                                                     @endforeach
                                                 @endif
                                             @endforeach
+                                            @if ($c == 0)
+                                                <h4>Carrito Vacío</h4>
+                                            @endif
                                         </div>
                                         <div class="cart-summary">
                                             <small>{{ $c }} Item(s) selected</small>
@@ -201,8 +204,14 @@
                                         </div>
                                         <div class="cart-btns">
                                             <a href="{{ route('detalleCarrito.index') }}">View Cart</a>
-                                            <a href="{{ route('pagos.index') }}">Checkout <i
-                                                    class="fa fa-arrow-circle-right"></i></a>
+                                            @if ($c == 0)
+                                                <a href="#">Sin productos <i
+                                                        class="fa fa-arrow-circle-right"></i></a>
+                                            @else
+                                                <a href="{{ route('pagos.index') }}">Checkout <i
+                                                        class="fa fa-arrow-circle-right"></i></a>
+                                            @endif
+
                                         </div>
                                     </div>
                                 @endguest

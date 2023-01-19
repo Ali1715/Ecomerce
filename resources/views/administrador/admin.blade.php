@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Electro - Ecommerce</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,7 +22,7 @@
     <!--  Links de template -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ asset('admin/static/img/icons/icon-48x48.jpg') }}" />
+    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}" />
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 

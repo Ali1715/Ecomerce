@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Electro - Ecommerce</title>
+
+    <link rel="shortcut icon" href="{{ asset('img/Logo.png') }}" />
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,7 +29,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href={{ url('/home') }} class="logo">
-                            <img src="{{ asset('img/ECOMERCELog.jpg') }}" width=190px>
+                            <img src="{{ asset('img/Logo.png') }}" width=190px>
                         </a>
                     </div>
                 </div>

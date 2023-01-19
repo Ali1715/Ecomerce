@@ -18,31 +18,31 @@ class PromocionSeeder extends Seeder
         Promocion::create([
             'descuento' => '10',
             'fhiniciada' => '2022-11-01 07:00:00',
-            'fhfinalizada' => '2022-12-31 07:00:00'
+            'fhfinalizada' => '2023-02-01 07:00:00'
         ]);
 
         Promocion::create([
             'descuento' => '20',
             'fhiniciada' => '2022-11-01 07:00:00',
-            'fhfinalizada' => '2022-12-31 07:00:00'
+            'fhfinalizada' => '2023-02-01 07:00:00'
         ]);
 
         Promocion::create([
             'descuento' => '30',
             'fhiniciada' => '2022-11-01 07:00:00',
-            'fhfinalizada' => '2022-12-31 07:00:00'
+            'fhfinalizada' => '2023-02-01 07:00:00'
         ]);
 
         Promocion::create([
             'descuento' => '40',
             'fhiniciada' => '2022-11-01 07:00:00',
-            'fhfinalizada' => '2022-12-31 07:00:00'
+            'fhfinalizada' => '2023-02-01 07:00:00'
         ]);
 
         Promocion::create([
             'descuento' => '50',
             'fhiniciada' => '2022-11-01 07:00:00',
-            'fhfinalizada' => '2022-12-31 07:00:00'
+            'fhfinalizada' => '2023-02-01 07:00:00'
         ]);
     }
 }

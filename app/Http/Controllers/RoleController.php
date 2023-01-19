@@ -17,6 +17,7 @@ class RoleController extends Controller
 
     public function index()
     {
+        //$users = Persona::where('tipoe', 1)->paginate(10);
         $users = User::paginate(10);
         return (view('administrador.roles.index', compact('users')));
     }
@@ -72,18 +73,18 @@ class RoleController extends Controller
         $user->roles()->sync($request->roles);
         //Bitacora
         $id2 = Auth::id();
-        $user = Persona::where('iduser', $id2)->first();
+        $user2 = Persona::where('iduser', $id2)->first();
         $tipo = "default";
-        if ($user->tipoe == 1) {
+        if ($user2->tipoe == 1) {
             $tipo = "Empleado";
         }
-        if ($user->tipoc == 1) {
+        if ($user2->tipoc == 1) {
             $tipo = "Cliente";
         }
         $action = "Asignó un rol a un usuario";
         $bitacora = Bitacora::create();
         $bitacora->tipou = $tipo;
-        $bitacora->name = $user->name;
+        $bitacora->name = $user2->name;
         $bitacora->actividad = $action;
         $bitacora->fechaHora = date('Y-m-d H:i:s');
         $bitacora->ip = $request->ip();
